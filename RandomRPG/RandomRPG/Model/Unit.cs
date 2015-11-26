@@ -1,4 +1,4 @@
-﻿namespace RandomRPG
+﻿namespace RandomRPG.Model
 {
     public class Unit
     {

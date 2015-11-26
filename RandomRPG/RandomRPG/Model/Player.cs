@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RandomRPG
+namespace RandomRPG.Model
 {
     public class Player
     {
