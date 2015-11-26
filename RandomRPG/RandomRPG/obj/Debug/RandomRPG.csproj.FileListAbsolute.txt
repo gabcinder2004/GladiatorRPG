@@ -1,0 +1,6 @@
+C:\Projects\rpgGame\RandomRPG\RandomRPG\bin\Debug\RandomRPG.exe.config
+C:\Projects\rpgGame\RandomRPG\RandomRPG\bin\Debug\RandomRPG.exe
+C:\Projects\rpgGame\RandomRPG\RandomRPG\bin\Debug\RandomRPG.pdb
+C:\Projects\rpgGame\RandomRPG\RandomRPG\obj\Debug\RandomRPG.csprojResolveAssemblyReference.cache
+C:\Projects\rpgGame\RandomRPG\RandomRPG\obj\Debug\RandomRPG.exe
+C:\Projects\rpgGame\RandomRPG\RandomRPG\obj\Debug\RandomRPG.pdb
