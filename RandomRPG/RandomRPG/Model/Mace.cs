@@ -33,6 +33,7 @@ namespace RandomRPG.Model
         {
             MinDamage = 2;
             MaxDamage = 4;
+            Name = "Mace";
         }
     }
 }
