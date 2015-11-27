@@ -22,17 +22,9 @@ namespace RandomRPG.Model
         public IWeapon LeftHand { get; set; }
         public IWeapon RightHand { get; set; }
         public Dictionary<BodyPart, IArmor> Armor { get; set; }
-
         public List<IItems> Inventory { get; set; }
-
         public string Name { get; set; }
-
-        // I think we need to consider putting HP in attributes
-        public double HitPoints { get; set; }
-
-        // I think we need to consider putting Energy in attributes
-        public int Energy { get; set; }
-
+        
         public void BattleCry()
         {
             Console.WriteLine("From the Darkness!");
@@ -54,8 +46,6 @@ namespace RandomRPG.Model
             this.Armor = armor;
             this.Inventory = inventory;
             this.Name = name;
-            this.HitPoints = hitPoints;
-            this.Energy = energy;
         }
 
         public Doctore()
@@ -74,8 +64,6 @@ namespace RandomRPG.Model
             this.Armor = new Dictionary<BodyPart, IArmor>();
             this.Inventory = new List<IItems>();
             this.Name = "Doctore";
-            this.HitPoints = 100;
-            this.Energy = 100;
         }
     }
 }

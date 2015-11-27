@@ -1,11 +1,11 @@
 ﻿namespace RandomRPG.Model.Interfaces
 {
     /// <summary>
-    /// Base entity in the game. This can be any particular unit.
+    /// Base entity in the game for creatures/units. This can be any particular unit.
     /// </summary>
-    public interface IEntity
+    public interface IUnit
     {
         string Name { get; set; }
-        double HitPoints { get; set; }
+        Attributes Attributes { get; set; }
     }
 }
