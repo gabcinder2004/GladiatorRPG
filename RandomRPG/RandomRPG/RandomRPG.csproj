@@ -50,6 +50,7 @@
     <Compile Include="Model\Interfaces\IItems.cs" />
     <Compile Include="Model\Interfaces\IArmor.cs" />
     <Compile Include="Model\Interfaces\IWeapon.cs" />
+    <Compile Include="Model\LeatherArmor.cs" />
     <Compile Include="Model\Mace.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Program.cs" />

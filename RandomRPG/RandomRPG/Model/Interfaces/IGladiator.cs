@@ -13,5 +13,6 @@ namespace RandomRPG.Model.Interfaces
         Dictionary<BodyPart, IArmor> Armor { get; set; }
         List<IItems> Inventory { get; set; }
         void BattleCry();
+        int Attack(string command);
     }
 }

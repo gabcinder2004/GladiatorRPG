@@ -4,6 +4,7 @@ namespace RandomRPG.Model.Interfaces
 {
     public interface IArmor : IEquippable
     {
-        BodyPart EquipLocation { get; }
+        BodyPart EquipLocation { get; set; }
+        int ArmorValue { get; set; }
     }
 }

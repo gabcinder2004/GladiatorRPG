@@ -19,28 +19,9 @@ namespace RandomRPG
                 This code here is only temporary.
             */
 
-            Console.WriteLine(Resources.Version);
-            Console.WriteLine(Resources.Introduction);
-            Console.WriteLine(Resources.MainMenu);
-            var userInput = Console.ReadLine();
-            if (userInput == "1")
-            {
-                IGladiator gladiator;
-                Console.Clear();
-                Console.WriteLine(Resources.CharacterCreation_Intro);
-                Console.WriteLine(Resources.CharacterCreation_Name);
-                var gladiatorName = Console.ReadLine();
-
-                Console.WriteLine(Resources.CharacterCreation_Class);
-                var gladiatorClass = Console.ReadLine();
-
-                switch (gladiatorClass)
-                {
-                    case "Doctore":
-                        gladiator = new Doctore { Name = gladiatorName };
-                        break;
-                }
-            }
+            IGladiator glad = new Doctore();
+            glad.BattleCry();
+            Console.WriteLine(glad.ToString());
 
             //gladiator.Attack("string") => calls an attack from some other class.
 

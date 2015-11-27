@@ -22,18 +22,11 @@ namespace RandomRPG.Model
             return rand.Next(MinDamage, MaxDamage);
         }
 
-        public Mace(int minDamage, int maxDamage, string name)
+        public Mace(int minDamage = 2, int maxDamage = 4, string name = "Mace")
         {
             this.MinDamage = minDamage;
             this.MaxDamage = maxDamage;
             this.Name = name + " Mace";
-        }
-
-        public Mace()
-        {
-            MinDamage = 2;
-            MaxDamage = 4;
-            Name = "Mace";
         }
     }
 }
