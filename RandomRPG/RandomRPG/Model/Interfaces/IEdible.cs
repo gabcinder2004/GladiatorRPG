@@ -1,6 +1,6 @@
 namespace RandomRPG.Model
 {
-    public interface IEdible
+    public interface IEdible : IItems
     {
         
     }

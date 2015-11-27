@@ -5,16 +5,11 @@ namespace RandomRPG.Model
 {
     public class World
     {
-        private static World worldInstance { get; set; }
+        private static World Instance { get; set; }
 
         public static World Instantiate()
         {
-            if (worldInstance == null)
-            {
-                worldInstance = new World();
-            }
-
-            return worldInstance;
+            return Instance ?? (Instance = new World());
         }
 
         public List<Zone> Zones { get; set;}

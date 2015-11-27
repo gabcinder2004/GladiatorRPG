@@ -4,9 +4,4 @@ namespace RandomRPG.Model
     {
         string Name { get; }
     }
-
-    public interface IEquippable : IItems
-    {
-        int Durability { get; set; }
-    }
 }

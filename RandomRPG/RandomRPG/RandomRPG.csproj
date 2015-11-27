@@ -44,6 +44,7 @@
     <Compile Include="Model\Attributes.cs" />
     <Compile Include="Model\Doctore.cs" />
     <Compile Include="Model\Enums\BodyPart.cs" />
+    <Compile Include="Model\Interfaces\IEquippable.cs" />
     <Compile Include="Model\Interfaces\IGladiator.cs" />
     <Compile Include="Model\Interfaces\IEdible.cs" />
     <Compile Include="Model\Interfaces\IItems.cs" />

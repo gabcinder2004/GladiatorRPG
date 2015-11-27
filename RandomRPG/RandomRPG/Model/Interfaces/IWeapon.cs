@@ -1,6 +1,6 @@
 namespace RandomRPG.Model
 {
-    public interface IWeapon : IItems
+    public interface IWeapon : IEquippable
     {
         double DamageOutput();
     }

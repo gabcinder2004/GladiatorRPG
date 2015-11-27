@@ -6,7 +6,11 @@ namespace RandomRPG.Model
     {
         public string Name => "Mace";
 
-        public int Durability => 50;
+        public int Durability
+        {
+            get { return 50; }
+            set { }
+        }
 
         public int MinDamage { get; set; }
         public int MaxDamage { get; set; }
