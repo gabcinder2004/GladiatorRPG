@@ -11,4 +11,6 @@
         // I think we need to consider putting Energy in attributes
         public int Energy { get; set; }
     }
+
+    //Moving Towards using 1 class for each glad Type
 }

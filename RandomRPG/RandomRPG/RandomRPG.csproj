@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,6 +12,7 @@
     <AssemblyName>RandomRPG</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>051091fa</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,8 +45,14 @@
   <ItemGroup>
     <Compile Include="Controllers\RPGController.cs" />
     <Compile Include="Model\Armor\Underwear.cs" />
+    <Compile Include="Model\Enums\GladiatorTypes.cs" />
+    <Compile Include="Model\Factories\ArmorFactory.cs" />
+    <Compile Include="Model\Factories\AttributeFactory.cs" />
     <Compile Include="Model\Attributes.cs" />
-    <Compile Include="Model\Gladiators\Doctore.cs" />
+    <Compile Include="Model\Attacks\AttackAbilities.cs" />
+    <Compile Include="Model\Attacks\Bash.cs" />
+    <Compile Include="Model\Interfaces\AttackLogic.cs" />
+    <Compile Include="Model\Gladiators\Gladiator.cs" />
     <Compile Include="Model\Enums\BodyPart.cs" />
     <Compile Include="Model\Enums\GameState.cs" />
     <Compile Include="Model\Enums\MenuOptions.cs" />
@@ -56,6 +64,7 @@
     <Compile Include="Model\Interfaces\IWeapon.cs" />
     <Compile Include="Model\Gladiators\Slave.cs" />
     <Compile Include="Model\Armor\LeatherArmor.cs" />
+    <Compile Include="Model\Factories\WeaponFactory.cs" />
     <Compile Include="Model\Weapons\Mace.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Program.cs" />
@@ -73,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
@@ -83,6 +93,12 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

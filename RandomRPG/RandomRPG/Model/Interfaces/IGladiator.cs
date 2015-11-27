@@ -8,10 +8,10 @@ namespace RandomRPG.Model.Interfaces
     /// </summary>
     public interface IGladiator : IUnit
     {
-        IWeapon LeftHand { get; set; }
-        IWeapon RightHand { get; set; }
+        Dictionary<BodyPart, IWeapon> WeaponSet { get; set; }
         Dictionary<BodyPart, IArmor> Armor { get; set; }
         List<IItems> Inventory { get; set; }
         int Attack(string command);
+        GladiatorTypes type { get; set; }
     }
 }

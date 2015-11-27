@@ -5,5 +5,7 @@
         Head,
         Chest,
         Pants,
+        LeftHand,
+        RightHand
     }
 }

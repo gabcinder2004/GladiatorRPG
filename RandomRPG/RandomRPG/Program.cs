@@ -34,6 +34,9 @@ namespace RandomRPG
             Console.BufferHeight = ConsoleHeight;
             Console.BufferWidth = ConsoleWidth;
 
+            IGladiator glad = new Gladiator(GladiatorTypes.Doctore);
+            int value = glad.Attack("bash");
+
             while (RunningGame)
             {
                 switch (GameState)

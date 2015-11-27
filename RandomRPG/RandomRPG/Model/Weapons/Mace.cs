@@ -16,10 +16,11 @@ namespace RandomRPG.Model
         public int MinDamage { get; set; }
         public int MaxDamage { get; set; }
 
-        public double DamageOutput()
+        public int DamageOutput()
         {
             Random rand = new Random();
-            return rand.Next(MinDamage, MaxDamage);
+            double attackdmg = rand.Next(MinDamage, MaxDamage);
+            return Convert.ToInt32(Math.Round(attackdmg));
         }
 
         public Mace(int minDamage = 2, int maxDamage = 4, string name = "Mace")

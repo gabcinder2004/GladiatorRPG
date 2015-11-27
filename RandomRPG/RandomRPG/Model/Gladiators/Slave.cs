@@ -27,13 +27,35 @@ namespace RandomRPG.Model.Gladiators
 
         public string Name { get; set; }
         public Attributes Attributes { get; set; }
-        public IWeapon LeftHand { get; set; }
-        public IWeapon RightHand { get; set; }
         public Dictionary<BodyPart, IArmor> Armor { get; set; }
         public List<IItems> Inventory { get; set; }
         public int Attack(string command)
         {
             throw new System.NotImplementedException();
+        }
+
+        public Dictionary<BodyPart, IWeapon> WeaponSet
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        public GladiatorTypes type
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
         }
     }
 }
