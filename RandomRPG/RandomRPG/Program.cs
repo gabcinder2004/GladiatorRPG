@@ -41,6 +41,9 @@ namespace RandomRPG
                         break;
                 }
             }
+
+            //gladiator.Attack("string") => calls an attack from some other class.
+
             Console.Read();
         }
     }

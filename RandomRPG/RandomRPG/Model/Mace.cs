@@ -5,7 +5,7 @@ namespace RandomRPG.Model
 {
     public class Mace : IWeapon
     {
-        public string Name => "Mace";
+        public string Name { get; set; }
 
         public int Durability
         {
@@ -20,6 +20,19 @@ namespace RandomRPG.Model
         {
             Random rand = new Random();
             return rand.Next(MinDamage, MaxDamage);
+        }
+
+        public Mace(int minDamage, int maxDamage, string name)
+        {
+            this.MinDamage = minDamage;
+            this.MaxDamage = maxDamage;
+            this.Name = name + " Mace";
+        }
+
+        public Mace()
+        {
+            MinDamage = 2;
+            MaxDamage = 4;
         }
     }
 }
