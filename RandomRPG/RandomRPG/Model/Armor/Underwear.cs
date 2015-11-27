@@ -15,10 +15,12 @@ namespace RandomRPG.Model.Armor
             Name = "Underwear";
             Durability = 10;
             EquipLocation = BodyPart.Pants;
+            ArmorValue = 0;
         }
 
         public string Name { get; set; }
         public int Durability { get; set; }
-        public BodyPart EquipLocation { get; }
+        public BodyPart EquipLocation { get; set; }
+        public int ArmorValue { get; set; }
     }
 }

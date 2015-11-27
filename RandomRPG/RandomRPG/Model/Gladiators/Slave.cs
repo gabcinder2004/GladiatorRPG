@@ -31,5 +31,9 @@ namespace RandomRPG.Model.Gladiators
         public IWeapon RightHand { get; set; }
         public Dictionary<BodyPart, IArmor> Armor { get; set; }
         public List<IItems> Inventory { get; set; }
+        public int Attack(string command)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

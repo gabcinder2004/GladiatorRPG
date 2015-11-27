@@ -35,7 +35,9 @@ namespace RandomRPG.Controllers
                     break;
 
                 case MainMenuOptions.LoadGame:
-                    throw new NotImplementedException();
+                    Text.ColorWriteLine("Not yet implemented", ConsoleColor.Yellow);
+                    Console.Read();
+                    break;
 
                 case MainMenuOptions.Quit:
                     Program.GameState = GameState.Quit;
@@ -69,6 +71,7 @@ namespace RandomRPG.Controllers
             }
             else
             {
+                Program.GameState = GameState.Menu;
                 Text.Clear();
             }
         }

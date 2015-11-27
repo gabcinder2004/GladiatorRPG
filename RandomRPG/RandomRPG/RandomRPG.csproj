@@ -55,6 +55,7 @@
     <Compile Include="Model\Interfaces\IArmor.cs" />
     <Compile Include="Model\Interfaces\IWeapon.cs" />
     <Compile Include="Model\Gladiators\Slave.cs" />
+    <Compile Include="Model\Armor\LeatherArmor.cs" />
     <Compile Include="Model\Weapons\Mace.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Program.cs" />

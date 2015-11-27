@@ -7,8 +7,6 @@ namespace RandomRPG.Model
 {    
     public class Doctore : IGladiator
     {
-
-
         public Attributes Attributes { get; set; }
         public IWeapon LeftHand { get; set; }
         public IWeapon RightHand { get; set; }
@@ -16,11 +14,6 @@ namespace RandomRPG.Model
         public List<IItems> Inventory { get; set; }
         public string Name { get; set; }
         
-        public void BattleCry()
-        {
-            Console.WriteLine("From the Darkness!");
-        }
-
         public int Attack(string command)
         {
             return 5;
