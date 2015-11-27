@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 
 namespace RandomRPG.Model

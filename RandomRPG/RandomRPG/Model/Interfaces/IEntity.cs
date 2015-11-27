@@ -1,4 +1,4 @@
-﻿namespace RandomRPG.Model
+﻿namespace RandomRPG.Model.Interfaces
 {
     /// <summary>
     /// Base entity in the game. This can be any particular unit.

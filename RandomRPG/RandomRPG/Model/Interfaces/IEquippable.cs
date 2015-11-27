@@ -1,4 +1,4 @@
-namespace RandomRPG.Model
+namespace RandomRPG.Model.Interfaces
 {
     /// <summary>
     /// The abstraction that will define an item being equippable

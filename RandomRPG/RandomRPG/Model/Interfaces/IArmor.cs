@@ -1,4 +1,6 @@
-namespace RandomRPG.Model
+using RandomRPG.Model.Enums;
+
+namespace RandomRPG.Model.Interfaces
 {
     public interface IArmor : IEquippable
     {

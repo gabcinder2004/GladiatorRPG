@@ -1,4 +1,5 @@
 using System;
+using RandomRPG.Model.Interfaces;
 
 namespace RandomRPG.Model
 {
