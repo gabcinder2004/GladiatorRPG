@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using RandomRPG.Model;
 using RandomRPG.Model.Enums;
-using RandomRPG.Model.Gladiators;
 using RandomRPG.Utilities;
 
 namespace RandomRPG.Controllers
@@ -52,7 +51,8 @@ namespace RandomRPG.Controllers
             Text.WriteLine(Resources.CharacterCreation_Intro);
             Text.Divider();
             var name = Text.Prompt(Resources.CharacterCreation_Name);
-            Program.Player.CurrentGladiator = new Slave(name);
+            //Dont need slave class anymore, use GladType
+            //Program.Player.CurrentGladiator = new Slave(name);
             Program.Player.Gladiators.Add(Program.Player.CurrentGladiator);
             Program.GameState = GameState.Playing;
         }

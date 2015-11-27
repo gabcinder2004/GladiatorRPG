@@ -2,6 +2,7 @@
 {
     public enum GladiatorTypes
     {
-        Doctore
+        Doctore,
+        Slave
     }
 }

@@ -23,7 +23,7 @@ namespace RandomRPG.Model
             return Convert.ToInt32(Math.Round(attackdmg));
         }
 
-        public Mace(int minDamage = 2, int maxDamage = 4, string name = "Mace")
+        public Mace(int minDamage = 2, int maxDamage = 8, string name = "Mace")
         {
             this.MinDamage = minDamage;
             this.MaxDamage = maxDamage;

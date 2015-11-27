@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RandomRPG.Model.Armor;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 
@@ -15,6 +16,12 @@ namespace RandomRPG.Model
                     return new Dictionary<BodyPart, IArmor>()
                     {
                         {BodyPart.Chest, new LeatherArmor()}
+                    };
+
+                case "Slave":
+                    return new Dictionary<BodyPart, IArmor>()
+                    {
+                        {BodyPart.Chest, new Underwear()}
                     };
 
                 default:

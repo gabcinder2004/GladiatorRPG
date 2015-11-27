@@ -51,7 +51,7 @@
     <Compile Include="Model\Attributes.cs" />
     <Compile Include="Model\Attacks\AttackAbilities.cs" />
     <Compile Include="Model\Attacks\Bash.cs" />
-    <Compile Include="Model\Interfaces\AttackLogic.cs" />
+    <Compile Include="Model\Attacks\AttackLogic.cs" />
     <Compile Include="Model\Gladiators\Gladiator.cs" />
     <Compile Include="Model\Enums\BodyPart.cs" />
     <Compile Include="Model\Enums\GameState.cs" />
@@ -62,7 +62,6 @@
     <Compile Include="Model\Interfaces\IItems.cs" />
     <Compile Include="Model\Interfaces\IArmor.cs" />
     <Compile Include="Model\Interfaces\IWeapon.cs" />
-    <Compile Include="Model\Gladiators\Slave.cs" />
     <Compile Include="Model\Armor\LeatherArmor.cs" />
     <Compile Include="Model\Factories\WeaponFactory.cs" />
     <Compile Include="Model\Weapons\Mace.cs" />

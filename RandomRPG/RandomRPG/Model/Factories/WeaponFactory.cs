@@ -18,6 +18,12 @@ namespace RandomRPG.Model
                         { BodyPart.RightHand, new Mace()}
                     };
 
+                case "Slave":
+                    return new Dictionary<BodyPart, IWeapon>()
+                    {
+                        { BodyPart.LeftHand, new Mace()}
+                    };
+
                 default:
                     return new Dictionary<BodyPart, IWeapon>();
             }

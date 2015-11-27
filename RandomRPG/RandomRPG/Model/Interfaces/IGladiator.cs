@@ -12,6 +12,7 @@ namespace RandomRPG.Model.Interfaces
         Dictionary<BodyPart, IArmor> Armor { get; set; }
         List<IItems> Inventory { get; set; }
         int Attack(string command);
-        GladiatorTypes type { get; set; }
+        GladiatorTypes Type { get; set; }
+        IGladiator Target { get; set; }
     }
 }

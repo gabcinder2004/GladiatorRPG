@@ -36,8 +36,14 @@ namespace RandomRPG.Model
 
         private static int SlaveAttackHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, Attributes attributes)
         {
+            switch (command.ToLower())
+            {
+                case "bash":
+                    return new Bash(weaponSet, attributes).Execute();
+                default:
+                    return 0;
 
-            return 1;
+            }
         }
     }
 }

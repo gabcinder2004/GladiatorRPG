@@ -24,9 +24,9 @@ namespace RandomRPG
         public static Player Player = new Player();
         public static bool RunningGame = true;
 
-        #endregion  
+        #endregion
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine(Resources.Version);
             Console.WindowWidth = ConsoleWidth;
@@ -34,8 +34,24 @@ namespace RandomRPG
             Console.BufferHeight = ConsoleHeight;
             Console.BufferWidth = ConsoleWidth;
 
-            IGladiator glad = new Gladiator(GladiatorTypes.Doctore);
-            int value = glad.Attack("bash");
+            Player player = new Player();
+            IGladiator mob = new Gladiator(GladiatorTypes.Slave);
+            player.CurrentGladiator = new Gladiator(GladiatorTypes.Doctore);
+            player.SetTargetGladiator(mob);
+            //Must set target to auto attack. Need to think about dmg output etc...
+            while (player.Target?.Target != null)
+
+            {
+                player.CurrentGladiator.Attack("bash");
+                Console.WriteLine(player.Target.Attributes.HitPoints);
+                mob.Attack("bash");
+                Console.WriteLine(player.CurrentGladiator.Attributes.HitPoints);
+            }
+
+            Console.WriteLine("\n" + player.CurrentGladiator);
+
+
+            //int value = glad.Attack("bash");
 
             while (RunningGame)
             {

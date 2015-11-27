@@ -19,6 +19,18 @@ namespace RandomRPG.Model
                         Energy = 75,
                         HitPoints = 200
                     };
+
+                case "Slave":
+                    return new Attributes()
+                    {
+                        Strength = 15,
+                        Agility = 10,
+                        CritChance = 10,
+                        Vitality = 50,
+                        Energy = 75,
+                        HitPoints = 100
+                    };
+
                 default:
                     return new Attributes();
             }
