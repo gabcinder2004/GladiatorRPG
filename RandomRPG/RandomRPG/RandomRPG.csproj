@@ -41,17 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\RPGController.cs" />
+    <Compile Include="Model\Armor\Underwear.cs" />
     <Compile Include="Model\Attributes.cs" />
-    <Compile Include="Model\Doctore.cs" />
+    <Compile Include="Model\Gladiators\Doctore.cs" />
     <Compile Include="Model\Enums\BodyPart.cs" />
+    <Compile Include="Model\Enums\GameState.cs" />
+    <Compile Include="Model\Enums\MenuOptions.cs" />
     <Compile Include="Model\Interfaces\IEquippable.cs" />
     <Compile Include="Model\Interfaces\IGladiator.cs" />
     <Compile Include="Model\Interfaces\IEdible.cs" />
     <Compile Include="Model\Interfaces\IItems.cs" />
     <Compile Include="Model\Interfaces\IArmor.cs" />
     <Compile Include="Model\Interfaces\IWeapon.cs" />
-    <Compile Include="Model\LeatherArmor.cs" />
-    <Compile Include="Model\Mace.cs" />
+    <Compile Include="Model\Gladiators\Slave.cs" />
+    <Compile Include="Model\Weapons\Mace.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +67,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Text.cs" />
+    <Compile Include="Utilities\EnumUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -71,8 +77,10 @@
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

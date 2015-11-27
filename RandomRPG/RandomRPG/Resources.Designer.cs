@@ -61,17 +61,7 @@ namespace RandomRPG {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What type of gladiator do you want to be?
-        ///1) Doctore.
-        /// </summary>
-        public static string CharacterCreation_Class {
-            get {
-                return ResourceManager.GetString("CharacterCreation_Class", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to It&apos;s time to make your gladiator..
+        ///   Looks up a localized string similar to You are a slave. Your life is meaningless. Your entire purpose in life is to fight in the Arena. You shall train and battle with the other slaves until you&apos;ve earned the right to be called a Gladiator..
         /// </summary>
         public static string CharacterCreation_Intro {
             get {
@@ -80,7 +70,7 @@ namespace RandomRPG {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter your gladiator&apos;s name:.
+        ///   Looks up a localized string similar to Enter your name:.
         /// </summary>
         public static string CharacterCreation_Name {
             get {
@@ -98,9 +88,8 @@ namespace RandomRPG {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select an option: 
-        ///       1) Start new game
-        ///       2) Exit.
+        ///   Looks up a localized string similar to Select an option: 
+        ///{0}.
         /// </summary>
         public static string MainMenu {
             get {

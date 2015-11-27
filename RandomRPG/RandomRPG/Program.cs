@@ -4,28 +4,66 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using RandomRPG.Controllers;
 using RandomRPG.Model;
+using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
+using RandomRPG.Utilities;
 
 namespace RandomRPG
 {
     class Program
     {
+        #region Declarations
+
+        private const int ConsoleWidth = 73;
+        private const int ConsoleHeight = 30;
+
+        public static GameState GameState = GameState.Menu;
+        public static RpgController RpgController = new RpgController();
+        public static Player Player = new Player();
+        public static bool RunningGame = true;
+
+        #endregion  
+
         static void Main(string[] args)
         {
-            /*
-                We have to think of a good way to have a clean and constant flow of output. 
-                This main method will get flooded with conditionals if we don't find a way to abstract out all the possible scenarios a user can follow.
-                This code here is only temporary.
-            */
+            Console.WriteLine(Resources.Version);
+            Console.WindowWidth = ConsoleWidth;
+            Console.WindowHeight = ConsoleHeight;
+            Console.BufferHeight = ConsoleHeight;
+            Console.BufferWidth = ConsoleWidth;
 
-            IGladiator glad = new Doctore();
-            glad.BattleCry();
-            Console.WriteLine(glad.ToString());
+            while (RunningGame)
+            {
+                switch (GameState)
+                {
+                    case GameState.Menu:
+                        RpgController.MainMenu();
+                        break;
 
-            //gladiator.Attack("string") => calls an attack from some other class.
+                    case GameState.Start:
+                        RpgController.StartNewGame();
+                        break;
 
-            Console.Read();
+                    case GameState.Playing:
+                        // TO BE WORKED ON NEXT
+                        Text.Clear();
+                        Console.WriteLine("You've created your gladiator. Next steps will come soon.");
+                        GameState = GameState.Menu;
+                        break;
+
+                    case GameState.Battle:
+                        break;
+
+                    case GameState.Quit:
+                        RpgController.QuitGame();
+                        break;
+
+                    case GameState.GameOver:
+                        break;
+                }
+            }
         }
     }
 }

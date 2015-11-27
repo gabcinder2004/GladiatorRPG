@@ -8,6 +8,7 @@ namespace RandomRPG.Model
     public class Doctore : IGladiator
     {
 
+
         public Attributes Attributes { get; set; }
         public IWeapon LeftHand { get; set; }
         public IWeapon RightHand { get; set; }
