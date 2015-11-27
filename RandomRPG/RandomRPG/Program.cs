@@ -10,6 +10,7 @@ namespace RandomRPG
         static void Main(string[] args)
         {
             Console.WriteLine("RPG Game v0.01");
+
             Console.Read();
         }
     }
