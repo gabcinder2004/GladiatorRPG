@@ -119,7 +119,7 @@
   </resheader>
   <data name="CharacterCreation_Class" xml:space="preserve">
     <value>What type of gladiator do you want to be?
-{0}</value>
+1) Doctore</value>
   </data>
   <data name="CharacterCreation_Intro" xml:space="preserve">
     <value>It's time to make your gladiator.</value>

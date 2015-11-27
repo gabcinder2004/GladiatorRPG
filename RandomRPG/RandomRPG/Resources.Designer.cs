@@ -62,7 +62,7 @@ namespace RandomRPG {
         
         /// <summary>
         ///   Looks up a localized string similar to What type of gladiator do you want to be?
-        ///{0}.
+        ///1) Doctore.
         /// </summary>
         public static string CharacterCreation_Class {
             get {
