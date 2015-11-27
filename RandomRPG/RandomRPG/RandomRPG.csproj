@@ -44,7 +44,7 @@
     <Compile Include="Model\Attributes.cs" />
     <Compile Include="Model\BodyPart.cs" />
     <Compile Include="Model\Gladiator.cs" />
-    <Compile Include="Model\Item.cs" />
+    <Compile Include="Model\IItems.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace RandomRPG.Model
 {
-    public class Unit
+    public abstract class Unit
     {
         public string Name { get; set; }
         public double HitPoints { get; set; }
