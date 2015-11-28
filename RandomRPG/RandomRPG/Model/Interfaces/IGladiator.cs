@@ -7,7 +7,7 @@ namespace RandomRPG.Model.Interfaces
     /// <summary>
     /// Represents what will make a gladiator
     /// </summary>
-    public interface IGladiator : IUnit<GladiatorTypes>
+    public interface IGladiator : IUnit
     {
         Dictionary<BodyPart, IWeapon> WeaponSet { get; set; }
         Dictionary<BodyPart, IArmor> Armor { get; set; }
