@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using RandomRPG.Model.ArmorMitigation;
 using RandomRPG.Model.Enums;
+using RandomRPG.Model.Factories;
 using RandomRPG.Model.Interfaces;
 
 namespace RandomRPG.Model
@@ -12,6 +14,7 @@ namespace RandomRPG.Model
         //Need to start handling actions in players suck as equip, unequip, view inventory, leveling up, dodge etc..
         //Add armor into the mix with dmg mitigation
         //Think about making some of this private when we decide what we dont want available
+        //Think about how to validate equipping in correct slots
         public Attributes Attributes { get; set; }
         public Dictionary<BodyPart, IWeapon> WeaponSet { get; set; }
         public Dictionary<BodyPart, IArmor> Armor { get; set; }
@@ -21,14 +24,16 @@ namespace RandomRPG.Model
         //Just storing this for now
         public int Kills = 0;
         //prob need an alive flag
-
+        //change to add event on death notify observers
         public int Attack(string command)
         {
-            int grossDmg = AttackLogic.AttackActionHandler(command, WeaponSet, Type, Attributes);
             //Add some sort of Class for Armor Logic similar to attack, temp implementation, also need to add dodge etc.. evasion type classes.
             if (Target != null)
             {
-                int netDmg = grossDmg - (Target.Armor[BodyPart.Chest].ArmorValue + ((int) (Attributes.Agility*.10)));
+                int grossDmg = AttackLogic.AttackActionHandler(command, WeaponSet, Type, Attributes);
+                //If an active command line below will need to chanhe
+                int mitigatedDmg = ArmorMitigationLogic.DefendActionHandler(Target.Armor, Target.Type, Target.Attributes, "block");
+                int netDmg = grossDmg - mitigatedDmg;
                 if (netDmg > 0)
                 {
                     Target.Attributes.HitPoints -= netDmg;

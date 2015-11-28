@@ -3,9 +3,10 @@
     /// <summary>
     /// Base entity in the game for creatures/units. This can be any particular unit.
     /// </summary>
-    public interface IUnit
+    public interface IUnit<T>
     {
         string Name { get; set; }
         Attributes Attributes { get; set; }
+        T Type { get; set; }
     }
 }

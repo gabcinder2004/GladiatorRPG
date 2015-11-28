@@ -1,9 +1,10 @@
 using System;
 using RandomRPG.Model.Enums;
+using RandomRPG.Model.Interfaces;
 
-namespace RandomRPG.Model.Interfaces
+namespace RandomRPG.Model.Armors
 {
-    public class LeatherArmor : IArmor
+    public class Armor : IArmor
     {
         public BodyPart EquipLocation { get; set; }
 
@@ -13,12 +14,15 @@ namespace RandomRPG.Model.Interfaces
 
         public string Name { get; set; }
 
-        public LeatherArmor(int armorMin = 5, int durability = 50, string name = "Leather Armor", int armorMax = 10)
+        public ArmorTypes Type { get; set; }
+
+        public Armor(int armorMin, int durability, ArmorTypes type, int armorMax, BodyPart equipLocation)
         {
-            this.Name = name;
+            this.Name = type.ToString();
             this.Durability = durability;
             this.EquipLocation = BodyPart.Chest;
             this.ArmorValue = GetArmorValue(armorMin, armorMax);
+            this.EquipLocation = equipLocation;
         }
 
         private int GetArmorValue(int armorMin, int armorMax)

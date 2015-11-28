@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using RandomRPG.Model.Armor;
+using RandomRPG.Model.Armors;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 
-namespace RandomRPG.Model
+namespace RandomRPG.Model.Factories
 {
     public static class ArmorFactory
     {
@@ -15,18 +15,28 @@ namespace RandomRPG.Model
                 case "Doctore":
                     return new Dictionary<BodyPart, IArmor>()
                     {
-                        {BodyPart.Chest, new LeatherArmor()}
+                        {BodyPart.Chest, GetBaseLeatherArmor()}
                     };
 
                 case "Slave":
                     return new Dictionary<BodyPart, IArmor>()
                     {
-                        {BodyPart.Chest, new Underwear()}
+                        {BodyPart.Pants, GetBaseUnderWear()}
                     };
 
                 default:
                     return new Dictionary<BodyPart, IArmor>();
             }
+        }
+
+        public static IArmor GetBaseLeatherArmor()
+        {
+            return new Armor(5, 50, ArmorTypes.LeatherArmor, 10, BodyPart.Chest);
+        }
+
+        public static IArmor GetBaseUnderWear()
+        {
+            return new Armor(0, 15, ArmorTypes.UnderWear, 5, BodyPart.Pants);
         }
     }
 }

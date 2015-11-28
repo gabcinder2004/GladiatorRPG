@@ -44,8 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\RPGController.cs" />
-    <Compile Include="Model\Armor\Underwear.cs" />
+    <Compile Include="Model\ArmorMitigation\ArmorMitigation.cs" />
+    <Compile Include="Model\ArmorMitigation\ArmorMitigationLogic.cs" />
+    <Compile Include="Model\ArmorMitigation\Block.cs" />
+    <Compile Include="Model\ArmorMitigation\Dodge.cs" />
+    <Compile Include="Model\Enums\ArmorTypes.cs" />
     <Compile Include="Model\Enums\GladiatorTypes.cs" />
+    <Compile Include="Model\Enums\WeaponTypes.cs" />
     <Compile Include="Model\Factories\ArmorFactory.cs" />
     <Compile Include="Model\Factories\AttributeFactory.cs" />
     <Compile Include="Model\Attributes.cs" />
@@ -62,13 +67,13 @@
     <Compile Include="Model\Interfaces\IItems.cs" />
     <Compile Include="Model\Interfaces\IArmor.cs" />
     <Compile Include="Model\Interfaces\IWeapon.cs" />
-    <Compile Include="Model\Armor\LeatherArmor.cs" />
+    <Compile Include="Model\Armors\Armor.cs" />
     <Compile Include="Model\Factories\WeaponFactory.cs" />
-    <Compile Include="Model\Weapons\Mace.cs" />
+    <Compile Include="Model\Weapons\Weapon.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\Interfaces\IEntity.cs" />
+    <Compile Include="Model\Interfaces\IUnit.cs" />
     <Compile Include="Model\World.cs" />
     <Compile Include="Model\Zone.cs" />
     <Compile Include="Resources.Designer.cs">

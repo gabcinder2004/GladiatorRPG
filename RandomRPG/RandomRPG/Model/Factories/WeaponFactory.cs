@@ -14,19 +14,25 @@ namespace RandomRPG.Model
                 case "Doctore":
                     return new Dictionary<BodyPart, IWeapon>()
                     {
-                        { BodyPart.LeftHand, new Mace()},
-                        { BodyPart.RightHand, new Mace()}
+                        { BodyPart.LeftHand, GetBaseMaceInstance()},
+                        { BodyPart.RightHand, GetBaseMaceInstance()}
                     };
 
                 case "Slave":
                     return new Dictionary<BodyPart, IWeapon>()
                     {
-                        { BodyPart.LeftHand, new Mace()}
+                        { BodyPart.LeftHand, GetBaseMaceInstance()}
                     };
 
                 default:
                     return new Dictionary<BodyPart, IWeapon>();
             }
+        }
+
+        //Add Other Weapons
+        public static IWeapon GetBaseMaceInstance()
+        {
+            return new Weapon(2, 8, WeaponTypes.Mace, 50, new List<BodyPart> { BodyPart.LeftHand, BodyPart.RightHand});
         }
     }
 }
