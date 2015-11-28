@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Linq;
 
 namespace RandomRPG.Utilities
 {
     public static class Text
     {
+        public static void Write(string output)
+        {
+            Console.Write(output);
+        }
+        
         public static T Prompt<T>(string output)
         {
             WriteLine(output);
@@ -26,7 +32,7 @@ namespace RandomRPG.Utilities
 
         public static void Divider()
         {
-            WriteLine("==================================");
+            Console.WriteLine("===========================================================================");
         }
 
         public static string Prompt(string output)
@@ -50,6 +56,8 @@ namespace RandomRPG.Utilities
         public static void Clear()
         {
             Console.Clear();
+            WriteLine(Header.Get());
+            Divider();
         }
     }
 }

@@ -123,6 +123,15 @@
   <data name="CharacterCreation_Name" xml:space="preserve">
     <value>Enter your name:</value>
   </data>
+  <data name="GladiatorLogo" xml:space="preserve">
+    <value> 
+  ██████╗ ██╗      █████╗ ██████╗ ██╗ █████╗ ████████╗ ██████╗ ██████╗ 
+ ██╔════╝ ██║     ██╔══██╗██╔══██╗██║██╔══██╗╚══██╔══╝██╔═══██╗██╔══██╗
+ ██║  ███╗██║     ███████║██║  ██║██║███████║   ██║   ██║   ██║██████╔╝
+ ██║   ██║██║     ██╔══██║██║  ██║██║██╔══██║   ██║   ██║   ██║██╔══██╗
+ ╚██████╔╝███████╗██║  ██║██████╔╝██║██║  ██║   ██║   ╚██████╔╝██║  ██║
+  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝</value>
+  </data>
   <data name="Introduction" xml:space="preserve">
     <value>Welcome to Gladiator RPG!</value>
   </data>

@@ -57,6 +57,8 @@
     <Compile Include="Model\Attacks\AttackAbilities.cs" />
     <Compile Include="Model\Attacks\Bash.cs" />
     <Compile Include="Model\Attacks\AttackLogic.cs" />
+    <Compile Include="Model\Factories\ZoneFactory.cs" />
+    <Compile Include="Model\Enums\ZoneLevel.cs" />
     <Compile Include="Model\Gladiators\Gladiator.cs" />
     <Compile Include="Model\Enums\BodyPart.cs" />
     <Compile Include="Model\Enums\GameState.cs" />
@@ -71,18 +73,22 @@
     <Compile Include="Model\Factories\WeaponFactory.cs" />
     <Compile Include="Model\Weapons\Weapon.cs" />
     <Compile Include="Model\Player.cs" />
+    <Compile Include="Model\Interfaces\IZone.cs" />
+    <Compile Include="Model\Zones\ZoneMap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Interfaces\IUnit.cs" />
     <Compile Include="Model\World.cs" />
-    <Compile Include="Model\Zone.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Header.cs" />
     <Compile Include="Utilities\Text.cs" />
     <Compile Include="Utilities\EnumUtil.cs" />
+    <Compile Include="Model\Zones\Zone1.cs" />
+    <Compile Include="Utilities\Tile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

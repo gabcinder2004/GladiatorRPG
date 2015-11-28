@@ -13,8 +13,6 @@ namespace RandomRPG.Controllers
     {
         public void MainMenu()
         {
-            Text.Divider();
-
             var menuOptions = EnumUtil.GetValues<MainMenuOptions>().ToList();
             var menuString = string.Empty;
 
@@ -51,9 +49,8 @@ namespace RandomRPG.Controllers
             Text.WriteLine(Resources.CharacterCreation_Intro);
             Text.Divider();
             var name = Text.Prompt(Resources.CharacterCreation_Name);
-            //Dont need slave class anymore, use GladType
-            //Program.Player.CurrentGladiator = new Slave(name);
-            Program.Player.Gladiators.Add(Program.Player.CurrentGladiator);
+            Player.Instance.CurrentGladiator = new Gladiator(name, GladiatorTypes.Slave);
+            Player.Instance.Gladiators.Add(Player.Instance.CurrentGladiator);
             Program.GameState = GameState.Playing;
         }
 
@@ -75,5 +72,11 @@ namespace RandomRPG.Controllers
                 Text.Clear();
             }
         }
+    }
+
+    public enum GameEvent
+    {
+        ZoneEnter,
+        ZoneLeave
     }
 }

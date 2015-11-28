@@ -5,6 +5,7 @@ using RandomRPG.Model.ArmorMitigation;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Factories;
 using RandomRPG.Model.Interfaces;
+using RandomRPG.Model.Zones;
 
 namespace RandomRPG.Model
 {    
@@ -23,6 +24,8 @@ namespace RandomRPG.Model
         public GladiatorTypes Type { get; set; }
         //Just storing this for now
         public int Kills = 0;
+
+        public IZone CurrentZone { get; set; }
         //prob need an alive flag
         //change to add event on death notify observers
         public int Attack(string command)
@@ -47,17 +50,11 @@ namespace RandomRPG.Model
                     }
                     return netDmg;
                 }
-                else
-                {
-                    return 0;
-                }
+                return 0;
             }
-            else
-            {
-                //move to resource possibly
-                Console.WriteLine("No Target");
-                return -1;
-            }
+            //move to resource possibly
+            Console.WriteLine("No Target");
+            return -1;
         }
 
         public IGladiator Target { get; set; }
@@ -72,17 +69,14 @@ namespace RandomRPG.Model
             this.Type = gladType;
         }
 
-        public Gladiator(GladiatorTypes gladType)
+        public Gladiator(string name, GladiatorTypes gladType)
         {
             this.Attributes = AttributeFactory.GetInstance(gladType);
-
             this.WeaponSet = WeaponFactory.GetBaseWeaponInstances(gladType);
-
             this.Armor = ArmorFactory.GetBaseArmorInstances(gladType);
-
             this.Type = gladType;
             this.Inventory = new List<IItems>();
-            this.Name = gladType.ToString();
+            this.Name = name;
         }
 
         public override string ToString()

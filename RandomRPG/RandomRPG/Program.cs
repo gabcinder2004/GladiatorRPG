@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
@@ -7,7 +8,9 @@ using System.Threading.Tasks;
 using RandomRPG.Controllers;
 using RandomRPG.Model;
 using RandomRPG.Model.Enums;
+using RandomRPG.Model.Factories;
 using RandomRPG.Model.Interfaces;
+using RandomRPG.Model.Zones;
 using RandomRPG.Utilities;
 
 namespace RandomRPG
@@ -16,42 +19,22 @@ namespace RandomRPG
     {
         #region Declarations
 
-        private const int ConsoleWidth = 73;
-        private const int ConsoleHeight = 30;
+        public const int ConsoleWidth = 75;
+        public const int ConsoleHeight = 30;
+        public static bool RunningGame = true;
 
         public static GameState GameState = GameState.Menu;
         public static RpgController RpgController = new RpgController();
-        public static Player Player = new Player();
-        public static bool RunningGame = true;
-
         #endregion
 
         private static void Main(string[] args)
         {
-            Console.WriteLine(Resources.Version);
+            Text.Clear();
+
             Console.WindowWidth = ConsoleWidth;
             Console.WindowHeight = ConsoleHeight;
             Console.BufferHeight = ConsoleHeight;
             Console.BufferWidth = ConsoleWidth;
-
-            Player player = new Player();
-            IGladiator mob = new Gladiator(GladiatorTypes.Slave);
-            player.CurrentGladiator = new Gladiator(GladiatorTypes.Doctore);
-            player.SetTargetGladiator(mob);
-            //Must set target to auto attack. Need to think about dmg output etc...
-            while (player.Target?.Target != null)
-
-            {
-                player.CurrentGladiator.Attack("bash");
-                Console.WriteLine(player.Target.Attributes.HitPoints);
-                mob.Attack("bash");
-                Console.WriteLine(player.CurrentGladiator.Attributes.HitPoints);
-            }
-
-            Console.WriteLine("\n" + player.CurrentGladiator);
-
-
-            //int value = glad.Attack("bash");
 
             while (RunningGame)
             {
@@ -66,10 +49,15 @@ namespace RandomRPG
                         break;
 
                     case GameState.Playing:
-                        // TO BE WORKED ON NEXT
                         Text.Clear();
-                        Console.WriteLine("You've created your gladiator. Next steps will come soon.");
-                        GameState = GameState.Menu;
+                        if (Player.Instance.CurrentGladiator.CurrentZone == null)
+                        {
+                            IZone currentZone = ZoneFactory.GetZone(ZoneLevel.One);
+                            Header.Map = currentZone.Map;
+                            Player.Instance.CurrentGladiator.CurrentZone = currentZone;
+                        }
+
+                        Player.Instance.CurrentGladiator.CurrentZone.StateChanged(GameEvent.ZoneEnter);
                         break;
 
                     case GameState.Battle:

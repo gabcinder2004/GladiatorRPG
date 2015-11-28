@@ -79,6 +79,21 @@ namespace RandomRPG {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  
+        ///  ██████╗ ██╗      █████╗ ██████╗ ██╗ █████╗ ████████╗ ██████╗ ██████╗ 
+        /// ██╔════╝ ██║     ██╔══██╗██╔══██╗██║██╔══██╗╚══██╔══╝██╔═══██╗██╔══██╗
+        /// ██║  ███╗██║     ███████║██║  ██║██║███████║   ██║   ██║   ██║██████╔╝
+        /// ██║   ██║██║     ██╔══██║██║  ██║██║██╔══██║   ██║   ██║   ██║██╔══██╗
+        /// ╚██████╔╝███████╗██║  ██║██████╔╝██║██║  ██║   ██║   ╚██████╔╝██║  ██║
+        ///  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝.
+        /// </summary>
+        public static string GladiatorLogo {
+            get {
+                return ResourceManager.GetString("GladiatorLogo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome to Gladiator RPG!.
         /// </summary>
         public static string Introduction {

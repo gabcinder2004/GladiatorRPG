@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using RandomRPG.Model.Enums;
+using RandomRPG.Model.Zones;
 
 namespace RandomRPG.Model.Interfaces
 {
@@ -14,5 +15,7 @@ namespace RandomRPG.Model.Interfaces
         int Attack(string command);
         GladiatorTypes Type { get; set; }
         IGladiator Target { get; set; }
+
+        IZone CurrentZone { get; set; }
     }
 }

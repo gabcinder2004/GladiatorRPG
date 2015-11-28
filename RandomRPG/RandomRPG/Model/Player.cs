@@ -6,9 +6,12 @@ namespace RandomRPG.Model
 {
     public class Player
     {
+        private static Player _instance;
+        public static Player Instance => _instance ?? (_instance = new Player());
+
         public string Name { get; set; }
 
-        public Player()
+        private Player()
         {
             Gladiators = new List<IGladiator>();
         }
