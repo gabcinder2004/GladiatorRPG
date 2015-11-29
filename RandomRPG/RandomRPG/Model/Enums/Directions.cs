@@ -8,9 +8,9 @@ namespace RandomRPG.Model.Enums
 {
     public enum Directions
     {
-        North = 1,
-        South,
-        East,
-        West
+        Up = 1,
+        Down,
+        Left,
+        Right
     }
 }

@@ -11,7 +11,15 @@ namespace RandomRPG.Utilities
         {
             Console.Write(output);
         }
-        
+
+        public static char PromptCharacter(string output)
+        {
+            WriteLine(output);
+
+            ConsoleKeyInfo result = Console.ReadKey();
+            return result.KeyChar;
+        }
+
         public static T Prompt<T>(string output)
         {
             WriteLine(output);

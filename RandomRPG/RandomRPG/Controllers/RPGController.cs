@@ -127,7 +127,7 @@ namespace RandomRPG.Controllers
                 Text.ColorWriteLine(directionKeys[i + 1] + ") " + directionsList[i] + "\n", ConsoleColor.Magenta);
             }
 
-            var direction = Text.Prompt<string>("Where would you like to go?");
+            var direction = Text.PromptCharacter("Where would you like to go?");
             //move direction -1
             //Think about extension method here
             //if spot taken engage battle

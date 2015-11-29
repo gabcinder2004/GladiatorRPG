@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
@@ -25,7 +26,7 @@ namespace RandomRPG.Model.Zones
 
         public void SetTile(int x, int y, IUnit unit)
         {
-            Tile tile = new Tile {OccupyingUnit = unit, x = x, y = y};
+            Tile tile = new Tile { OccupyingUnit = unit, x = x, y = y };
             _map[x, y] = tile;
             unit.CurrentTile = tile;
             //Give unit Reference to their tile.
@@ -43,53 +44,49 @@ namespace RandomRPG.Model.Zones
 
         public void MoveUnit(int x, int y, IUnit glad)
         {
-            //Add Error handling for going off map buggy right now need to fix
-            try
+            if (IsOutOfBounds(x, y))
             {
-                if (GetTile(x, y).OccupyingUnit != null)
-                {
-                    Player.Instance.CurrentGladiator.SetTargetGladiator((IGladiator)GetTile(x, y).OccupyingUnit);
-                    Program.GameState = GameState.Battle;
-                    return;
-                }
+                Text.WriteLine("");
+                Text.ColorWriteLine("Cant move there!", ConsoleColor.DarkRed);
+                Thread.Sleep(2000);
+                return;
             }
-            catch (Exception)
+
+            var unitOnTile = GetTile(x, y);
+
+            if (unitOnTile == null)
             {
-                if (x > MapWidth-1 || y > MapHeight-1 || x < 0 || y < 0)
-                {
-                    Text.ColorWriteLine("Cant move there!", ConsoleColor.DarkRed);
-                    return;
-                }
                 _map[glad.CurrentTile.x, glad.CurrentTile.y] = null;
                 glad.CurrentTile.y = y;
                 glad.CurrentTile.x = x;
-                try
-                {
-                    _map[x, y] = (Tile)glad.CurrentTile;
-                }
-                catch (Exception)
-                {
-                    Text.ColorWriteLine("Cant move there!", ConsoleColor.DarkRed);
-                }
-                
+                _map[x, y] = (Tile)glad.CurrentTile;
+                return;
             }
+
+            Player.Instance.CurrentGladiator.SetTargetGladiator((IGladiator)GetTile(x, y).OccupyingUnit);
+            Program.GameState = GameState.Battle;
         }
 
-        public void MoveUnit(string direction, IUnit glad)
+        private bool IsOutOfBounds(int x, int y)
+        {
+            return (x > MapWidth - 1 || y > MapHeight - 1 || x < 0 || y < 0);
+        }
+
+        public void MoveUnit(char direction, IUnit glad)
         {
             switch (direction)
             {
-                case "w":
-                    MoveUnit(glad.CurrentTile.x -1, glad.CurrentTile.y, glad);
+                case 'w':
+                    MoveUnit(glad.CurrentTile.x - 1, glad.CurrentTile.y, glad);
                     break;
-                case "s":
-                    MoveUnit(glad.CurrentTile.x +1, glad.CurrentTile.y, glad);
+                case 's':
+                    MoveUnit(glad.CurrentTile.x + 1, glad.CurrentTile.y, glad);
                     break;
-                case "d":
-                    MoveUnit(glad.CurrentTile.x, glad.CurrentTile.y +1, glad);
+                case 'd':
+                    MoveUnit(glad.CurrentTile.x, glad.CurrentTile.y + 1, glad);
                     break;
-                case "a":
-                    MoveUnit(glad.CurrentTile.x, glad.CurrentTile.y-1, glad);
+                case 'a':
+                    MoveUnit(glad.CurrentTile.x, glad.CurrentTile.y - 1, glad);
                     break;
             }
         }
