@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using RandomRPG.Model;
 
 namespace RandomRPG.Utilities
 {
@@ -57,6 +58,16 @@ namespace RandomRPG.Utilities
         {
             Console.Clear();
             WriteLine(Header.Get());
+            Divider();
+        }
+
+        public static void ClearWithAbilities()
+        {
+            Console.Clear();
+            WriteLine(Header.Get());
+            Divider();
+            WriteLine("Gladiator Abilities:\n");
+            Player.Instance.CurrentGladiator.DisplayAbilityOptions();
             Divider();
         }
     }

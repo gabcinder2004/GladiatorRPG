@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using RandomRPG.Model;
 using RandomRPG.Model.Enums;
@@ -79,19 +80,43 @@ namespace RandomRPG.Controllers
         public void Battle()
         {
             //messing around with our API
-            Player.Instance.CurrentGladiator.DisplayAbilityOptions();
-            Player.Instance.CurrentGladiator.CurrentZone.Map.MoveUnit(8, 5, Player.Instance.CurrentGladiator);
-            Header.BuildMap(Player.Instance.CurrentGladiator.CurrentZone.Map);
-            Player.Instance.CurrentGladiator.CurrentZone.StateChanged(GameEvent.ZoneEnter);
-            IGladiator glad = (IGladiator)Player.Instance.CurrentGladiator.CurrentZone.Map.GetTile(5,5).OccupyingUnit;
-            Player.Instance.CurrentGladiator.SetTargetGladiator(glad);
-            while (Player.Instance.CurrentGladiator.Target != null)
+            int moveX = Player.Instance.CurrentGladiator.Target.CurrentTile.x;
+            int moveY = Player.Instance.CurrentGladiator.Target.CurrentTile.y;
+            Text.ColorWriteLine("You have encountered a " + Player.Instance.CurrentGladiator.Target.Name + "!!!", ConsoleColor.DarkRed);
+            Text.Divider();
+            //Player.Instance.CurrentGladiator.DisplayAbilityOptions();
+            //Player.Instance.CurrentGladiator.CurrentZone.Map.MoveUnit(8, 5, Player.Instance.CurrentGladiator);
+            //Header.BuildMap(Player.Instance.CurrentGladiator.CurrentZone.Map);
+            //Player.Instance.CurrentGladiator.CurrentZone.StateChanged(GameEvent.ZoneEnter);
+            //implement complete fighting here
+            var name = Text.Prompt<int>("Choose an Ability");
+            Player.Instance.CurrentGladiator.Attack(Player.Instance.CurrentGladiator.AbilityList[name-1].ToString());
+            //figure out good way to show attacks here
+            Thread.Sleep(3000);
+            //need to check which target died also
+            if (Player.Instance.CurrentGladiator.Target == null)
             {
-                var name = Text.Prompt("Choose an Ability");
-                Player.Instance.CurrentGladiator.Attack(Player.Instance.CurrentGladiator.AbilityList[(int.Parse(name))-1].ToString());
+                Player.Instance.CurrentGladiator.CurrentZone.Map.RemoveUnit(moveX, moveY);
+                Player.Instance.CurrentGladiator.CurrentZone.Map.MoveUnit(moveX, moveY, Player.Instance.CurrentGladiator);
+                Program.GameState = GameState.Playing;
+            }
+        }
+
+        public void Navigate()
+        {
+            // Player.Instance.CurrentGladiator.CurrentZone.StateChanged(GameEvent.ZoneEnter);
+            var directionsList = EnumUtil.GetValues<Directions>().ToList();
+            for (int i = 0; i < directionsList.Count; i++)
+            {
+                Text.ColorWriteLine(i + 1 + ") " + directionsList[i] + "\n", ConsoleColor.Magenta);
             }
 
-            Text.Prompt(".................");
+            var direction = Text.Prompt<int>("Where would you like to go?");
+            //move direction -1
+            //Think about extension method here
+            //if spot taken engage battle
+            //Zone1.Instance.Map.MoveUnit();
+            Player.Instance.CurrentGladiator.CurrentZone.Map.MoveUnit(direction, Player.Instance.CurrentGladiator);
         }
     }
 

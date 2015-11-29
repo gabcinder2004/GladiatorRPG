@@ -58,11 +58,12 @@ namespace RandomRPG
                         }
 
                         Player.Instance.CurrentGladiator.CurrentZone.StateChanged(GameEvent.ZoneEnter);
-                        Text.WriteLine("Prepare For Battle \n");
-                        GameState = GameState.Battle;
+                        Text.WriteLine("Welcome to the Arena Of Death!.\nNavigate through the arena to kill enemies.");
+                        RpgController.Navigate();
                         break;
 
                     case GameState.Battle:
+                        Text.ClearWithAbilities();
                         RpgController.Battle();
                         break;
 

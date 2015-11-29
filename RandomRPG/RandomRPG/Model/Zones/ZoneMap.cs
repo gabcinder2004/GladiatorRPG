@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 using RandomRPG.Utilities;
 
@@ -35,12 +36,62 @@ namespace RandomRPG.Model.Zones
             return _map[x, y];
         }
 
+        public void RemoveUnit(int x, int y)
+        {
+            _map[x, y] = null;
+        }
+
         public void MoveUnit(int x, int y, IUnit glad)
         {
-            _map[glad.CurrentTile.x, glad.CurrentTile.y] = null;
-            glad.CurrentTile.y = y;
-            glad.CurrentTile.x = x;
-            _map[x, y] = (Tile)glad.CurrentTile;
+            //Add Error handling for going off map buggy right now need to fix
+            try
+            {
+                if (GetTile(x, y).OccupyingUnit != null)
+                {
+                    Player.Instance.CurrentGladiator.SetTargetGladiator((IGladiator)GetTile(x, y).OccupyingUnit);
+                    Program.GameState = GameState.Battle;
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                if (x > MapWidth-1 || y > MapHeight-1 || x < 0 || y < 0)
+                {
+                    Text.ColorWriteLine("Cant move there!", ConsoleColor.DarkRed);
+                    return;
+                }
+                _map[glad.CurrentTile.x, glad.CurrentTile.y] = null;
+                glad.CurrentTile.y = y;
+                glad.CurrentTile.x = x;
+                try
+                {
+                    _map[x, y] = (Tile)glad.CurrentTile;
+                }
+                catch (Exception)
+                {
+                    Text.ColorWriteLine("Cant move there!", ConsoleColor.DarkRed);
+                }
+                
+            }
+        }
+
+        public void MoveUnit(int direction, IUnit glad)
+        {
+            switch (direction)
+            {
+                case 1:
+                    MoveUnit(glad.CurrentTile.x -1, glad.CurrentTile.y, glad);
+                    break;
+                case 2:
+                    MoveUnit(glad.CurrentTile.x +1, glad.CurrentTile.y, glad);
+                    break;
+                case 3:
+                    MoveUnit(glad.CurrentTile.x, glad.CurrentTile.y +1, glad);
+                    break;
+                case 4:
+                    MoveUnit(glad.CurrentTile.x, glad.CurrentTile.y-1, glad);
+                    break;
+            }
         }
     }
 }
