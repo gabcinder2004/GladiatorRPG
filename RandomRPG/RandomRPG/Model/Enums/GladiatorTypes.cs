@@ -4,6 +4,7 @@
     {
         Doctore,
         Slave,
-        Krixus
+        Krixus,
+        Villager
     }
 }

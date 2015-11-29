@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using RandomRPG.Model;
+using RandomRPG.Model.Enums;
 
 namespace RandomRPG.Utilities
 {
@@ -58,7 +59,12 @@ namespace RandomRPG.Utilities
         {
             Console.Clear();
             WriteLine(Header.Get());
+            if (Player.Instance.CurrentGladiator != null && Program.GameState == GameState.Playing)
+            {
+                ColorWriteLine(Player.Instance.CurrentGladiator.Name+ "-" + Player.Instance.CurrentGladiator.Attributes.HitPoints + "(HP)", ConsoleColor.Green);
+            }
             Divider();
+
         }
 
         public static void ClearWithAbilities()
@@ -66,8 +72,12 @@ namespace RandomRPG.Utilities
             Console.Clear();
             WriteLine(Header.Get());
             Divider();
-            WriteLine("Gladiator Abilities:\n");
+            //display over max
+            WriteLine(Player.Instance.CurrentGladiator.Name + "'s Abilities:\n");
+
             Player.Instance.CurrentGladiator.DisplayAbilityOptions();
+            Divider();
+            ColorWriteLine("You have encountered a " + Player.Instance.CurrentGladiator.Target.Name + "!!!", ConsoleColor.DarkRed);
             Divider();
         }
     }

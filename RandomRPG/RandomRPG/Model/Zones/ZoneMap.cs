@@ -75,20 +75,20 @@ namespace RandomRPG.Model.Zones
             }
         }
 
-        public void MoveUnit(int direction, IUnit glad)
+        public void MoveUnit(string direction, IUnit glad)
         {
             switch (direction)
             {
-                case 1:
+                case "w":
                     MoveUnit(glad.CurrentTile.x -1, glad.CurrentTile.y, glad);
                     break;
-                case 2:
+                case "s":
                     MoveUnit(glad.CurrentTile.x +1, glad.CurrentTile.y, glad);
                     break;
-                case 3:
+                case "d":
                     MoveUnit(glad.CurrentTile.x, glad.CurrentTile.y +1, glad);
                     break;
-                case 4:
+                case "a":
                     MoveUnit(glad.CurrentTile.x, glad.CurrentTile.y-1, glad);
                     break;
             }

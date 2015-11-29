@@ -17,6 +17,8 @@ namespace RandomRPG.Model
                     return SlaveAttackHandler(command, weaponSet, attributes);
                 case "Krixus":
                     return KrixusAttackHandler(command, weaponSet, attributes);
+                case "Villager":
+                    return VillagerAttackHandler(command, weaponSet, attributes);
                 default:
                     return 0;
 
@@ -49,6 +51,18 @@ namespace RandomRPG.Model
         }
 
         private static int KrixusAttackHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, Attributes attributes)
+        {
+            switch (command.ToLower())
+            {
+                case "bash":
+                    return new Bash(weaponSet, attributes).Execute();
+                default:
+                    return 0;
+
+            }
+        }
+
+        private static int VillagerAttackHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, Attributes attributes)
         {
             switch (command.ToLower())
             {

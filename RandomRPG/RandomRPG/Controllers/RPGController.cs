@@ -82,36 +82,52 @@ namespace RandomRPG.Controllers
             //messing around with our API
             int moveX = Player.Instance.CurrentGladiator.Target.CurrentTile.x;
             int moveY = Player.Instance.CurrentGladiator.Target.CurrentTile.y;
-            Text.ColorWriteLine("You have encountered a " + Player.Instance.CurrentGladiator.Target.Name + "!!!", ConsoleColor.DarkRed);
-            Text.Divider();
-            //Player.Instance.CurrentGladiator.DisplayAbilityOptions();
-            //Player.Instance.CurrentGladiator.CurrentZone.Map.MoveUnit(8, 5, Player.Instance.CurrentGladiator);
-            //Header.BuildMap(Player.Instance.CurrentGladiator.CurrentZone.Map);
-            //Player.Instance.CurrentGladiator.CurrentZone.StateChanged(GameEvent.ZoneEnter);
-            //implement complete fighting here
-            var name = Text.Prompt<int>("Choose an Ability");
-            Player.Instance.CurrentGladiator.Attack(Player.Instance.CurrentGladiator.AbilityList[name-1].ToString());
+            //Figure out good to way display HP so it contantly refreshes
+            //Text.ColorWriteLine(Player.Instance.CurrentGladiator.Name + ": " + Player.Instance.CurrentGladiator.Attributes.HitPoints + "(HP)", ConsoleColor.Green);
+            Player.Instance.CurrentGladiator.Target.NpcAttack();
+            if (Player.Instance.CurrentGladiator.IsAlive)
+            {
+                var name = Text.Prompt<int>("Choose an Ability");
+                Player.Instance.CurrentGladiator.Attack(Player.Instance.CurrentGladiator.AbilityList[name - 1].ToString());
+            }
             //figure out good way to show attacks here
-            Thread.Sleep(3000);
-            //need to check which target died also
-            if (Player.Instance.CurrentGladiator.Target == null)
+            Thread.Sleep(2000);
+            if (Player.Instance.CurrentGladiator.Target == null && Player.Instance.CurrentGladiator.IsAlive)
             {
                 Player.Instance.CurrentGladiator.CurrentZone.Map.RemoveUnit(moveX, moveY);
                 Player.Instance.CurrentGladiator.CurrentZone.Map.MoveUnit(moveX, moveY, Player.Instance.CurrentGladiator);
                 Program.GameState = GameState.Playing;
+            }
+            if (Player.Instance.CurrentGladiator.Target == null && !Player.Instance.CurrentGladiator.IsAlive)
+            {
+                Text.ColorWriteLine("Game Over!!!!", ConsoleColor.DarkRed);
+                Thread.Sleep(2000);
+                Player.Instance.CurrentGladiator.CurrentZone = null;
+                Player.Instance.CurrentGladiator.CurrentTile = null;
+                Header.Map = null;
+                Text.Clear();
+                Program.GameState = GameState.Menu;
             }
         }
 
         public void Navigate()
         {
             // Player.Instance.CurrentGladiator.CurrentZone.StateChanged(GameEvent.ZoneEnter);
+            var directionKeys = new Dictionary<int, string>
+            {
+                {1, "w"},
+                {2, "s"},
+                {3, "a"},
+                {4, "d"}
+            };
             var directionsList = EnumUtil.GetValues<Directions>().ToList();
+
             for (int i = 0; i < directionsList.Count; i++)
             {
-                Text.ColorWriteLine(i + 1 + ") " + directionsList[i] + "\n", ConsoleColor.Magenta);
+                Text.ColorWriteLine(directionKeys[i + 1] + ") " + directionsList[i] + "\n", ConsoleColor.Magenta);
             }
 
-            var direction = Text.Prompt<int>("Where would you like to go?");
+            var direction = Text.Prompt<string>("Where would you like to go?");
             //move direction -1
             //Think about extension method here
             //if spot taken engage battle

@@ -16,11 +16,12 @@ namespace RandomRPG.Model.Interfaces
         int Attack(string command);
         GladiatorTypes Type { get; set; }
         IGladiator Target { get; set; }
-
+        int NpcAttack();
         IZone CurrentZone { get; set; }
         event EventHandler<EventArgs> DeathEvent;
         void SetTargetGladiator(IGladiator gladiator);
         List<IAbilities> AbilityList { get; set; }
         void DisplayAbilityOptions();
+        bool IsAlive { get; set; }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using RandomRPG.Controllers;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
@@ -15,9 +18,44 @@ namespace RandomRPG.Model.Zones
         {
             StateChanged += OnStateChanged;
             Map = new ZoneMap(10, 10);
-            IGladiator doctore = new Gladiator("Doctore", GladiatorTypes.Doctore);
-            Map.SetTile(5, 5, doctore);
-            Map.SetTile(9, 5, Player.Instance.CurrentGladiator);
+            PopulateMap();
+        }
+
+        private void PopulateMap()
+        {
+            //IGladiator doctore = new Gladiator("Doctore", GladiatorTypes.Doctore);
+            //Map.SetTile(5, 5, doctore);
+            int x = 0;
+            int y = 0;
+            int counter = 1;
+            var gladTypes = EnumUtil.GetValues<GladiatorTypes>().ToList();
+            while (counter < 8)
+            {
+                Random random = new Random();
+                x = random.Next(0, Map.MapHeight);
+                y = random.Next(0, Map.MapWidth);
+                var gladType = random.Next(0, gladTypes.Count);
+                //Need a random name generator
+                if (Map.GetTile(x, y) == null)
+                {
+                    IGladiator glad = new Gladiator(((GladiatorTypes)gladType).ToString(), (GladiatorTypes) gladType);
+                    Map.SetTile(x, y, glad);
+                    counter ++;
+                }
+            }
+
+            int playerCount = 1;
+            while (playerCount < 2)
+            {
+                Random rand = new Random();
+                x = rand.Next(0, Map.MapHeight);
+                y = rand.Next(0, Map.MapWidth);
+                if (Map.GetTile(x, y) == null)
+                {
+                    Map.SetTile(x, y, Player.Instance.CurrentGladiator);
+                    playerCount ++;
+                }
+            }
         }
 
         public Action<GameEvent> StateChanged { get; set; }

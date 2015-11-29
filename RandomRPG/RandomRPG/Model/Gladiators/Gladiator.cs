@@ -27,6 +27,7 @@ namespace RandomRPG.Model
         //Just storing this for now
         public int Kills = 0;
         public List<IAbilities> AbilityList { get; set; }
+        public bool IsAlive { get; set; }
  
         public IZone CurrentZone { get; set; }
         public ITile CurrentTile { get; set; }
@@ -43,14 +44,15 @@ namespace RandomRPG.Model
 
         private void DeathEventHandler(object o, EventArgs e)
         {
-            Console.WriteLine("Dead! " + Target.Type.ToString() + " Death by " + ((IGladiator)o).Name);
+            Target.IsAlive = false;
+            Text.ColorWriteLine("Dead! " + Target.Name + " has been slained by " + ((IGladiator)o).Name + "!", ConsoleColor.White);
         }
 
         public void DisplayAbilityOptions()
         {
             for (int i = 0; i < AbilityList.Count; i++)
             {
-                Text.ColorWriteLine(i+1 + ") " + AbilityList[i], ConsoleColor.Green);
+                Text.ColorWriteLine(i+1 + ") " + AbilityList[i], ConsoleColor.Magenta);
             }
         }
         public int Attack(string command)
@@ -65,12 +67,12 @@ namespace RandomRPG.Model
                 if (netDmg > 0)
                 {
                     Target.Attributes.HitPoints -= netDmg;
-                    Text.WriteLine(Target.Name + "\n Hit Points: " + Target.Attributes.HitPoints);
+                    Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + command + "!!", ConsoleColor.Yellow);
+                    //DisplayHPValues();
                     if (Target.Attributes.HitPoints <= 0)
                     {
                         //Move to resource possibly
                         DeathEventHandler(this, EventArgs.Empty);
-                        Console.WriteLine(Target.Name + " Has been slain!");
                         Target.Target = null;
                         Target.DeathEvent -= DeathEventHandler;
                         this.DeathEvent -= DeathEventHandler;
@@ -83,7 +85,53 @@ namespace RandomRPG.Model
             }
             //move to resource possibly
             Console.WriteLine("No Target");
+
             return -1;
+        }
+
+        //Most liekly will move this out somewhere else, Gladiator should not be responsible for this.
+        private void DisplayHPValues()
+        {
+            Text.ColorWriteLine(Target.Name + "- Hit Points: " + Target.Attributes.HitPoints, ConsoleColor.Green);
+            Text.ColorWriteLine(Name + "- Hit Points: " + Attributes.HitPoints + "\n", ConsoleColor.Red);
+        }
+
+        public int NpcAttack()
+        {
+            Random rand = new Random();
+            int ability = rand.Next(0, AbilityList.Count);
+            string command = AbilityList[ability].ToString();
+             if (Target != null)
+            {
+                int grossDmg = AttackLogic.AttackActionHandler(command, WeaponSet, Type, Attributes);
+                //If an active command line below will need to chanhe
+                int mitigatedDmg = ArmorMitigationLogic.DefendActionHandler(Target.Armor, Target.Type, Target.Attributes, "block");
+                int netDmg = grossDmg - mitigatedDmg;
+                if (netDmg > 0)
+                {
+                    Target.Attributes.HitPoints -= netDmg;
+                    DisplayHPValues();
+                    if (Target.Attributes.HitPoints <= 0)
+                    {
+                        //Move to resource possibly
+                        DeathEventHandler(this, EventArgs.Empty);
+                        Console.WriteLine(Target.Name + " Has been slain!");
+                        Target.Target = null;
+                        Target.DeathEvent -= DeathEventHandler;
+                        this.DeathEvent -= DeathEventHandler;
+                        Target = null;
+                        Kills ++;
+                        return netDmg;
+                    }
+                    Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + command + "!", ConsoleColor.Red);
+                    return netDmg;
+                }
+                return 0;
+            }
+            //move to resource possibly
+            Console.WriteLine("No Target");
+            return -1;
+
         }
 
         public IGladiator Target { get; set; }
@@ -96,6 +144,7 @@ namespace RandomRPG.Model
             this.Inventory = inventory;
             this.Name = gladType.ToString();
             this.Type = gladType;
+            this.IsAlive = true;
         }
 
         public Gladiator(string name, GladiatorTypes gladType)
@@ -106,7 +155,8 @@ namespace RandomRPG.Model
             this.AbilityList = AbilityFactory.GetBaseAbilityList(gladType);
             this.Type = gladType;
             this.Inventory = new List<IItems>();
-            this.Name = name;
+            this.Name = name.ToUpper();
+            this.IsAlive = true;
         }
 
         public override string ToString()

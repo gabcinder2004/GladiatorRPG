@@ -17,9 +17,12 @@ namespace RandomRPG.Model.ArmorMitigation
                 case "Doctore":
                     return DoctoreDefendHandler(command, armorSet, attributes);
                 case "Slave":
-                    return SlaveAttackHandler(command, armorSet, attributes);
+                    return SlaveDefendHandler(command, armorSet, attributes);
                 case "Krixus":
-                    return KrixusAttackHandler(command, armorSet, attributes);
+                    return KrixusDefendHandler(command, armorSet, attributes);
+                case "Villager":
+
+                    return VillagerDefendHandler(command, armorSet, attributes);
                 default:
                     return 0;
 
@@ -40,7 +43,7 @@ namespace RandomRPG.Model.ArmorMitigation
             }
         }
 
-        private static int SlaveAttackHandler(string command, Dictionary<BodyPart, IArmor> armorSet, Attributes attributes)
+        private static int SlaveDefendHandler(string command, Dictionary<BodyPart, IArmor> armorSet, Attributes attributes)
         {
             switch (command.ToLower())
             {
@@ -52,7 +55,19 @@ namespace RandomRPG.Model.ArmorMitigation
             }
         }
 
-        private static int KrixusAttackHandler(string command, Dictionary<BodyPart, IArmor> armorSet, Attributes attributes)
+        private static int KrixusDefendHandler(string command, Dictionary<BodyPart, IArmor> armorSet, Attributes attributes)
+        {
+            switch (command.ToLower())
+            {
+                case "block":
+                    return new Block(armorSet, attributes).Execute();
+                default:
+                    return 0;
+
+            }
+        }
+
+        private static int VillagerDefendHandler(string command, Dictionary<BodyPart, IArmor> armorSet, Attributes attributes)
         {
             switch (command.ToLower())
             {

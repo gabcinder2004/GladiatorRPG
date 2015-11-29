@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using RandomRPG.Model;
 using RandomRPG.Model.Interfaces;
 using RandomRPG.Model.Zones;
 
@@ -30,7 +31,15 @@ namespace RandomRPG.Utilities
                     }
                     else
                     {
-                        result += $"[{tile.OccupyingUnit.Name[0]}]";
+                        if (tile.OccupyingUnit == Player.Instance.CurrentGladiator)
+                        {
+                            //change color here somehow
+                            result += "[*]";
+                        }
+                        else
+                        {
+                            result += $"[{tile.OccupyingUnit.Name[0]}]";
+                        }
                     }
                 }
                 result += Environment.NewLine;

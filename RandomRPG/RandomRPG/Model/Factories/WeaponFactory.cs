@@ -31,6 +31,12 @@ namespace RandomRPG.Model
                         { BodyPart.RightHand, GetBaseMaceInstance()}
                     };
 
+                case "Villager":
+                    return new Dictionary<BodyPart, IWeapon>()
+                    {
+                        { BodyPart.LeftHand, GetBaseMaceInstance()}
+                    };
+
                 default:
                     return new Dictionary<BodyPart, IWeapon>();
             }

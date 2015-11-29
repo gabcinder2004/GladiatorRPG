@@ -20,7 +20,6 @@ namespace RandomRPG.Model
         public override int Execute()
         {
             //Will change
-            Console.WriteLine("You Bash!");
             return base.Execute() + attackTypeBonus;
         }
 

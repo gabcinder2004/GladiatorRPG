@@ -42,6 +42,17 @@ namespace RandomRPG.Model
                         HitPoints = 400
                     };
 
+                case "Villager":
+                    return new Attributes()
+                    {
+                        Strength = 10,
+                        Agility = 10,
+                        CritChance = 10,
+                        Vitality = 25,
+                        Energy = 75,
+                        HitPoints = 50
+                    };
+
                 default:
                     return new Attributes();
             }
