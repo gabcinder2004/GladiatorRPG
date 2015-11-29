@@ -33,7 +33,7 @@ namespace RandomRPG
 
             Console.WindowWidth = ConsoleWidth;
             Console.WindowHeight = ConsoleHeight;
-            Console.BufferHeight = ConsoleHeight;
+            //Console.BufferHeight = ConsoleHeight;
             Console.BufferWidth = ConsoleWidth;
 
             while (RunningGame)
@@ -58,9 +58,12 @@ namespace RandomRPG
                         }
 
                         Player.Instance.CurrentGladiator.CurrentZone.StateChanged(GameEvent.ZoneEnter);
+                        Text.WriteLine("Prepare For Battle \n");
+                        GameState = GameState.Battle;
                         break;
 
                     case GameState.Battle:
+                        RpgController.Battle();
                         break;
 
                     case GameState.Quit:

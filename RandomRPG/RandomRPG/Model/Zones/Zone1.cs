@@ -39,9 +39,10 @@ namespace RandomRPG.Model.Zones
 
         private void EnteredZone()
         {
+            //Wierd that clear reloads map
             Text.Clear();
             Text.WriteLine("Entered Zone1");
-            Console.Read();
+            //Console.Read();
         }
 
         private void LeaveZone()

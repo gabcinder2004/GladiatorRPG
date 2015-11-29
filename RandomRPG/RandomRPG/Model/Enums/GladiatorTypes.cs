@@ -3,6 +3,7 @@
     public enum GladiatorTypes
     {
         Doctore,
-        Slave
+        Slave,
+        Krixus
     }
 }

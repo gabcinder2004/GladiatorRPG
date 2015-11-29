@@ -24,6 +24,12 @@ namespace RandomRPG.Model.Factories
                         {BodyPart.Pants, GetBaseUnderWear()}
                     };
 
+                case "Krixus":
+                    return new Dictionary<BodyPart, IArmor>()
+                    {
+                        {BodyPart.Chest, GetBaseLeatherArmor()}
+                    };
+
                 default:
                     return new Dictionary<BodyPart, IArmor>();
             }

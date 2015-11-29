@@ -5,16 +5,21 @@ using RandomRPG.Model.Interfaces;
 
 namespace RandomRPG.Model
 {
-    public abstract class AttackAbilities
+    public abstract class AttackAbilities : IAbilities
     {
         protected Dictionary<BodyPart, IWeapon> weaponSet;
         protected Attributes attributes;
         protected int attackTypeBonus;
+        public abstract string AbilityName { get; set; }
 
         protected AttackAbilities(Dictionary<BodyPart, IWeapon> weaponSet, Attributes attributes)
         {
             this.weaponSet = weaponSet;
             this.attributes = attributes;
+        }
+
+        protected AttackAbilities()
+        {
         }
 
         public virtual int Execute()

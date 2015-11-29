@@ -6,6 +6,7 @@ using RandomRPG.Model.Enums;
 using RandomRPG.Model.Factories;
 using RandomRPG.Model.Interfaces;
 using RandomRPG.Model.Zones;
+using RandomRPG.Utilities;
 
 namespace RandomRPG.Model
 {    
@@ -16,6 +17,7 @@ namespace RandomRPG.Model
         //Add armor into the mix with dmg mitigation
         //Think about making some of this private when we decide what we dont want available
         //Think about how to validate equipping in correct slots
+        public event EventHandler<EventArgs> DeathEvent;
         public Attributes Attributes { get; set; }
         public Dictionary<BodyPart, IWeapon> WeaponSet { get; set; }
         public Dictionary<BodyPart, IArmor> Armor { get; set; }
@@ -24,10 +26,33 @@ namespace RandomRPG.Model
         public GladiatorTypes Type { get; set; }
         //Just storing this for now
         public int Kills = 0;
-
+        public List<IAbilities> AbilityList { get; set; }
+ 
         public IZone CurrentZone { get; set; }
+        public ITile CurrentTile { get; set; }
         //prob need an alive flag
         //change to add event on death notify observers
+
+        public void SetTargetGladiator(IGladiator gladiator)
+        {
+            Target = gladiator;
+            gladiator.Target = this;
+            Target.DeathEvent += DeathEventHandler;
+            this.DeathEvent += DeathEventHandler;
+        }
+
+        private void DeathEventHandler(object o, EventArgs e)
+        {
+            Console.WriteLine("Dead! " + Target.Type.ToString() + " Death by " + ((IGladiator)o).Name);
+        }
+
+        public void DisplayAbilityOptions()
+        {
+            for (int i = 0; i < AbilityList.Count; i++)
+            {
+                Text.ColorWriteLine(i+1 + ") " + AbilityList[i], ConsoleColor.Green);
+            }
+        }
         public int Attack(string command)
         {
             //Add some sort of Class for Armor Logic similar to attack, temp implementation, also need to add dodge etc.. evasion type classes.
@@ -40,11 +65,15 @@ namespace RandomRPG.Model
                 if (netDmg > 0)
                 {
                     Target.Attributes.HitPoints -= netDmg;
+                    Text.WriteLine(Target.Name + "\n Hit Points: " + Target.Attributes.HitPoints);
                     if (Target.Attributes.HitPoints <= 0)
                     {
                         //Move to resource possibly
+                        DeathEventHandler(this, EventArgs.Empty);
                         Console.WriteLine(Target.Name + " Has been slain!");
                         Target.Target = null;
+                        Target.DeathEvent -= DeathEventHandler;
+                        this.DeathEvent -= DeathEventHandler;
                         Target = null;
                         Kills ++;
                     }
@@ -74,6 +103,7 @@ namespace RandomRPG.Model
             this.Attributes = AttributeFactory.GetInstance(gladType);
             this.WeaponSet = WeaponFactory.GetBaseWeaponInstances(gladType);
             this.Armor = ArmorFactory.GetBaseArmorInstances(gladType);
+            this.AbilityList = AbilityFactory.GetBaseAbilityList(gladType);
             this.Type = gladType;
             this.Inventory = new List<IItems>();
             this.Name = name;

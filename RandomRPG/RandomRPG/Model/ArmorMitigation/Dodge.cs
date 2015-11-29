@@ -7,6 +7,7 @@ namespace RandomRPG.Model.ArmorMitigation
 {
     public class Dodge : ArmorMitigation
     {
+        public override string AbilityName { get; set; }
 
         public Dodge(Dictionary<BodyPart, IArmor> armorSet, Attributes attributes)
             : base(armorSet, attributes) { }

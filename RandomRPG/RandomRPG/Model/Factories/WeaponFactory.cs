@@ -24,6 +24,13 @@ namespace RandomRPG.Model
                         { BodyPart.LeftHand, GetBaseMaceInstance()}
                     };
 
+                case "Krixus":
+                    return new Dictionary<BodyPart, IWeapon>()
+                    {
+                        { BodyPart.LeftHand, GetBaseMaceInstance()},
+                        { BodyPart.RightHand, GetBaseMaceInstance()}
+                    };
+
                 default:
                     return new Dictionary<BodyPart, IWeapon>();
             }

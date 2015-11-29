@@ -4,7 +4,7 @@ using RandomRPG.Model.Interfaces;
 
 namespace RandomRPG.Model.ArmorMitigation
 {
-    public abstract class ArmorMitigation
+    public abstract class ArmorMitigation : IAbilities
     {
         protected Dictionary<BodyPart, IArmor> armorSet;
         protected Attributes attributes;
@@ -17,5 +17,8 @@ namespace RandomRPG.Model.ArmorMitigation
         }
 
         public abstract int Execute();
+
+
+        public abstract string AbilityName { get; set; }
     }
 }

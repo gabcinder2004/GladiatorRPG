@@ -31,6 +31,17 @@ namespace RandomRPG.Model
                         HitPoints = 100
                     };
 
+                case "Krixus":
+                    return new Attributes()
+                    {
+                        Strength = 50,
+                        Agility = 10,
+                        CritChance = 10,
+                        Vitality = 50,
+                        Energy = 75,
+                        HitPoints = 400
+                    };
+
                 default:
                     return new Attributes();
             }

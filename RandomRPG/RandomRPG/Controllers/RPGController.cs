@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RandomRPG.Model;
 using RandomRPG.Model.Enums;
+using RandomRPG.Model.Interfaces;
+using RandomRPG.Model.Zones;
 using RandomRPG.Utilities;
 
 namespace RandomRPG.Controllers
@@ -71,6 +74,24 @@ namespace RandomRPG.Controllers
                 Program.GameState = GameState.Menu;
                 Text.Clear();
             }
+        }
+
+        public void Battle()
+        {
+            //messing around with our API
+            Player.Instance.CurrentGladiator.DisplayAbilityOptions();
+            Player.Instance.CurrentGladiator.CurrentZone.Map.MoveUnit(8, 5, Player.Instance.CurrentGladiator);
+            Header.BuildMap(Player.Instance.CurrentGladiator.CurrentZone.Map);
+            Player.Instance.CurrentGladiator.CurrentZone.StateChanged(GameEvent.ZoneEnter);
+            IGladiator glad = (IGladiator)Player.Instance.CurrentGladiator.CurrentZone.Map.GetTile(5,5).OccupyingUnit;
+            Player.Instance.CurrentGladiator.SetTargetGladiator(glad);
+            while (Player.Instance.CurrentGladiator.Target != null)
+            {
+                var name = Text.Prompt("Choose an Ability");
+                Player.Instance.CurrentGladiator.Attack(Player.Instance.CurrentGladiator.AbilityList[(int.Parse(name))-1].ToString());
+            }
+
+            Text.Prompt(".................");
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using RandomRPG.Model.Enums;
+using RandomRPG.Utilities;
 
 namespace RandomRPG.Model.Interfaces
 {
@@ -11,7 +12,7 @@ namespace RandomRPG.Model.Interfaces
         Attributes Attributes { get; set; }
         //T Type { get; set; }
         // ^ We gotta talk about this ^
-
+        ITile CurrentTile { get; set; }
         GladiatorTypes Type { get; set; }
     }
 }

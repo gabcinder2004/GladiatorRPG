@@ -16,13 +16,6 @@ namespace RandomRPG.Model
             Gladiators = new List<IGladiator>();
         }
 
-        public void SetTargetGladiator(IGladiator gladiator)
-        {
-            CurrentGladiator.Target = gladiator;
-            Target = CurrentGladiator.Target;
-            gladiator.Target = CurrentGladiator;
-        }
-
         public IGladiator Target { get; set; }
         public IGladiator CurrentGladiator { get; set; }
 

@@ -18,6 +18,8 @@ namespace RandomRPG.Model.ArmorMitigation
                     return DoctoreDefendHandler(command, armorSet, attributes);
                 case "Slave":
                     return SlaveAttackHandler(command, armorSet, attributes);
+                case "Krixus":
+                    return KrixusAttackHandler(command, armorSet, attributes);
                 default:
                     return 0;
 
@@ -39,6 +41,18 @@ namespace RandomRPG.Model.ArmorMitigation
         }
 
         private static int SlaveAttackHandler(string command, Dictionary<BodyPart, IArmor> armorSet, Attributes attributes)
+        {
+            switch (command.ToLower())
+            {
+                case "block":
+                    return new Block(armorSet, attributes).Execute();
+                default:
+                    return 0;
+
+            }
+        }
+
+        private static int KrixusAttackHandler(string command, Dictionary<BodyPart, IArmor> armorSet, Attributes attributes)
         {
             switch (command.ToLower())
             {

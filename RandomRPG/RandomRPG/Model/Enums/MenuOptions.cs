@@ -10,6 +10,7 @@ namespace RandomRPG.Model.Enums
     {
         StartNewGame,
         LoadGame,
+        Battle,
         Quit
     }
 }

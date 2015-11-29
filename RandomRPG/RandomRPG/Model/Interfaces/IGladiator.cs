@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Zones;
 
@@ -17,5 +18,9 @@ namespace RandomRPG.Model.Interfaces
         IGladiator Target { get; set; }
 
         IZone CurrentZone { get; set; }
+        event EventHandler<EventArgs> DeathEvent;
+        void SetTargetGladiator(IGladiator gladiator);
+        List<IAbilities> AbilityList { get; set; }
+        void DisplayAbilityOptions();
     }
 }

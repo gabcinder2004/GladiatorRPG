@@ -51,6 +51,7 @@
     <Compile Include="Model\Enums\ArmorTypes.cs" />
     <Compile Include="Model\Enums\GladiatorTypes.cs" />
     <Compile Include="Model\Enums\WeaponTypes.cs" />
+    <Compile Include="Model\Factories\AbilityFactory.cs" />
     <Compile Include="Model\Factories\ArmorFactory.cs" />
     <Compile Include="Model\Factories\AttributeFactory.cs" />
     <Compile Include="Model\Attributes.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Model\Enums\BodyPart.cs" />
     <Compile Include="Model\Enums\GameState.cs" />
     <Compile Include="Model\Enums\MenuOptions.cs" />
+    <Compile Include="Model\Interfaces\IAbilities.cs" />
     <Compile Include="Model\Interfaces\IEquippable.cs" />
     <Compile Include="Model\Interfaces\IGladiator.cs" />
     <Compile Include="Model\Interfaces\IEdible.cs" />
