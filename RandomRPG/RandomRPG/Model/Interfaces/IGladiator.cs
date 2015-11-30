@@ -13,7 +13,7 @@ namespace RandomRPG.Model.Interfaces
         Dictionary<BodyPart, IWeapon> WeaponSet { get; set; }
         Dictionary<BodyPart, IArmor> Armor { get; set; }
         List<IItems> Inventory { get; set; }
-        int Attack(string command);
+        int Attack(int command);
         GladiatorTypes Type { get; set; }
         IGladiator Target { get; set; }
         int NpcAttack();
@@ -23,5 +23,7 @@ namespace RandomRPG.Model.Interfaces
         List<IAbilities> AbilityList { get; set; }
         void DisplayAbilityOptions();
         bool IsAlive { get; set; }
+        IAbilities LastDefensiveAbility { get; set; }
+        int DmgMitigated { get; set; }
     }
 }

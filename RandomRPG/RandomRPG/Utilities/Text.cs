@@ -85,7 +85,7 @@ namespace RandomRPG.Utilities
 
             Player.Instance.CurrentGladiator.DisplayAbilityOptions();
             Divider();
-            ColorWriteLine("You have encountered a " + Player.Instance.CurrentGladiator.Target.Name + "!!!", ConsoleColor.DarkRed);
+            ColorWriteLine("You have encountered a " + Player.Instance.CurrentGladiator.Target.Name + "!!!", ConsoleColor.Cyan);
             Divider();
         }
     }

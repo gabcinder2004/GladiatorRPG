@@ -8,11 +8,14 @@ namespace RandomRPG.Model.ArmorMitigation
     public class Block : ArmorMitigation
     {
         public override string AbilityName { get; set; }
-
+        public override string AbilityType { get; set; }
+        public override int EnergyCost { get; set; }
         public Block(Dictionary<BodyPart, IArmor> armorSet, Attributes attributes)
             : base(armorSet, attributes)
         {
             this.AbilityName = "Block";
+            this.AbilityType = "Defensive";
+            this.EnergyCost = 20;
         }
 
         public override int Execute()

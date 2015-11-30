@@ -22,8 +22,8 @@ namespace RandomRPG.Model
         public int DamageOutput()
         {
             Random rand = new Random();
-            double attackdmg = rand.Next(MinDamage, MaxDamage);
-            return Convert.ToInt32(Math.Round(attackdmg));
+            int attackdmg = rand.Next(MinDamage, MaxDamage+1);
+            return attackdmg;
         }
 
         public Weapon(int minDamage, int maxDamage, WeaponTypes type, int durability, List<BodyPart> equipLocations )

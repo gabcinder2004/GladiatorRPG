@@ -87,8 +87,8 @@ namespace RandomRPG.Controllers
             Player.Instance.CurrentGladiator.Target.NpcAttack();
             if (Player.Instance.CurrentGladiator.IsAlive)
             {
-                var name = Text.Prompt<int>("Choose an Ability");
-                Player.Instance.CurrentGladiator.Attack(Player.Instance.CurrentGladiator.AbilityList[name - 1].ToString());
+                int ability = Text.Prompt<int>("Choose an Ability");
+                Player.Instance.CurrentGladiator.Attack(ability-1);
             }
             //figure out good way to show attacks here
             Thread.Sleep(2000);

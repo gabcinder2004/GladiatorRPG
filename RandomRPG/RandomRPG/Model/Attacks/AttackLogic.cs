@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 
@@ -72,6 +73,20 @@ namespace RandomRPG.Model
                     return 0;
 
             }
+        }
+
+        public static int GetBaseAttackDmg(Dictionary<BodyPart, IWeapon> weaponSet, GladiatorTypes type,
+            Attributes attributes)
+        {
+            int dmg = Convert.ToInt32(attributes.Strength*.25);
+            foreach (var weapon in weaponSet)
+            {
+                dmg += weapon.Value.DamageOutput();
+            }
+            if (weaponSet.Count > 1)
+                return Convert.ToInt32(dmg*.80);
+
+            return dmg;
         }
     }
 }

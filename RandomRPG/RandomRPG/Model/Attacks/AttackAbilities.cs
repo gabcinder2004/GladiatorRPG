@@ -11,7 +11,8 @@ namespace RandomRPG.Model
         protected Attributes attributes;
         protected int attackTypeBonus;
         public abstract string AbilityName { get; set; }
-
+        public abstract string AbilityType { get; set; }
+        public abstract int EnergyCost { get; set; }
         protected AttackAbilities(Dictionary<BodyPart, IWeapon> weaponSet, Attributes attributes)
         {
             this.weaponSet = weaponSet;
@@ -29,7 +30,7 @@ namespace RandomRPG.Model
             int totalDmg = strbonusModifier;
             foreach (var key in weaponSet)
             {
-                int critIndicator = new Random().Next(0, 100);
+                int critIndicator = new Random().Next(0, 101);
                 if (critIndicator <= attributes.CritChance)
                 {
                     //crit

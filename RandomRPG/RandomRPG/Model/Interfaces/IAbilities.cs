@@ -10,5 +10,7 @@ namespace RandomRPG.Model.Interfaces
     {
         int Execute();
         string AbilityName { get; set; }
+        string AbilityType { get; set; }
+        int EnergyCost { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,6 +50,8 @@ namespace RandomRPG.Model.ArmorMitigation
             {
                 case "block":
                     return new Block(armorSet, attributes).Execute();
+                case "dodge":
+                    return new Dodge(armorSet, attributes).Execute();
                 default:
                     return 0;
 
@@ -77,6 +80,18 @@ namespace RandomRPG.Model.ArmorMitigation
                     return 0;
 
             }
+        }
+
+        public static int GetBaseDmgMitigation(Dictionary<BodyPart, IArmor> armorSet, GladiatorTypes type, Attributes attributes)
+        {
+            //perhaps have a bade dmg mitigation bonus to certain types
+            int dmgMitigation = Convert.ToInt32(attributes.Strength*.1);
+            foreach (var item in armorSet)
+            {
+                dmgMitigation += item.Value.ArmorValue;
+            }
+
+            return dmgMitigation;
         }
     }
 }

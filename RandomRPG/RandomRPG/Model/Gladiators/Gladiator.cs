@@ -28,6 +28,8 @@ namespace RandomRPG.Model
         public int Kills = 0;
         public List<IAbilities> AbilityList { get; set; }
         public bool IsAlive { get; set; }
+        public IAbilities LastDefensiveAbility { get; set; }
+        public int DmgMitigated { get; set; }
  
         public IZone CurrentZone { get; set; }
         public ITile CurrentTile { get; set; }
@@ -46,47 +48,171 @@ namespace RandomRPG.Model
         {
             Target.IsAlive = false;
             Text.ColorWriteLine("Dead! " + Target.Name + " has been slained by " + ((IGladiator)o).Name + "!", ConsoleColor.White);
+            Target.Target = null;
+            Kills ++;
+            Target.DeathEvent -= DeathEventHandler;
+            this.DeathEvent -= DeathEventHandler;
+            Target = null;
         }
 
         public void DisplayAbilityOptions()
         {
             for (int i = 0; i < AbilityList.Count; i++)
             {
-                Text.ColorWriteLine(i+1 + ") " + AbilityList[i], ConsoleColor.Magenta);
+                Text.ColorWriteLine(i+1 + ") " + AbilityList[i].AbilityName, ConsoleColor.Magenta);
             }
         }
-        public int Attack(string command)
+
+        //public int Attack(string command)
+        //{
+        //    if (Target != null)
+        //    {
+        //        int grossDmg = AttackLogic.AttackActionHandler(command, WeaponSet, Type, Attributes);
+        //        int mitigatedDmg = ArmorMitigationLogic.DefendActionHandler(Target.Armor, Target.Type, Target.Attributes, "block");
+        //        int netDmg = grossDmg - mitigatedDmg;
+        //        if (netDmg > 0)
+        //        {
+        //            Target.Attributes.HitPoints -= netDmg;
+        //            Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + command + "!!", ConsoleColor.Yellow);
+        //            //DisplayHPValues();
+        //            if (Target.Attributes.HitPoints <= 0)
+        //            {
+        //                //Move to resource possibly
+        //                DeathEventHandler(this, EventArgs.Empty);
+        //                Target.Target = null;
+        //                Target.DeathEvent -= DeathEventHandler;
+        //                this.DeathEvent -= DeathEventHandler;
+        //                Target = null;
+        //                Kills ++;
+        //            }
+        //            return netDmg;
+        //        }
+        //        return 0;
+        //    }
+        //    //move to resource possibly
+        //    Console.WriteLine("No Target");
+
+        //    return -1;
+        //}
+
+        //Add defensive ability check for lastdefensive call
+        public int Attack(int command)
         {
-            //Add some sort of Class for Armor Logic similar to attack, temp implementation, also need to add dodge etc.. evasion type classes.
             if (Target != null)
             {
-                int grossDmg = AttackLogic.AttackActionHandler(command, WeaponSet, Type, Attributes);
-                //If an active command line below will need to chanhe
-                int mitigatedDmg = ArmorMitigationLogic.DefendActionHandler(Target.Armor, Target.Type, Target.Attributes, "block");
-                int netDmg = grossDmg - mitigatedDmg;
-                if (netDmg > 0)
+                if (AbilityList[command].AbilityType == "Offensive")
                 {
-                    Target.Attributes.HitPoints -= netDmg;
-                    Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + command + "!!", ConsoleColor.Yellow);
-                    //DisplayHPValues();
-                    if (Target.Attributes.HitPoints <= 0)
+                    LastDefensiveAbility = null;
+                    DmgMitigated = 0;
+                    return HandleOffensiveAbility(command);
+                }
+                else
+                {
+                    //hit with base Attack
+                    int baseAttackDmg = AttackLogic.GetBaseAttackDmg(WeaponSet, Type, Attributes);
+                    int mitigatedTargetBase = ArmorMitigationLogic.GetBaseDmgMitigation(Target.Armor, Target.Type, Target.Attributes);
+                    int netDmg = baseAttackDmg - mitigatedTargetBase;
+                    LastDefensiveAbility = AbilityList[command];
+                    this.DmgMitigated = ArmorMitigationLogic.DefendActionHandler(Armor, Type, Attributes, AbilityList[command].AbilityName);
+                    if (netDmg > 0)
                     {
-                        //Move to resource possibly
-                        DeathEventHandler(this, EventArgs.Empty);
-                        Target.Target = null;
-                        Target.DeathEvent -= DeathEventHandler;
-                        this.DeathEvent -= DeathEventHandler;
-                        Target = null;
-                        Kills ++;
+                        Target.Attributes.HitPoints -= netDmg;
+
+                        if (Target.Attributes.HitPoints <= 0)
+                        {
+                             Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with your base attack" + "!!", ConsoleColor.Yellow);
+                             DeathEventHandler(this, EventArgs.Empty);
+                             return netDmg;
+                        }
                     }
+                    if (Target.LastDefensiveAbility == null)
+                        {
+                            Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with your base attack" + "!!",
+                        ConsoleColor.Yellow);
+                            Text.ColorWriteLine(
+                                "You attempt to " + AbilityList[command].AbilityName + " the next attack!",
+                                ConsoleColor.Yellow);
+                        }
+                    else
+                        {
+                            Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!! " + Target.Name + " used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Yellow);
+                            Text.ColorWriteLine(
+                                "You attempt to " + AbilityList[command].AbilityName + " the next attack!",
+                                ConsoleColor.Yellow);
+                        }
+                    //no damage
+                    return 0;
+                }
+            }
+            Text.ColorWriteLine("No Target!", ConsoleColor.Yellow);
+            return 1;
+        }
+
+        private int HandleOffensiveAbility(int command)
+        {
+            int grossDmg;
+            int mitigatedTargetBase;
+            int netDmg;
+            grossDmg = AttackLogic.AttackActionHandler(AbilityList[command].AbilityName, WeaponSet, Type, Attributes);
+            //base dmg mitigation of target
+            mitigatedTargetBase = ArmorMitigationLogic.GetBaseDmgMitigation(Target.Armor, Target.Type,
+                Target.Attributes);
+            netDmg = grossDmg - mitigatedTargetBase;
+            if (netDmg > 0)
+            {
+                Target.Attributes.HitPoints -= netDmg;
+                
+                if (Target.Attributes.HitPoints <= 0)
+                {
+                    Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!!",
+                    ConsoleColor.Yellow);
+                    DeathEventHandler(this, EventArgs.Empty);
+                    return netDmg;
+                };
+            }
+            if (Target.LastDefensiveAbility == null)
+            {
+               Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!!",
+                    ConsoleColor.Yellow);
+            }
+            else
+            {
+               Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!! " + Target.Name + " used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Yellow);
+            }
+            return netDmg;
+        }
+
+        private int HandleOffensiveAbilityNPC(int command)
+            {
+            int grossDmg;
+            int mitigatedTargetBase;
+            int netDmg;
+            grossDmg = AttackLogic.AttackActionHandler(AbilityList[command].AbilityName, WeaponSet, Type, Attributes);
+            //base dmg mitigation of target
+            mitigatedTargetBase = ArmorMitigationLogic.GetBaseDmgMitigation(Target.Armor, Target.Type,
+                Target.Attributes);
+            netDmg = grossDmg - mitigatedTargetBase - Target.DmgMitigated;
+            if (netDmg > 0)
+            {
+                Target.Attributes.HitPoints -= netDmg;
+                DisplayHPValues();
+                if (Target.Attributes.HitPoints <= 0)
+                {
+                    Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "!", ConsoleColor.Red);
+                    Text.ColorWriteLine("YOU HAVE BEEN SLAIN!", ConsoleColor.Red);
+                    DeathEventHandler(this, EventArgs.Empty);
                     return netDmg;
                 }
-                return 0;
             }
-            //move to resource possibly
-            Console.WriteLine("No Target");
-
-            return -1;
+            if (Target.LastDefensiveAbility == null)
+            {
+               Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "!", ConsoleColor.Red);
+            }
+            else
+            {
+               Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "! You used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Red);
+            }
+            return netDmg;
         }
 
         //Most liekly will move this out somewhere else, Gladiator should not be responsible for this.
@@ -100,37 +226,53 @@ namespace RandomRPG.Model
         {
             Random rand = new Random();
             int ability = rand.Next(0, AbilityList.Count);
-            string command = AbilityList[ability].ToString();
+            string abilityType = AbilityList[ability].AbilityType;
              if (Target != null)
             {
-                int grossDmg = AttackLogic.AttackActionHandler(command, WeaponSet, Type, Attributes);
-                //If an active command line below will need to chanhe
-                int mitigatedDmg = ArmorMitigationLogic.DefendActionHandler(Target.Armor, Target.Type, Target.Attributes, "block");
-                int netDmg = grossDmg - mitigatedDmg;
-                if (netDmg > 0)
+                 if (abilityType == "Offensive")
                 {
-                    Target.Attributes.HitPoints -= netDmg;
-                    DisplayHPValues();
-                    if (Target.Attributes.HitPoints <= 0)
-                    {
-                        //Move to resource possibly
-                        DeathEventHandler(this, EventArgs.Empty);
-                        Console.WriteLine(Target.Name + " Has been slain!");
-                        Target.Target = null;
-                        Target.DeathEvent -= DeathEventHandler;
-                        this.DeathEvent -= DeathEventHandler;
-                        Target = null;
-                        Kills ++;
-                        return netDmg;
-                    }
-                    Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + command + "!", ConsoleColor.Red);
-                    return netDmg;
+                    LastDefensiveAbility = null;
+                    DmgMitigated = 0;
+                    return HandleOffensiveAbilityNPC(ability);
                 }
-                return 0;
+                 else
+                 {
+                     //hit with base Attack
+                    int baseAttackDmg = AttackLogic.GetBaseAttackDmg(WeaponSet, Type, Attributes);
+                    int mitigatedTargetBase = ArmorMitigationLogic.GetBaseDmgMitigation(Target.Armor, Target.Type, Target.Attributes);
+                     int netDmg = baseAttackDmg - mitigatedTargetBase - Target.DmgMitigated;
+                    LastDefensiveAbility = AbilityList[ability];
+                    this.DmgMitigated = ArmorMitigationLogic.DefendActionHandler(Armor, Type, Attributes, AbilityList[ability].AbilityName);
+                    if (netDmg > 0)
+                    {
+                        Target.Attributes.HitPoints -= netDmg;
+                        DisplayHPValues();
+
+                        if (Target.Attributes.HitPoints <= 0)
+                        {
+                            Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "!", ConsoleColor.Red);
+                            Text.ColorWriteLine("YOU HAVE BEEN SLAIN!", ConsoleColor.Red);
+                             DeathEventHandler(this, EventArgs.Empty);
+                             return netDmg;
+                        }
+                    }
+                    if (Target.LastDefensiveAbility == null)
+                    {
+                        Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "!", ConsoleColor.Red);
+                        Text.ColorWriteLine(Name + " will attempt to " +  AbilityList[ability].AbilityName + " the next attack!", ConsoleColor.Red);
+                    }
+                    else
+                    {
+                        Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "! You used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Red);
+                        Text.ColorWriteLine(Name + " will attempt to " +  AbilityList[ability].AbilityName + " the next attack!", ConsoleColor.Red);
+                    }
+                    //no damage
+                    return 0;
+                 }
             }
             //move to resource possibly
-            Console.WriteLine("No Target");
-            return -1;
+            Text.ColorWriteLine("No Target!", ConsoleColor.Red);
+            return 1;
 
         }
 
@@ -145,6 +287,7 @@ namespace RandomRPG.Model
             this.Name = gladType.ToString();
             this.Type = gladType;
             this.IsAlive = true;
+            this.DmgMitigated = 0;
         }
 
         public Gladiator(string name, GladiatorTypes gladType)
@@ -157,6 +300,7 @@ namespace RandomRPG.Model
             this.Inventory = new List<IItems>();
             this.Name = name.ToUpper();
             this.IsAlive = true;
+            this.DmgMitigated = 0;
         }
 
         public override string ToString()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RandomRPG.Model.ArmorMitigation;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 
@@ -23,7 +24,8 @@ namespace RandomRPG.Model.Factories
                 case "Slave":
                     return new List<IAbilities>
                     {
-                        {new Bash()}
+                        {new Bash()},
+                        {new Dodge()}
                     };
 
                 case "Krixus":

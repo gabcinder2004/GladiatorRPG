@@ -9,6 +9,7 @@ namespace RandomRPG.Model.ArmorMitigation
         protected Dictionary<BodyPart, IArmor> armorSet;
         protected Attributes attributes;
         protected int BaseBonus;
+        public abstract int EnergyCost { get; set; }
 
         protected ArmorMitigation(Dictionary<BodyPart, IArmor> armorSet, Attributes attributes)
         {
@@ -16,9 +17,14 @@ namespace RandomRPG.Model.ArmorMitigation
             this.attributes = attributes;
         }
 
+        protected ArmorMitigation()
+        {
+        }
+
         public abstract int Execute();
 
 
         public abstract string AbilityName { get; set; }
+        public abstract string AbilityType { get; set; }
     }
 }
