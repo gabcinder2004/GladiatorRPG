@@ -27,7 +27,7 @@ namespace RandomRPG.Utilities
 
             try
             {
-                
+                result = (T)Convert.ChangeType(Console.ReadLine(), typeof (T));
             }
             catch (Exception)
             {
