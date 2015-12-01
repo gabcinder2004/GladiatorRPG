@@ -25,5 +25,6 @@ namespace RandomRPG.Model.Interfaces
         bool IsAlive { get; set; }
         IAbilities LastDefensiveAbility { get; set; }
         int DmgMitigated { get; set; }
+        int Kills { get; set; }
     }
 }

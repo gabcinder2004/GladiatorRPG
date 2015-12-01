@@ -27,7 +27,7 @@ namespace RandomRPG.Utilities
 
             try
             {
-                result = (T)Convert.ChangeType(Console.ReadLine(), typeof(T));
+                
             }
             catch (Exception)
             {
@@ -67,6 +67,12 @@ namespace RandomRPG.Utilities
         {
             Console.Clear();
             WriteLine(Header.Get());
+            if (Player.Instance.CurrentGladiator != null && Program.GameState == GameState.Playing)
+            {
+                ColorWriteLine(Player.Instance.CurrentGladiator.Name+ "-" + Player.Instance.CurrentGladiator.Attributes.HitPoints + " (HP)", ConsoleColor.Green);
+                ColorWriteLine(Player.Instance.CurrentGladiator.Name + "-" + Player.Instance.CurrentGladiator.Attributes.Energy + " (Energy)", ConsoleColor.Yellow);
+                ColorWriteLine(Player.Instance.CurrentGladiator.Name + "-" + Player.Instance.CurrentGladiator.Kills + " (Kills)", ConsoleColor.Red);
+            }
             Divider();
 
         }

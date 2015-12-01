@@ -25,7 +25,7 @@ namespace RandomRPG.Model
         public string Name { get; set; }
         public GladiatorTypes Type { get; set; }
         //Just storing this for now
-        public int Kills = 0;
+        public int Kills { get; set; }
         public List<IAbilities> AbilityList { get; set; }
         public bool IsAlive { get; set; }
         public IAbilities LastDefensiveAbility { get; set; }
@@ -63,39 +63,6 @@ namespace RandomRPG.Model
             }
         }
 
-        //public int Attack(string command)
-        //{
-        //    if (Target != null)
-        //    {
-        //        int grossDmg = AttackLogic.AttackActionHandler(command, WeaponSet, Type, Attributes);
-        //        int mitigatedDmg = ArmorMitigationLogic.DefendActionHandler(Target.Armor, Target.Type, Target.Attributes, "block");
-        //        int netDmg = grossDmg - mitigatedDmg;
-        //        if (netDmg > 0)
-        //        {
-        //            Target.Attributes.HitPoints -= netDmg;
-        //            Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + command + "!!", ConsoleColor.Yellow);
-        //            //DisplayHPValues();
-        //            if (Target.Attributes.HitPoints <= 0)
-        //            {
-        //                //Move to resource possibly
-        //                DeathEventHandler(this, EventArgs.Empty);
-        //                Target.Target = null;
-        //                Target.DeathEvent -= DeathEventHandler;
-        //                this.DeathEvent -= DeathEventHandler;
-        //                Target = null;
-        //                Kills ++;
-        //            }
-        //            return netDmg;
-        //        }
-        //        return 0;
-        //    }
-        //    //move to resource possibly
-        //    Console.WriteLine("No Target");
-
-        //    return -1;
-        //}
-
-        //Add defensive ability check for lastdefensive call
         public int Attack(int command)
         {
             if (Target != null)
@@ -288,6 +255,7 @@ namespace RandomRPG.Model
             this.Type = gladType;
             this.IsAlive = true;
             this.DmgMitigated = 0;
+            this.Kills = 0;
         }
 
         public Gladiator(string name, GladiatorTypes gladType)
@@ -301,6 +269,7 @@ namespace RandomRPG.Model
             this.Name = name.ToUpper();
             this.IsAlive = true;
             this.DmgMitigated = 0;
+            this.Kills = 0;
         }
 
         public override string ToString()
