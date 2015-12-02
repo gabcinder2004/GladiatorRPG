@@ -18,20 +18,22 @@ namespace RandomRPG.Utilities
                 return Resources.GladiatorLogo;
 
 
-            var header = $"{BuildMap(Map)}{Environment.NewLine}{GetCharacterStatus()}";
+            var header = $"{BuildMap(Map)}{Environment.NewLine}";
             return header;
         }
 
         public static string GetCharacterStatus()
         {
             var gladiator = Player.Instance.CurrentGladiator;
-
-            return $"{gladiator.Name}{Environment.NewLine}" +
-                   $"Hit Points: {gladiator.Attributes.HitPoints} {Environment.NewLine}" +
-                   $"Strength: {gladiator.Attributes.Strength} {Environment.NewLine}" +
-                   $"Agility: {gladiator.Attributes.Agility} {Environment.NewLine}" +
-                   $"Vitality: {gladiator.Attributes.Vitality} {Environment.NewLine}" +
-                   $"Crit Chance: {gladiator.Attributes.CritChance}";
+            //Add alignment with format modifiers http://www.csharp-examples.net/align-string-with-spaces/, also add colors
+            return $"{gladiator.Name}&" +
+                   $"Hit Points: {gladiator.Attributes.HitPoints}&" +
+                   $"Energy: {gladiator.Attributes.Energy}&" +
+                   $"Strength: {gladiator.Attributes.Strength}&" +
+                   $"Agility: {gladiator.Attributes.Agility}&" +
+                   $"Vitality: {gladiator.Attributes.Vitality}&" +
+                   $"Crit Chance: {gladiator.Attributes.CritChance}&" +
+                   $"Kills: {gladiator.Kills}&";
 
         }
 
@@ -41,7 +43,8 @@ namespace RandomRPG.Utilities
             {
                 return string.Empty;
             }
-
+            int counter = 0;
+            var array = GetCharacterStatus().Split('&');
             var result = string.Empty;
 
             for (int x = 0; x < map.MapWidth; x++)
@@ -65,6 +68,11 @@ namespace RandomRPG.Utilities
                             result += $"[{tile.OccupyingUnit.Name[0]}]";
                         }
                     }
+                }
+                if (counter < array.Length-1)
+                {
+                    result += "                              " + array[counter];
+                    counter ++;
                 }
                 result += Environment.NewLine;
             }
