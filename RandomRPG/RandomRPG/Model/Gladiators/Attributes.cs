@@ -37,15 +37,4 @@ namespace RandomRPG.Model
         public AttributeType Type => AttributeType.HitPoints;
         public int Value { get; set; }
     }
-
-
-    public enum AttributeType
-    {
-        Strength,
-        Agility,
-        Vitality,
-        CritChance,
-        HitPoints,
-        Energy
-    }
 }
