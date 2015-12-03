@@ -12,7 +12,7 @@ namespace RandomRPG.Model
         public override string AbilityName { get; set; }
         public override string AbilityType { get; set; }
         public override int EnergyCost { get; set; }
-        public Bash(Dictionary<BodyPart, IWeapon> weaponSet, Attributes attributes) : base(weaponSet, attributes)
+        public Bash(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes) : base(weaponSet, attributes)
         {
             this.attackTypeBonus = 5;
             this.AbilityName = "Bash";

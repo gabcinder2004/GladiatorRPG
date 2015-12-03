@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 
@@ -8,7 +9,7 @@ namespace RandomRPG.Model
     public static class AttackLogic
     {
 
-        public static int AttackActionHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, GladiatorTypes type, Attributes attributes)
+        public static int AttackActionHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, GladiatorTypes type, List<IAttribute> attributes)
         {
             switch (type.ToString())
             {
@@ -26,7 +27,7 @@ namespace RandomRPG.Model
             }
         }
 
-        private static int DoctoreAttackHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, Attributes attributes)
+        private static int DoctoreAttackHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
         {
             //Filter Doctore abilities
             switch (command.ToLower())
@@ -39,7 +40,7 @@ namespace RandomRPG.Model
             }
         }
 
-        private static int SlaveAttackHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, Attributes attributes)
+        private static int SlaveAttackHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
         {
             switch (command.ToLower())
             {
@@ -51,7 +52,7 @@ namespace RandomRPG.Model
             }
         }
 
-        private static int KrixusAttackHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, Attributes attributes)
+        private static int KrixusAttackHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
         {
             switch (command.ToLower())
             {
@@ -63,7 +64,7 @@ namespace RandomRPG.Model
             }
         }
 
-        private static int VillagerAttackHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, Attributes attributes)
+        private static int VillagerAttackHandler(string command, Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
         {
             switch (command.ToLower())
             {
@@ -76,9 +77,9 @@ namespace RandomRPG.Model
         }
 
         public static int GetBaseAttackDmg(Dictionary<BodyPart, IWeapon> weaponSet, GladiatorTypes type,
-            Attributes attributes)
+            List<IAttribute> attributes)
         {
-            int dmg = Convert.ToInt32(attributes.Strength*.25);
+            int dmg = Convert.ToInt32(attributes.First(x => x.Type == AttributeType.Strength).Value *.25);
             foreach (var weapon in weaponSet)
             {
                 dmg += weapon.Value.DamageOutput();

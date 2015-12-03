@@ -7,11 +7,11 @@ namespace RandomRPG.Model.ArmorMitigation
     public abstract class ArmorMitigation : IAbilities
     {
         protected Dictionary<BodyPart, IArmor> armorSet;
-        protected Attributes attributes;
+        protected List<IAttribute> attributes;
         protected int BaseBonus;
         public abstract int EnergyCost { get; set; }
 
-        protected ArmorMitigation(Dictionary<BodyPart, IArmor> armorSet, Attributes attributes)
+        protected ArmorMitigation(Dictionary<BodyPart, IArmor> armorSet, List<IAttribute> attributes)
         {
             this.armorSet = armorSet;
             this.attributes = attributes;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using RandomRPG.Model.ArmorMitigation;
 using RandomRPG.Model.Enums;
@@ -18,7 +19,9 @@ namespace RandomRPG.Model
         //Think about making some of this private when we decide what we dont want available
         //Think about how to validate equipping in correct slots
         public event EventHandler<EventArgs> DeathEvent;
-        public Attributes Attributes { get; set; }
+        //public Attributes Attributes { get; set; }
+
+        public List<IAttribute> Attributes { get; set; } 
         public Dictionary<BodyPart, IWeapon> WeaponSet { get; set; }
         public Dictionary<BodyPart, IArmor> Armor { get; set; }
         public List<IItems> Inventory { get; set; }
@@ -35,6 +38,11 @@ namespace RandomRPG.Model
         public ITile CurrentTile { get; set; }
         //prob need an alive flag
         //change to add event on death notify observers
+
+        public IAttribute GetAttribute(AttributeType type)
+        {
+            return Attributes.FirstOrDefault(x => x.Type == type);
+        }
 
         public void SetTargetGladiator(IGladiator gladiator)
         {
@@ -83,9 +91,10 @@ namespace RandomRPG.Model
                     this.DmgMitigated = ArmorMitigationLogic.DefendActionHandler(Armor, Type, Attributes, AbilityList[command].AbilityName);
                     if (netDmg > 0)
                     {
-                        Target.Attributes.HitPoints -= netDmg;
+                        var hp = Target.Attributes.First(x => x.Type == AttributeType.HitPoints);
+                        hp.Value -= netDmg;
 
-                        if (Target.Attributes.HitPoints <= 0)
+                        if (hp.Value <= 0)
                         {
                              Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with your base attack" + "!!", ConsoleColor.Yellow);
                              DeathEventHandler(this, EventArgs.Empty);
@@ -122,14 +131,14 @@ namespace RandomRPG.Model
             int netDmg;
             grossDmg = AttackLogic.AttackActionHandler(AbilityList[command].AbilityName, WeaponSet, Type, Attributes);
             //base dmg mitigation of target
-            mitigatedTargetBase = ArmorMitigationLogic.GetBaseDmgMitigation(Target.Armor, Target.Type,
-                Target.Attributes);
+            mitigatedTargetBase = ArmorMitigationLogic.GetBaseDmgMitigation(Target.Armor, Target.Type, Target.Attributes);
             netDmg = grossDmg - mitigatedTargetBase;
             if (netDmg > 0)
             {
-                Target.Attributes.HitPoints -= netDmg;
+                var hp = Target.Attributes.First(x => x.Type == AttributeType.HitPoints);
+                hp.Value -= netDmg;
                 
-                if (Target.Attributes.HitPoints <= 0)
+                if (hp.Value <= 0)
                 {
                     Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!!",
                     ConsoleColor.Yellow);
@@ -161,9 +170,9 @@ namespace RandomRPG.Model
             netDmg = grossDmg - mitigatedTargetBase - Target.DmgMitigated;
             if (netDmg > 0)
             {
-                Target.Attributes.HitPoints -= netDmg;
-                DisplayHPValues();
-                if (Target.Attributes.HitPoints <= 0)
+                var hp = Target.GetAttribute(AttributeType.HitPoints);
+                hp.Value -= netDmg;
+                if (hp.Value <= 0)
                 {
                     Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "!", ConsoleColor.Red);
                     Text.ColorWriteLine("YOU HAVE BEEN SLAIN!", ConsoleColor.Red);
@@ -180,13 +189,6 @@ namespace RandomRPG.Model
                Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "! You used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Red);
             }
             return netDmg;
-        }
-
-        //Most liekly will move this out somewhere else, Gladiator should not be responsible for this.
-        private void DisplayHPValues()
-        {
-            Text.ColorWriteLine(Target.Name + "- Hit Points: " + Target.Attributes.HitPoints, ConsoleColor.Green);
-            Text.ColorWriteLine(Name + "- Hit Points: " + Attributes.HitPoints + "\n", ConsoleColor.Red);
         }
 
         public int NpcAttack()
@@ -212,10 +214,10 @@ namespace RandomRPG.Model
                     this.DmgMitigated = ArmorMitigationLogic.DefendActionHandler(Armor, Type, Attributes, AbilityList[ability].AbilityName);
                     if (netDmg > 0)
                     {
-                        Target.Attributes.HitPoints -= netDmg;
-                        DisplayHPValues();
+                        var hp = Target.GetAttribute(AttributeType.HitPoints);
+                        hp.Value -= netDmg;
 
-                        if (Target.Attributes.HitPoints <= 0)
+                        if (hp.Value <= 0)
                         {
                             Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "!", ConsoleColor.Red);
                             Text.ColorWriteLine("YOU HAVE BEEN SLAIN!", ConsoleColor.Red);
@@ -245,7 +247,7 @@ namespace RandomRPG.Model
 
         public IGladiator Target { get; set; }
 
-        public Gladiator(Attributes attributes, Dictionary<BodyPart, IWeapon> weaponSet, Dictionary<BodyPart, IArmor> armor, List<IItems> inventory, GladiatorTypes gladType)
+        public Gladiator(List<IAttribute> attributes, Dictionary<BodyPart, IWeapon> weaponSet, Dictionary<BodyPart, IArmor> armor, List<IItems> inventory, GladiatorTypes gladType)
         {
             this.Attributes = attributes;
             this.WeaponSet = weaponSet;

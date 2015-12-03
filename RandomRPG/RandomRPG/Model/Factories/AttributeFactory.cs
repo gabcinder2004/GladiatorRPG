@@ -1,60 +1,61 @@
-﻿using RandomRPG.Model.Enums;
+﻿using System.Collections.Generic;
+using RandomRPG.Model.Enums;
 
 namespace RandomRPG.Model
 {
     public static class AttributeFactory
     {
 
-        public static Attributes GetInstance(GladiatorTypes gladType)
+        public static List<IAttribute> GetInstance(GladiatorTypes gladType)
         {
             switch (gladType.ToString())
             {
                 case "Doctore":
-                    return new Attributes()
+                    return new List<IAttribute>()
                     {
-                        Strength = 25,
-                        Agility = 50,
-                        CritChance = 25,
-                        Vitality = 100,
-                        Energy = 75,
-                        HitPoints = 200
+                        new Strength() {Value = 25},
+                        new Agility() {Value = 50},
+                        new CritChance() {Value = 25},
+                        new Vitality() {Value = 100},
+                        new Energy() {Value = 75},
+                        new HitPoints() {Value = 100}
                     };
 
                 case "Slave":
-                    return new Attributes()
+                    return new List<IAttribute>()
                     {
-                        Strength = 15,
-                        Agility = 10,
-                        CritChance = 10,
-                        Vitality = 50,
-                        Energy = 75,
-                        HitPoints = 100
+                        new Strength() {Value = 15},
+                        new Agility() {Value = 10},
+                        new CritChance() {Value = 10},
+                        new Vitality() {Value = 50},
+                        new Energy() {Value = 75},
+                        new HitPoints() {Value = 100}
                     };
 
                 case "Krixus":
-                    return new Attributes()
+                    return new List<IAttribute>()
                     {
-                        Strength = 50,
-                        Agility = 10,
-                        CritChance = 10,
-                        Vitality = 50,
-                        Energy = 75,
-                        HitPoints = 400
+                        new Strength() {Value = 50},
+                        new Agility() {Value = 10},
+                        new CritChance() {Value = 10},
+                        new Vitality() {Value = 50},
+                        new Energy() {Value = 75},
+                        new HitPoints() {Value = 400}
                     };
 
                 case "Villager":
-                    return new Attributes()
+                    return new List<IAttribute>()
                     {
-                        Strength = 10,
-                        Agility = 10,
-                        CritChance = 10,
-                        Vitality = 25,
-                        Energy = 75,
-                        HitPoints = 50
+                        new Strength() {Value = 10},
+                        new Agility() {Value = 10},
+                        new CritChance() {Value = 10},
+                        new Vitality() {Value = 25},
+                        new Energy() {Value = 75},
+                        new HitPoints() {Value = 50}
                     };
 
                 default:
-                    return new Attributes();
+                    return new List<IAttribute>();
             }
         }
     }

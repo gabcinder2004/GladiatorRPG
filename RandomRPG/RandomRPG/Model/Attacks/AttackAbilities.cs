@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 
@@ -8,12 +9,12 @@ namespace RandomRPG.Model
     public abstract class AttackAbilities : IAbilities
     {
         protected Dictionary<BodyPart, IWeapon> weaponSet;
-        protected Attributes attributes;
+        protected List<IAttribute> attributes;
         protected int attackTypeBonus;
         public abstract string AbilityName { get; set; }
         public abstract string AbilityType { get; set; }
         public abstract int EnergyCost { get; set; }
-        protected AttackAbilities(Dictionary<BodyPart, IWeapon> weaponSet, Attributes attributes)
+        protected AttackAbilities(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
         {
             this.weaponSet = weaponSet;
             this.attributes = attributes;
@@ -26,12 +27,12 @@ namespace RandomRPG.Model
         public virtual int Execute()
         {
             //Will change
-            int strbonusModifier = Convert.ToInt32(Math.Round(attributes.Strength * .25));
+            int strbonusModifier = Convert.ToInt32(Math.Round(attributes.First(x => x.Type == AttributeType.Strength).Value * .25));
             int totalDmg = strbonusModifier;
             foreach (var key in weaponSet)
             {
                 int critIndicator = new Random().Next(0, 101);
-                if (critIndicator <= attributes.CritChance)
+                if (critIndicator <= attributes.First(x => x.Type == AttributeType.CritChance).Value)
                 {
                     //crit
                     totalDmg += Convert.ToInt32(Math.Round(key.Value.DamageOutput() * 1.5));

@@ -5,8 +5,21 @@ using RandomRPG.Model.Enums;
 
 namespace RandomRPG.Utilities
 {
+    public enum ConsoleSide
+    {
+        Left,
+        Right
+    }
+
     public static class Text
     {
+        public static void WriteLine(ConsoleSide side, int top, string output)
+        { 
+            var left = (side == ConsoleSide.Left) ? 1 : Console.WindowWidth / 2;
+            Console.SetCursorPosition(left, top);
+            Console.WriteLine(output);
+        }
+
         public static void Write(string output)
         {
             Console.Write(output);
@@ -27,7 +40,7 @@ namespace RandomRPG.Utilities
 
             try
             {
-                result = (T)Convert.ChangeType(Console.ReadLine(), typeof (T));
+                result = (T)Convert.ChangeType(Console.ReadLine(), typeof(T));
             }
             catch (Exception)
             {
@@ -66,7 +79,7 @@ namespace RandomRPG.Utilities
         public static void Clear()
         {
             Console.Clear();
-            WriteLine(Header.Get());
+            Header.PrintHeader();
             //if (Player.Instance.CurrentGladiator != null && Program.GameState == GameState.Playing)
             //{
             //    ColorWriteLine(Player.Instance.CurrentGladiator.Name+ "-" + Player.Instance.CurrentGladiator.Attributes.HitPoints + " (HP)", ConsoleColor.Green);
@@ -80,7 +93,7 @@ namespace RandomRPG.Utilities
         public static void ClearWithAbilities()
         {
             Console.Clear();
-            WriteLine(Header.Get());
+            Header.PrintHeader();
             Divider();
             //display over max
             WriteLine(Player.Instance.CurrentGladiator.Name + "'s Abilities:\n");

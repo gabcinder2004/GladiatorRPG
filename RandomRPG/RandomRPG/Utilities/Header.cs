@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using RandomRPG.Model;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
@@ -12,43 +13,44 @@ namespace RandomRPG.Utilities
         public static bool Logo = true;
         public static ZoneMap Map = null; 
 
-        public static string Get()
+        public static void PrintHeader()
         {
             if (Map == null)
-                return Resources.GladiatorLogo;
+            {
+                Text.WriteLine(Resources.GladiatorLogo);
+                return;
+            }
 
+            if (Program.GameState == GameState.Playing)
+            {
+                BuildMap(Map);
+                PrintCharacterStatus();
+                Console.SetCursorPosition(1, 10);
+                return;
+            } 
 
-            var header = $"{BuildMap(Map)}{Environment.NewLine}";
-            return header;
+            //We're in battle mode
+            PrintCharacterStatus();
         }
 
-        public static string GetCharacterStatus()
+        public static void PrintCharacterStatus()
         {
             var gladiator = Player.Instance.CurrentGladiator;
-            //Add alignment with format modifiers http://www.csharp-examples.net/align-string-with-spaces/, also add colors
-            return $"{gladiator.Name}&" +
-                   $"Hit Points: {gladiator.Attributes.HitPoints}&" +
-                   $"Energy: {gladiator.Attributes.Energy}&" +
-                   $"Strength: {gladiator.Attributes.Strength}&" +
-                   $"Agility: {gladiator.Attributes.Agility}&" +
-                   $"Vitality: {gladiator.Attributes.Vitality}&" +
-                   $"Crit Chance: {gladiator.Attributes.CritChance}&" +
-                   $"Kills: {gladiator.Kills}&";
 
+            for (int i = 0; i < gladiator.Attributes.Count; i++)
+            {
+                var attribute = gladiator.Attributes[i];
+                Text.WriteLine(ConsoleSide.Right, i+1, $"{attribute.Type}: {attribute.Value}");
+            }    
         }
 
-        public static string BuildMap(ZoneMap map)
+        public static void BuildMap(ZoneMap map)
         {
-            if (Program.GameState == GameState.Battle)
-            {
-                return string.Empty;
-            }
-            int counter = 0;
-            var array = GetCharacterStatus().Split('&');
-            var result = string.Empty;
 
             for (int x = 0; x < map.MapWidth; x++)
             {
+                var result = string.Empty;
+
                 for (int y = 0; y < map.MapHeight; y++)
                 {
                     var tile = map.GetTile(x, y);
@@ -69,15 +71,9 @@ namespace RandomRPG.Utilities
                         }
                     }
                 }
-                if (counter < array.Length-1)
-                {
-                    result += "                              " + array[counter];
-                    counter ++;
-                }
-                result += Environment.NewLine;
-            }
 
-            return result;
+                Text.WriteLine(ConsoleSide.Left, x, result);
+            }
         }
     }
 }

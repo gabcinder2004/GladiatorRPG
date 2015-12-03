@@ -1,4 +1,5 @@
-﻿using RandomRPG.Model.Enums;
+﻿using System.Collections.Generic;
+using RandomRPG.Model.Enums;
 using RandomRPG.Utilities;
 
 namespace RandomRPG.Model.Interfaces
@@ -9,7 +10,7 @@ namespace RandomRPG.Model.Interfaces
     public interface IUnit
     {
         string Name { get; set; }
-        Attributes Attributes { get; set; }
+        List<IAttribute> Attributes { get; set; }
         //T Type { get; set; }
         // ^ We gotta talk about this ^
         ITile CurrentTile { get; set; }
