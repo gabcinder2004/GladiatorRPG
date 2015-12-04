@@ -20,8 +20,7 @@ namespace RandomRPG.Model.Interfaces
         IZone CurrentZone { get; set; }
         event EventHandler<EventArgs> DeathEvent;
         void SetTargetGladiator(IGladiator gladiator);
-        GladiatorTypes Type { get; set; }
-
+        int MaxEnergyValue { get; set; }
         IAttribute GetAttribute(AttributeType type);
         List<IAbilities> AbilityList { get; set; }
         void DisplayAbilityOptions();

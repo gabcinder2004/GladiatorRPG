@@ -19,7 +19,7 @@ namespace RandomRPG.Model.Units
         //Think about making some of this private when we decide what we dont want available
         //Think about how to validate equipping in correct slots
         public event EventHandler<EventArgs> DeathEvent;
-
+        public int MaxEnergyValue { get; set; }
         public List<IAttribute> Attributes { get; set; } 
         public Dictionary<BodyPart, IWeapon> WeaponSet { get; set; }
         public Dictionary<BodyPart, IArmor> Armor { get; set; }
@@ -56,6 +56,7 @@ namespace RandomRPG.Model.Units
         private void DeathEventHandler(object o, EventArgs e)
         {
             Target.IsAlive = false;
+            this.RestoreMaxEnergy();
             Text.ColorWriteLine("Dead! " + Target.Name + " has been slained by " + ((IGladiator)o).Name + "!", ConsoleColor.White);
             Target.Target = null;
             Kills ++;
@@ -206,6 +207,7 @@ namespace RandomRPG.Model.Units
 
         public int NpcAttack()
         {
+            this.RegenerateEnergy();
             Random rand = new Random();
             int ability = rand.Next(0, AbilityList.Count);
             string abilityType = AbilityList[ability].AbilityType;
@@ -289,8 +291,10 @@ namespace RandomRPG.Model.Units
             this.IsAlive = true;
             this.DmgMitigated = 0;
             this.Kills = 0;
+            this.MaxEnergyValue = this.GetAttribute(AttributeType.Energy).Value;
             this.Reputation = Reputation.Hostile;
             InteractionTriggered += OnInteractionTriggered;
+
         }
 
         private void OnInteractionTriggered(IGladiator unit)

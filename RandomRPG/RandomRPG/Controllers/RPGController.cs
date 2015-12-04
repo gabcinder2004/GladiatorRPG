@@ -88,6 +88,7 @@ namespace RandomRPG.Controllers
             Player.Instance.CurrentGladiator.Target.NpcAttack();
             if (Player.Instance.CurrentGladiator.IsAlive)
             {
+                Player.Instance.CurrentGladiator.RegenerateEnergy();
                 int ability = Text.Prompt<int>("Choose an Ability");
                 Player.Instance.CurrentGladiator.Attack(ability-1);
             }
@@ -136,6 +137,7 @@ namespace RandomRPG.Controllers
             Player.Instance.CurrentGladiator.CurrentZone.Map.MoveUnit(direction, Player.Instance.CurrentGladiator);
         }
     }
+
 
     public enum GameEvent
     {
