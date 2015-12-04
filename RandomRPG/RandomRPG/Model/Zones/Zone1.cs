@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using RandomRPG.Controllers;
 using RandomRPG.Model.Enums;
+using RandomRPG.Model.Gladiators;
 using RandomRPG.Model.Interfaces;
 using RandomRPG.Utilities;
 
@@ -38,9 +39,18 @@ namespace RandomRPG.Model.Zones
                 //Need a random name generator
                 if (Map.GetTile(x, y) == null)
                 {
-                    IGladiator glad = new Gladiator(((GladiatorTypes)gladType).ToString(), (GladiatorTypes) gladType);
-                    Map.SetTile(x, y, glad);
-                    counter ++;
+                    if (counter < 3)
+                    {
+                        IGladiator glad = new Gladiator(((GladiatorTypes)gladType).ToString(), (GladiatorTypes)gladType);
+                        Map.SetTile(x, y, glad);
+                    }
+                    else
+                    {
+                        //// Hardcoded for now.
+                        ICivilian villager = new Villager("VillagerNameNeeded", AttributeFactory.GetInstance("Villager"), Reputation.Friendly, new List<string> { "Prompt1", "Prompt2" });
+                        Map.SetTile(x, y, villager);
+                    }
+                    counter++;
                 }
             }
 
@@ -53,7 +63,7 @@ namespace RandomRPG.Model.Zones
                 if (Map.GetTile(x, y) == null)
                 {
                     Map.SetTile(x, y, Player.Instance.CurrentGladiator);
-                    playerCount ++;
+                    playerCount++;
                 }
             }
         }

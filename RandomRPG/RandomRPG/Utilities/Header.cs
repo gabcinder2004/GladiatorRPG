@@ -55,7 +55,6 @@ namespace RandomRPG.Utilities
 
         public static void BuildMap(ZoneMap map)
         {
-
             for (int x = 0; x < map.MapWidth; x++)
             {
                 var result = string.Empty;

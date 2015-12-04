@@ -6,9 +6,9 @@ namespace RandomRPG.Model
     public static class AttributeFactory
     {
 
-        public static List<IAttribute> GetInstance(GladiatorTypes gladType)
+        public static List<IAttribute> GetInstance(string type)
         {
-            switch (gladType.ToString())
+            switch (type)
             {
                 case "Doctore":
                     return new List<IAttribute>()

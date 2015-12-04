@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 using RandomRPG.Utilities;
@@ -62,9 +58,9 @@ namespace RandomRPG.Model.Zones
                 _map[x, y] = (Tile)glad.CurrentTile;
                 return;
             }
-
-            Player.Instance.CurrentGladiator.SetTargetGladiator((IGladiator)GetTile(x, y).OccupyingUnit);
-            Program.GameState = GameState.Battle;
+            
+            IUnit target = GetTile(x, y).OccupyingUnit;
+            target.InteractionTriggered(glad as IGladiator);
         }
 
         private bool IsOutOfBounds(int x, int y)

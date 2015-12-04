@@ -49,7 +49,6 @@ namespace RandomRPG
                         break;
 
                     case GameState.Playing:
-                        Text.Clear();
                         if (Player.Instance.CurrentGladiator.CurrentZone == null)
                         {
                             IZone currentZone = ZoneFactory.GetZone(ZoneLevel.One);

@@ -22,7 +22,6 @@ namespace RandomRPG.Model.ArmorMitigation
                 case "Krixus":
                     return KrixusDefendHandler(command, armorSet, attributes);
                 case "Villager":
-
                     return VillagerDefendHandler(command, armorSet, attributes);
                 default:
                     return 0;

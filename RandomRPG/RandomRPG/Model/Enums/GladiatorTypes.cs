@@ -5,6 +5,5 @@
         Doctore,
         Slave,
         Krixus,
-        Villager
     }
 }
