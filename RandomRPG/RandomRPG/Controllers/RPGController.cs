@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using RandomRPG.Model;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
+using RandomRPG.Model.Units;
 using RandomRPG.Model.Zones;
 using RandomRPG.Utilities;
 

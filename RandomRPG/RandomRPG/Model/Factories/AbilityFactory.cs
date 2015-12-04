@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RandomRPG.Model.ArmorMitigation;
+using RandomRPG.Model.Attacks;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 

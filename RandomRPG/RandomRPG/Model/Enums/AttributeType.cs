@@ -1,4 +1,4 @@
-namespace RandomRPG.Model
+namespace RandomRPG.Model.Enums
 {
     public enum AttributeType
     {

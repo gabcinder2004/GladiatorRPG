@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using RandomRPG.Controllers;
 using RandomRPG.Model.ArmorMitigation;
+using RandomRPG.Model.Attacks;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Factories;
 using RandomRPG.Model.Interfaces;
-using RandomRPG.Model.Zones;
 using RandomRPG.Utilities;
 
-namespace RandomRPG.Model
+namespace RandomRPG.Model.Units
 {
     public class Gladiator : IGladiator
     {

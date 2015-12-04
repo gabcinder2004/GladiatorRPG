@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 
-namespace RandomRPG.Model
+namespace RandomRPG.Model.Weapons
 {
     //Going to do same with this as gladiator, also think about adding attributes to items.
     public class Weapon : IWeapon

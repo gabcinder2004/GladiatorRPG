@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using RandomRPG.Controllers;
-using RandomRPG.Utilities;
+using RandomRPG.Model.Zones;
 
-namespace RandomRPG.Model.Zones
+namespace RandomRPG.Model.Interfaces
 {
     public interface IZone
     {

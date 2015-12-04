@@ -5,8 +5,9 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using RandomRPG.Controllers;
 using RandomRPG.Model.Enums;
-using RandomRPG.Model.Gladiators;
+using RandomRPG.Model.Factories;
 using RandomRPG.Model.Interfaces;
+using RandomRPG.Model.Units;
 using RandomRPG.Utilities;
 
 namespace RandomRPG.Model.Zones

@@ -5,7 +5,7 @@ using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 using RandomRPG.Utilities;
 
-namespace RandomRPG.Model.Gladiators
+namespace RandomRPG.Model.Units
 {
     public class Villager : ICivilian
     {

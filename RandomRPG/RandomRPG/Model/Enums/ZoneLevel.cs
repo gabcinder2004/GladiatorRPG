@@ -1,4 +1,4 @@
-﻿namespace RandomRPG.Model.Factories
+﻿namespace RandomRPG.Model.Enums
 {
     public enum ZoneLevel
     {

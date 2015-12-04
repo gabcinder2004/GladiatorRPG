@@ -5,7 +5,7 @@ using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 using RandomRPG.Utilities;
 
-namespace RandomRPG.Model
+namespace RandomRPG.Model.Attacks
 {
     public abstract class AttackAbilities : IAbilities
     {

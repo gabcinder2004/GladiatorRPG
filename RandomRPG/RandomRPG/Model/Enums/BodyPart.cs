@@ -8,11 +8,4 @@
         LeftHand,
         RightHand
     }
-
-    public enum Reputation
-    {
-        Friendly,
-        Hostile,
-        Neutral
-    }
 }

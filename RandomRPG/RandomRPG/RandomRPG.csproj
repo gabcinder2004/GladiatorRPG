@@ -53,6 +53,7 @@
     <Compile Include="Model\Enums\ArmorTypes.cs" />
     <Compile Include="Model\Enums\Directions.cs" />
     <Compile Include="Model\Enums\GladiatorTypes.cs" />
+    <Compile Include="Model\Enums\Reputation.cs" />
     <Compile Include="Model\Enums\WeaponTypes.cs" />
     <Compile Include="Model\Factories\AbilityFactory.cs" />
     <Compile Include="Model\Factories\ArmorFactory.cs" />

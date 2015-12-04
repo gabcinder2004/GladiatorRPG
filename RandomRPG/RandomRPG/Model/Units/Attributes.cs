@@ -1,6 +1,7 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using RandomRPG.Model.Enums;
+using RandomRPG.Model.Interfaces;
 
-namespace RandomRPG.Model
+namespace RandomRPG.Model.Units
 {
     public class Strength : IAttribute
     {

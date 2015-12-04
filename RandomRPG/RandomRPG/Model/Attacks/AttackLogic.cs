@@ -4,7 +4,7 @@ using System.Linq;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 
-namespace RandomRPG.Model
+namespace RandomRPG.Model.Attacks
 {
     public static class AttackLogic
     {

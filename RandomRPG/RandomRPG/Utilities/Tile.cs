@@ -2,6 +2,9 @@ using RandomRPG.Model.Interfaces;
 
 namespace RandomRPG.Utilities
 {
+    /// <summary>
+    /// This doesn't belong in Utilities. Look to find this file a new home somewhere else in the solution.
+    /// </summary>
     public class Tile : ITile
     {
         public IUnit OccupyingUnit { get; set; }

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using RandomRPG.Model.Enums;
+using RandomRPG.Model.Interfaces;
+using RandomRPG.Model.Units;
 
-namespace RandomRPG.Model
+namespace RandomRPG.Model.Factories
 {
     public static class AttributeFactory
     {

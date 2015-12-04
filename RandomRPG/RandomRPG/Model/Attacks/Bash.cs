@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
-using RandomRPG.Utilities;
 
-namespace RandomRPG.Model
+namespace RandomRPG.Model.Attacks
 {
     public class Bash : AttackAbilities
     {
