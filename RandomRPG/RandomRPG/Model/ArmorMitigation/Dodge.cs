@@ -17,7 +17,7 @@ namespace RandomRPG.Model.ArmorMitigation
         {
             this.AbilityName = "Dodge";
             this.AbilityType = "Defensive";
-            this.EnergyCost = 50;
+            this.EnergyCost = 0;
         }
 
         public override int Execute()

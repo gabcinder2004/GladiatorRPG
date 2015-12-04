@@ -69,7 +69,7 @@ namespace RandomRPG.Model.Units
         {
             for (int i = 0; i < AbilityList.Count; i++)
             {
-                Text.ColorWriteLine(i+1 + ") " + AbilityList[i].AbilityName, ConsoleColor.Magenta);
+                Text.ColorWriteLine(i+1 + ") " + AbilityList[i].AbilityName + "(" + AbilityList[i].EnergyCost + ")", ConsoleColor.Magenta);
             }
         }
 

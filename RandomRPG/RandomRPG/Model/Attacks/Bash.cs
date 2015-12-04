@@ -28,6 +28,8 @@ namespace RandomRPG.Model.Attacks
         {
             this.AbilityName = "Bash";
             this.AbilityType = "Offensive";
+            this.EnergyCost = 10;
+            this.attackTypeBonus = 5;
         }
 
         public override string ToString()
