@@ -28,5 +28,6 @@ namespace RandomRPG.Model.Interfaces
         IAbilities LastDefensiveAbility { get; set; }
         int DmgMitigated { get; set; }
         int Kills { get; set; }
+        GladiatorTypes Type { get; set; }
     }
 }

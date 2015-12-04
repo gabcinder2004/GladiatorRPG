@@ -40,7 +40,7 @@ namespace RandomRPG.Model.Zones
                 //Need a random name generator
                 if (Map.GetTile(x, y) == null)
                 {
-                    if (counter < 3)
+                    if (counter < 5)
                     {
                         IGladiator glad = new Gladiator(((GladiatorTypes)gladType).ToString(), (GladiatorTypes)gladType);
                         Map.SetTile(x, y, glad);
@@ -55,8 +55,8 @@ namespace RandomRPG.Model.Zones
                 }
             }
 
-            int playerCount = 1;
-            while (playerCount < 2)
+            bool playerInserted = false;
+            while (!playerInserted)
             {
                 Random rand = new Random();
                 x = rand.Next(0, Map.MapHeight);
@@ -64,7 +64,7 @@ namespace RandomRPG.Model.Zones
                 if (Map.GetTile(x, y) == null)
                 {
                     Map.SetTile(x, y, Player.Instance.CurrentGladiator);
-                    playerCount++;
+                    playerInserted = true;
                 }
             }
         }

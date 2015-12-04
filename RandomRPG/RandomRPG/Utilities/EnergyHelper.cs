@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using RandomRPG.Model;
+using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 
 namespace RandomRPG.Utilities
@@ -17,7 +12,7 @@ namespace RandomRPG.Utilities
             if(currentEnergy == glad.MaxEnergyValue)
                 return;
 
-            int energyRegenPerTurn = Convert.ToInt32(glad.GetAttribute(AttributeType.Vitality).Value*.10);
+            int energyRegenPerTurn = Convert.ToInt32(glad.GetAttribute(AttributeType.Vitality).Value*.05);
 
             if (currentEnergy + energyRegenPerTurn >= glad.MaxEnergyValue)
             {

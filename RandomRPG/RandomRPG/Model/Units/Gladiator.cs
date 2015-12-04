@@ -294,7 +294,6 @@ namespace RandomRPG.Model.Units
             this.MaxEnergyValue = this.GetAttribute(AttributeType.Energy).Value;
             this.Reputation = Reputation.Hostile;
             InteractionTriggered += OnInteractionTriggered;
-
         }
 
         private void OnInteractionTriggered(IGladiator unit)
