@@ -94,6 +94,7 @@ namespace RandomRPG.Utilities
         {
             Console.Clear();
             Header.PrintHeader();
+            Console.SetCursorPosition(0, Player.Instance.CurrentGladiator.Attributes.Count + 2);
             Divider();
             //display over max
             WriteLine(Player.Instance.CurrentGladiator.Name + "'s Abilities:\n");

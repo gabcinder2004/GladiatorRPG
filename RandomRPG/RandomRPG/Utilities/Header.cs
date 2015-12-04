@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using RandomRPG.Model;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
@@ -25,7 +26,7 @@ namespace RandomRPG.Utilities
             {
                 BuildMap(Map);
                 PrintCharacterStatus();
-                Console.SetCursorPosition(1, 10);
+                Console.SetCursorPosition(0, 10);
                 return;
             } 
 
@@ -36,12 +37,20 @@ namespace RandomRPG.Utilities
         public static void PrintCharacterStatus()
         {
             var gladiator = Player.Instance.CurrentGladiator;
-
+            Text.WriteLine(ConsoleSide.Right, 1, gladiator.Name + " Stats:");
             for (int i = 0; i < gladiator.Attributes.Count; i++)
             {
                 var attribute = gladiator.Attributes[i];
-                Text.WriteLine(ConsoleSide.Right, i+1, $"{attribute.Type}: {attribute.Value}");
-            }    
+                Text.WriteLine(ConsoleSide.Right, i+2, $"{attribute.Type}: {attribute.Value}");
+            }
+            if (gladiator.Target != null)
+            {
+                var hp = gladiator.Target.Attributes.First(x => x.Type == AttributeType.HitPoints);
+                var energy  = gladiator.Target.Attributes.First(x => x.Type == AttributeType.Energy);
+                Text.WriteLine(ConsoleSide.Left, 1,gladiator.Target.Name + " Stats:");
+                Text.WriteLine(ConsoleSide.Left, 2,gladiator.Target.Name + " " + hp.Type + ": " + hp.Value);
+                Text.WriteLine(ConsoleSide.Left, 3,gladiator.Target.Name + " " + energy.Type + ": " + energy.Value);
+            }
         }
 
         public static void BuildMap(ZoneMap map)

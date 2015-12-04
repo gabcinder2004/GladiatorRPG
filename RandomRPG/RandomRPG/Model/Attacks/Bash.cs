@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
+using RandomRPG.Utilities;
 
 namespace RandomRPG.Model
 {
@@ -21,8 +23,8 @@ namespace RandomRPG.Model
 
         public override int Execute()
         {
-            //Will change
-            return base.Execute() + attackTypeBonus;
+            return base.Execute() + this.attackTypeBonus;
+
         }
 
         public Bash()

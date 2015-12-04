@@ -100,24 +100,27 @@ namespace RandomRPG.Model
                              DeathEventHandler(this, EventArgs.Empty);
                              return netDmg;
                         }
-                    }
-                    if (Target.LastDefensiveAbility == null)
+                        if (Target.LastDefensiveAbility == null)
                         {
                             Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with your base attack" + "!!",
-                        ConsoleColor.Yellow);
+                            ConsoleColor.Yellow);
                             Text.ColorWriteLine(
                                 "You attempt to " + AbilityList[command].AbilityName + " the next attack!",
                                 ConsoleColor.Yellow);
                         }
-                    else
+                        else
                         {
                             Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!! " + Target.Name + " used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Yellow);
                             Text.ColorWriteLine(
                                 "You attempt to " + AbilityList[command].AbilityName + " the next attack!",
                                 ConsoleColor.Yellow);
-                        }
+                        } 
+                        return netDmg;
+                    }
+                    
                     //no damage
-                    return 0;
+                    Text.ColorWriteLine("You miss your attack on " + Target.Name + "! You do not have enough energy!", ConsoleColor.Yellow);
+                    return netDmg;
                 }
             }
             Text.ColorWriteLine("No Target!", ConsoleColor.Yellow);
@@ -145,16 +148,21 @@ namespace RandomRPG.Model
                     DeathEventHandler(this, EventArgs.Empty);
                     return netDmg;
                 };
-            }
-            if (Target.LastDefensiveAbility == null)
-            {
-               Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!!",
+
+                if (Target.LastDefensiveAbility == null)
+                {
+                    Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!!",
                     ConsoleColor.Yellow);
+                }
+                else
+                {
+                    Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!! " + Target.Name + " used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Yellow);
+                }
+                return netDmg;
             }
-            else
-            {
-               Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!! " + Target.Name + " used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Yellow);
-            }
+
+              Text.ColorWriteLine("You miss your attack on " + Target.Name + "! You do not have enough energy!", ConsoleColor.Yellow);  
+            
             return netDmg;
         }
 
@@ -179,15 +187,19 @@ namespace RandomRPG.Model
                     DeathEventHandler(this, EventArgs.Empty);
                     return netDmg;
                 }
+                if (Target.LastDefensiveAbility == null)
+                {
+                    Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "!", ConsoleColor.Red);
+                }
+                else
+                {
+                    Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "! You used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Red);
+                }
+                return netDmg;
             }
-            if (Target.LastDefensiveAbility == null)
-            {
-               Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "!", ConsoleColor.Red);
-            }
-            else
-            {
-               Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "! You used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Red);
-            }
+
+            Text.ColorWriteLine(Name + " has missed their attack on you! " + Name + " is low on energy!", ConsoleColor.Red);
+
             return netDmg;
         }
 
@@ -224,19 +236,21 @@ namespace RandomRPG.Model
                              DeathEventHandler(this, EventArgs.Empty);
                              return netDmg;
                         }
-                    }
-                    if (Target.LastDefensiveAbility == null)
-                    {
-                        Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "!", ConsoleColor.Red);
-                        Text.ColorWriteLine(Name + " will attempt to " +  AbilityList[ability].AbilityName + " the next attack!", ConsoleColor.Red);
-                    }
-                    else
-                    {
-                        Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "! You used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Red);
-                        Text.ColorWriteLine(Name + " will attempt to " +  AbilityList[ability].AbilityName + " the next attack!", ConsoleColor.Red);
+                        if (Target.LastDefensiveAbility == null)
+                        {
+                            Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "!", ConsoleColor.Red);
+                            Text.ColorWriteLine(Name + " will attempt to " +  AbilityList[ability].AbilityName + " the next attack!", ConsoleColor.Red);
+                        }
+                        else
+                        {
+                            Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "! You used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Red);
+                            Text.ColorWriteLine(Name + " will attempt to " +  AbilityList[ability].AbilityName + " the next attack!", ConsoleColor.Red);
+                        }
+                        return netDmg;
                     }
                     //no damage
-                    return 0;
+                     Text.ColorWriteLine(Name + " has missed their attack on you! " + Name + " is low on energy!", ConsoleColor.Red);
+                    return netDmg;
                  }
             }
             //move to resource possibly

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
+using RandomRPG.Utilities;
 
 namespace RandomRPG.Model
 {
@@ -24,7 +25,7 @@ namespace RandomRPG.Model
         {
         }
 
-        public virtual int Execute()
+        protected virtual int DamageCalculation()
         {
             //Will change
             int strbonusModifier = Convert.ToInt32(Math.Round(attributes.First(x => x.Type == AttributeType.Strength).Value * .25));
@@ -50,6 +51,18 @@ namespace RandomRPG.Model
             {
                 return totalDmg;
             }
+        }
+
+        public virtual int Execute()
+        {
+            if (attributes.First(x => x.Type == AttributeType.Energy).Value >= EnergyCost)
+            {
+                attributes.First(x => x.Type == AttributeType.Energy).Value -= EnergyCost;
+                return this.DamageCalculation();
+            }
+            //What happens when no energy?
+            Text.ColorWriteLine("You do not have enough energy for " + this.AbilityName + "!", ConsoleColor.Cyan);
+            return 0;
         }
     }
 }

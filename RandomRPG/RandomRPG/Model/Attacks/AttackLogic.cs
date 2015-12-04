@@ -79,7 +79,7 @@ namespace RandomRPG.Model
         public static int GetBaseAttackDmg(Dictionary<BodyPart, IWeapon> weaponSet, GladiatorTypes type,
             List<IAttribute> attributes)
         {
-            int dmg = Convert.ToInt32(attributes.First(x => x.Type == AttributeType.Strength).Value *.25);
+            int dmg = Convert.ToInt32(attributes.First(x => x.Type == AttributeType.Strength).Value * .25);
             foreach (var weapon in weaponSet)
             {
                 dmg += weapon.Value.DamageOutput();
