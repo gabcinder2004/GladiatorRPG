@@ -99,7 +99,6 @@ namespace RandomRPG.Utilities
             Console.Clear();
             Header.PrintHeader();
             Divider();
-
         }
 
         public static void ClearWithAbilities()

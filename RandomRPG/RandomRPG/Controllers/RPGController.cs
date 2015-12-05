@@ -19,14 +19,14 @@ namespace RandomRPG.Controllers
         public void MainMenu()
         {
             var menuOptions = EnumUtil.GetValues<MainMenuOptions>().ToList();
-            var menuString = string.Empty;
 
+            var options = new List<MenuOption>();
             for (var i = 0; i < menuOptions.Count(); i++)
             {
-                menuString += $"{i+1}) {menuOptions[i]} {Environment.NewLine}";
+                options.Add(new MenuOption((i+1).ToString()[0], menuOptions[i].ToString()));
             }
 
-            var choice = Text.Prompt<int>(string.Format(Resources.MainMenu, menuString)) - 1;
+            var choice = Convert.ToInt32(char.GetNumericValue(Text.PromptCharacter(Resources.MainMenu, options)) - 1);
 
             if (menuOptions.Count < choice) return;
 

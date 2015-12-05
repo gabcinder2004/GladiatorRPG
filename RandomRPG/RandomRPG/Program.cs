@@ -20,7 +20,7 @@ namespace RandomRPG
     {
         #region Declarations
 
-        public const int ConsoleWidth = 100;
+        public const int ConsoleWidth = 75;
         public const int ConsoleHeight = 60;
         public static bool RunningGame = true;
 

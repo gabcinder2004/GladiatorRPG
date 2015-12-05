@@ -136,8 +136,7 @@
     <value>Welcome to Gladiator RPG!</value>
   </data>
   <data name="MainMenu" xml:space="preserve">
-    <value>Select an option: 
-{0}</value>
+    <value>Select an option: </value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>RPG Game v0.01</value>

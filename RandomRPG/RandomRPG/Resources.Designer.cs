@@ -103,8 +103,7 @@ namespace RandomRPG {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select an option: 
-        ///{0}.
+        ///   Looks up a localized string similar to Select an option: .
         /// </summary>
         public static string MainMenu {
             get {
