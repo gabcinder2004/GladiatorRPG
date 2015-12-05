@@ -54,12 +54,6 @@ namespace RandomRPG.Controllers
             Text.WriteLine(Resources.CharacterCreation_Intro);
             Text.Divider();
             var name = Text.Prompt(Resources.CharacterCreation_Name);
-
-            if (name == string.Empty)
-            {
-                
-            }
-
             Player.Instance.CurrentGladiator = new Slave(name);
             Player.Instance.Gladiators.Add(Player.Instance.CurrentGladiator);
             Program.GameState = GameState.Playing;
