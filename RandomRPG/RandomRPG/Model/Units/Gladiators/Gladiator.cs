@@ -93,6 +93,7 @@ namespace RandomRPG.Model.Units
                     {
                         var hp = Target.Attributes.First(x => x.Type == AttributeType.HitPoints);
                         hp.Value -= netDmg;
+                        Text.ClearWithAbilities();
 
                         if (hp.Value <= 0)
                         {
@@ -134,6 +135,8 @@ namespace RandomRPG.Model.Units
             int mitigatedTargetBase;
             int netDmg;
             grossDmg = ((IOffensiveAbilities)AbilityList[command]).Execute(this.WeaponSet, this.Attributes);
+            this.RegenerateEnergy();
+
             //base dmg mitigation of target
             mitigatedTargetBase = TargetGladiator.GetBaseDmgMitigation(TargetGladiator.Armor, Target.Attributes);
             netDmg = grossDmg - mitigatedTargetBase;

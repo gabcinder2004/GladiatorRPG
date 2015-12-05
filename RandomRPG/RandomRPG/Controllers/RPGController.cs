@@ -88,7 +88,6 @@ namespace RandomRPG.Controllers
             ((NpcGladiator) Player.Instance.CurrentGladiator.Target).Attack();
             if (Player.Instance.CurrentGladiator.IsAlive)
             {
-                Player.Instance.CurrentGladiator.RegenerateEnergy();
                 int ability = Text.Prompt<int>("Choose an Ability");
                 Player.Instance.CurrentGladiator.Attack(ability-1);
             }

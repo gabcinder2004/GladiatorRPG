@@ -21,7 +21,6 @@ namespace RandomRPG.Model.Units
 
         public int Attack()
         {
-            this.RegenerateEnergy();
             Random rand = new Random();
             int ability = rand.Next(0, AbilityList.Count);
 
@@ -82,6 +81,7 @@ namespace RandomRPG.Model.Units
             int mitigatedTargetBase;
             int netDmg;
             grossDmg = ((IOffensiveAbilities)AbilityList[command]).Execute(this.WeaponSet, this.Attributes);
+            this.RegenerateEnergy();
             //base dmg mitigation of target
             mitigatedTargetBase = TargetGladiator.GetBaseDmgMitigation(TargetGladiator.Armor, Target.Attributes);
             netDmg = grossDmg - mitigatedTargetBase - TargetGladiator.DmgMitigated;
@@ -89,6 +89,7 @@ namespace RandomRPG.Model.Units
             {
                 var hp = TargetGladiator.GetAttribute(AttributeType.HitPoints);
                 hp.Value -= netDmg;
+                Text.ClearWithAbilities();
                 if (hp.Value <= 0)
                 {
                     Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "!", ConsoleColor.Red);
