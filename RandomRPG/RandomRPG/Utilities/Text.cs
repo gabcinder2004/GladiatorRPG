@@ -76,10 +76,18 @@ namespace RandomRPG.Utilities
             Console.WriteLine("===========================================================================");
         }
 
-        public static string Prompt(string output)
+        public static string Prompt(string output, bool error = false)
         {
+            Clear();
+            if (error)
+            {
+                ColorWriteLine("Invalid input", ConsoleColor.Red);
+            }
+
             WriteLine(output);
-            return Console.ReadLine();
+            var result = Console.ReadLine();
+
+            return string.IsNullOrEmpty(result) ? Prompt(output, true) : result;
         }
 
         public static void WriteLine(string output)
