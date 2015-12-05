@@ -60,8 +60,7 @@
     <Compile Include="Model\Factories\AttributeFactory.cs" />
     <Compile Include="Model\Factories\NpcFactory.cs" />
     <Compile Include="Model\Attributes.cs" />
-    <Compile Include="Model\Factories\RandomNameGenerator.cs" />
-    <Compile Include="Model\Factories\VillagerFactory.cs" />
+    <Compile Include="Utilities\NameGenerator.cs" />
     <Compile Include="Model\Attacks\AttackAbilities.cs" />
     <Compile Include="Model\Attacks\Bash.cs" />
     <Compile Include="Model\Factories\ZoneFactory.cs" />
