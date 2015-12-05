@@ -14,6 +14,8 @@ namespace RandomRPG.Utilities
 
     public static class Text
     {
+        private static int consoleTopAfterHeader = 8;
+        private static bool errorMessageDisplayed = false;
         public static void WriteLine(ConsoleSide side, int top, string output)
         { 
             var left = (side == ConsoleSide.Left) ? 1 : Console.WindowWidth / 2;
@@ -28,10 +30,15 @@ namespace RandomRPG.Utilities
 
         public static char PromptCharacter(string output, List<MenuOption> options, bool error = false)
         {
-            Clear();
             if (error)
             {
-                ColorWriteLine("Invalid input", ConsoleColor.Red);    
+                if (errorMessageDisplayed)
+                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - (options.Count + 2));
+                else
+                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - (options.Count + 1));
+                ClearCurrentConsoleLine();
+                ColorWriteLine("Invalid input", ConsoleColor.Red);
+                errorMessageDisplayed = true;
             }
 
             WriteLine(output);
@@ -45,6 +52,7 @@ namespace RandomRPG.Utilities
 
             if (options.All(x => x.Choice != result.KeyChar))
             {
+                ClearCurrentConsoleLine();
                 return PromptCharacter(output, options, true);
             }
 
@@ -122,6 +130,14 @@ namespace RandomRPG.Utilities
             Divider();
             ColorWriteLine("You have encountered a " + Player.Instance.CurrentGladiator.Target.Name + "!!!", ConsoleColor.Cyan);
             Divider();
+        }
+
+        public static void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth)); 
+            Console.SetCursorPosition(0, currentLineCursor);
         }
     }
 }

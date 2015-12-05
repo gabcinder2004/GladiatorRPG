@@ -58,7 +58,7 @@ namespace RandomRPG
                         }
 
                         Player.Instance.CurrentGladiator.CurrentZone.StateChanged(GameEvent.ZoneEnter);
-                        Text.WriteLine("Welcome to the Arena Of Death!.\nNavigate through the arena to kill enemies.");
+                        Text.WriteLine("Welcome to the Arena Of Death!.\nNavigate through the arena to kill enemies.\n");
                         RpgController.Navigate();
                         break;
 
@@ -76,18 +76,9 @@ namespace RandomRPG
                         break;
 
                     case GameState.GameOver:
-                        var playAgain = Text.PromptCharacter("Would you like to play again?", new List<MenuOption>() {new MenuOption('1', "Yes"), new MenuOption('2', "No")});
-                        if (playAgain == '1')
-                        {
-                            Zone1.Instance.Dispose();
-                            GameState = GameState.Menu;
-                            Text.Clear();
-                            break;
-                        }
-
-                        Text.WriteLine("See you soon.");
-                        Thread.Sleep(2000);
-                        Environment.Exit(1);
+                        Zone1.Instance.Dispose();
+                        GameState = GameState.Menu;
+                        Text.Clear();
                         break;
                 }
             }

@@ -28,8 +28,6 @@ namespace RandomRPG.Controllers
 
             var choice = Convert.ToInt32(char.GetNumericValue(Text.PromptCharacter(Resources.MainMenu, options)) - 1);
 
-            if (menuOptions.Count < choice) return;
-
             switch (menuOptions[choice])
             {
                 case MainMenuOptions.StartNewGame:

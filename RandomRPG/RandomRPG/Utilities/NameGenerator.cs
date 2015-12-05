@@ -3869,7 +3869,8 @@ namespace RandomRPG.Model.Factories
 
         public static string GenerateRandom()
         {
-            Gender genderChoice = (Gender)new Random().Next(0, 1);
+            //Next not inclusive of second parameter
+            Gender genderChoice = (Gender)new Random().Next(0, 2);
             return Generate(genderChoice);
         }
 
@@ -3888,7 +3889,7 @@ namespace RandomRPG.Model.Factories
             return GuyNames[_random.Next(0, GuyNames.Count)];
         }
 
-        private static string GenerateLadieName()
+        private static string GenerateLadiesName()
         {
             return _ladies[_random.Next(0, _ladies.Count)];
         }
@@ -3897,7 +3898,7 @@ namespace RandomRPG.Model.Factories
         {
             if (gender == Gender.Male)
                 return GenerateDudeName();
-            return GenerateLadieName();
+            return GenerateLadiesName();
         }
 
     }
