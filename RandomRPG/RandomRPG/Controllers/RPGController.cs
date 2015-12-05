@@ -114,30 +114,18 @@ namespace RandomRPG.Controllers
 
         public void Navigate()
         {
-            // Player.Instance.CurrentGladiator.CurrentZone.StateChanged(GameEvent.ZoneEnter);
-            var directionKeys = new Dictionary<int, string>
+            var options = new List<MenuOption>()
             {
-                {1, "w"},
-                {2, "s"},
-                {3, "a"},
-                {4, "d"}
+                new MenuOption('w', "Move up"),
+                new MenuOption('s', "Move down"),
+                new MenuOption('d', "Move right"),
+                new MenuOption('a', "Move left")
             };
-            var directionsList = EnumUtil.GetValues<Directions>().ToList();
 
-            for (int i = 0; i < directionsList.Count; i++)
-            {
-                Text.ColorWriteLine(directionKeys[i + 1] + ") " + directionsList[i] + "\n", ConsoleColor.Magenta);
-            }
-
-            var direction = Text.PromptCharacter("Where would you like to go?");
-            //move direction -1
-            //Think about extension method here
-            //if spot taken engage battle
-            //Zone1.Instance.Map.MoveUnit();
+            var direction = Text.PromptCharacter("Where would you like to go?", options);
             Player.Instance.CurrentGladiator.CurrentZone.Map.MoveUnit(direction, Player.Instance.CurrentGladiator);
         }
     }
-
 
     public enum GameEvent
     {

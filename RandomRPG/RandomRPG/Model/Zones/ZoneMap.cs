@@ -2,7 +2,6 @@
 using System.Threading;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
-using RandomRPG.Model.Units;
 using RandomRPG.Utilities;
 
 namespace RandomRPG.Model.Zones
@@ -61,7 +60,8 @@ namespace RandomRPG.Model.Zones
             }
             
             IUnit target = GetTile(x, y).OccupyingUnit;
-            target.InteractionTriggered(glad as Gladiator);
+            (glad as IGladiator).Target = target;
+            Program.GameState = GameState.Interacting;
         }
 
         private bool IsOutOfBounds(int x, int y)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RandomRPG.Model;
 using RandomRPG.Model.Enums;
@@ -25,11 +26,28 @@ namespace RandomRPG.Utilities
             Console.Write(output);
         }
 
-        public static char PromptCharacter(string output)
+        public static char PromptCharacter(string output, List<MenuOption> options, bool error = false)
         {
+            Clear();
+            if (error)
+            {
+                ColorWriteLine("Invalid input", ConsoleColor.Red);    
+            }
+
             WriteLine(output);
 
+            foreach (var menuOption in options)
+            {
+                WriteLine($"{menuOption.Choice}) {menuOption.Value}");
+            }
+
             ConsoleKeyInfo result = Console.ReadKey();
+
+            if (options.All(x => x.Choice != result.KeyChar))
+            {
+                PromptCharacter(output, options, true);
+            }
+
             return result.KeyChar;
         }
 
@@ -80,12 +98,6 @@ namespace RandomRPG.Utilities
         {
             Console.Clear();
             Header.PrintHeader();
-            //if (Player.Instance.CurrentGladiator != null && Program.GameState == GameState.Playing)
-            //{
-            //    ColorWriteLine(Player.Instance.CurrentGladiator.Name+ "-" + Player.Instance.CurrentGladiator.Attributes.HitPoints + " (HP)", ConsoleColor.Green);
-            //    ColorWriteLine(Player.Instance.CurrentGladiator.Name + "-" + Player.Instance.CurrentGladiator.Attributes.Energy + " (Energy)", ConsoleColor.Yellow);
-            //    ColorWriteLine(Player.Instance.CurrentGladiator.Name + "-" + Player.Instance.CurrentGladiator.Kills + " (Kills)", ConsoleColor.Red);
-            //}
             Divider();
 
         }

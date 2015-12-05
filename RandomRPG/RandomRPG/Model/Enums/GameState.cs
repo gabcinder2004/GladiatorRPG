@@ -13,6 +13,7 @@ namespace RandomRPG.Model.Enums
         Playing,
         Battle,
         Quit,
-        GameOver
+        GameOver,
+        Interacting
     }
 }

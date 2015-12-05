@@ -22,7 +22,7 @@ namespace RandomRPG.Utilities
                 return;
             }
 
-            if (Program.GameState == GameState.Playing)
+            if (Program.GameState == GameState.Playing || Program.GameState == GameState.Interacting)
             {
                 BuildMap(Map);
                 PrintCharacterStatus();
@@ -43,7 +43,7 @@ namespace RandomRPG.Utilities
                 var attribute = gladiator.Attributes[i];
                 Text.WriteLine(ConsoleSide.Right, i+2, $"{attribute.Type}: {attribute.Value}");
             }
-            if (gladiator.Target != null)
+            if (gladiator.Target != null && Program.GameState == GameState.Battle)
             {
                 var hp = gladiator.Target.Attributes.First(x => x.Type == AttributeType.HitPoints);
                 var energy  = gladiator.Target.Attributes.First(x => x.Type == AttributeType.Energy);

@@ -61,6 +61,10 @@ namespace RandomRPG
                         RpgController.Navigate();
                         break;
 
+                    case GameState.Interacting:
+                        InteractionController.Interact(Player.Instance.CurrentGladiator, Player.Instance.CurrentGladiator.Target);
+                        break;
+
                     case GameState.Battle:
                         Text.ClearWithAbilities();
                         RpgController.Battle();
@@ -71,6 +75,9 @@ namespace RandomRPG
                         break;
 
                     case GameState.GameOver:
+                        Text.WriteLine("FINAL STATS: <TBD>");
+                        GameState = GameState.Menu;
+                        
                         break;
                 }
             }
