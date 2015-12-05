@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using RandomRPG.Controllers;
 using RandomRPG.Model;
@@ -75,9 +76,18 @@ namespace RandomRPG
                         break;
 
                     case GameState.GameOver:
-                        Text.WriteLine("FINAL STATS: <TBD>");
-                        GameState = GameState.Menu;
-                        
+                        var playAgain = Text.PromptCharacter("Would you like to play again?", new List<MenuOption>() {new MenuOption('1', "Yes"), new MenuOption('2', "No")});
+                        if (playAgain == '1')
+                        {
+                            Zone1.Instance.Dispose();
+                            GameState = GameState.Menu;
+                            Text.Clear();
+                            break;
+                        }
+
+                        Text.WriteLine("See you soon.");
+                        Thread.Sleep(2000);
+                        Environment.Exit(1);
                         break;
                 }
             }

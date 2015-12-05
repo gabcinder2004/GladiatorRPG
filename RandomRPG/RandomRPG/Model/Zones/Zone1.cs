@@ -12,9 +12,9 @@ using RandomRPG.Utilities;
 
 namespace RandomRPG.Model.Zones
 {
-    class Zone1 : IZone
+    class Zone1 : IZone, IDisposable
     {
-        private static IZone _instance;
+        private static Zone1 _instance;
         public ZoneMap Map { get; set; }
         private Zone1()
         {
@@ -25,8 +25,6 @@ namespace RandomRPG.Model.Zones
 
         private void PopulateMap()
         {
-            //IGladiator doctore = new Gladiator("Doctore", GladiatorTypes.Doctore);
-            //Map.SetTile(5, 5, doctore);
             int x = 0;
             int y = 0;
             int counter = 1;
@@ -39,15 +37,13 @@ namespace RandomRPG.Model.Zones
                 //Need a random name generator
                 if (Map.GetTile(x, y) == null)
                 {
-                    if (counter < 5)
+                    if (counter < 4)
                     {
-                        //May want a string parameter for name, for now it is hardcoded
                         Gladiator glad = NpcFactory.GetRandomNpcGladiatorInstance();
                         Map.SetTile(x, y, glad);
                     }
                     else
                     {
-                        //// Hardcoded for now.
                         ICivilian villager = NpcFactory.GetVillager();
                         Map.SetTile(x, y, villager);
                     }
@@ -71,7 +67,14 @@ namespace RandomRPG.Model.Zones
 
         public Action<GameEvent> StateChanged { get; set; }
         public List<IZone> ConnectedZones { get; set; }
-        public static IZone Instance => _instance ?? (_instance = new Zone1());
+        public static Zone1 Instance
+        {
+            get { return _instance ?? (_instance = new Zone1()); }
+            private set
+            {
+                _instance = value;
+            }
+        }
 
         private void OnStateChanged(GameEvent gameEvent)
         {
@@ -97,6 +100,11 @@ namespace RandomRPG.Model.Zones
         private void LeaveZone()
         {
             Text.WriteLine("Entered Zone2");
+        }
+
+        public void Dispose()
+        {
+            Instance = null;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace RandomRPG.Model.Units
         {
             InteractionController.Interact(unit, this);
         }
-
+            
         public string GetRandomPrompt()
         {
             return $"{Name}: {Prompts[new Random().Next(0, Prompts.Count)]}";

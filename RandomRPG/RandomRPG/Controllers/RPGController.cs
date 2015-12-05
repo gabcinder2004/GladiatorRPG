@@ -108,7 +108,7 @@ namespace RandomRPG.Controllers
                 Player.Instance.CurrentGladiator.CurrentTile = null;
                 Header.Map = null;
                 Text.Clear();
-                Program.GameState = GameState.Menu;
+                Program.GameState = GameState.GameOver;
             }
         }
 
