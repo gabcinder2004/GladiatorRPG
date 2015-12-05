@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using RandomRPG.Controllers;
 using RandomRPG.Model.Enums;
+using RandomRPG.Model.Factories;
 using RandomRPG.Model.Interfaces;
 using RandomRPG.Utilities;
 
@@ -17,10 +18,10 @@ namespace RandomRPG.Model.Units
 
         public Action<Gladiator> InteractionTriggered { get; set; }
 
-        public Villager(string name, List<IAttribute> attributes, Reputation reputation, List<string> prompts)
+        public Villager(string name, Reputation reputation, List<string> prompts)
         {
             Name = name;
-            Attributes = attributes;
+            Attributes = AttributeFactory.GetInstance("Villager");
             Reputation = reputation;
             Prompts = prompts;
             InteractionTriggered += OnInteractionTriggered;

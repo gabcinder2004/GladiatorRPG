@@ -75,7 +75,7 @@ namespace RandomRPG.Model.Units
         {
             if (Target != null)
             {
-                if (AbilityList[command].AbilityType == "Offensive")
+                if (AbilityList[command] is IOffensiveAbilities)
                 {
                     LastDefensiveAbility = null;
                     DmgMitigated = 0;
@@ -88,7 +88,7 @@ namespace RandomRPG.Model.Units
                     int mitigatedTargetBase = TargetGladiator.GetBaseDmgMitigation(TargetGladiator.Armor, Target.Attributes);
                     int netDmg = baseAttackDmg - mitigatedTargetBase;
                     LastDefensiveAbility = AbilityList[command];
-                    //Add the dmg mitigation here
+                    this.DmgMitigated = ((IDefensiveAbilities)AbilityList[command]).Execute(Armor, Attributes);
                     if (netDmg > 0)
                     {
                         var hp = Target.Attributes.First(x => x.Type == AttributeType.HitPoints);
@@ -120,7 +120,7 @@ namespace RandomRPG.Model.Units
                     }
                     
                     //no damage
-                    Text.ColorWriteLine("You miss your attack on " + Target.Name + "! You do not have enough energy!", ConsoleColor.Yellow);
+                    Text.ColorWriteLine("You miss your attack on " + Target.Name + "!", ConsoleColor.Yellow);
                     return netDmg;
                 }
             }
@@ -133,7 +133,7 @@ namespace RandomRPG.Model.Units
             int grossDmg;
             int mitigatedTargetBase;
             int netDmg;
-            grossDmg = AbilityList[command].Execute(this.WeaponSet, this.Attributes);
+            grossDmg = ((IOffensiveAbilities)AbilityList[command]).Execute(this.WeaponSet, this.Attributes);
             //base dmg mitigation of target
             mitigatedTargetBase = TargetGladiator.GetBaseDmgMitigation(TargetGladiator.Armor, Target.Attributes);
             netDmg = grossDmg - mitigatedTargetBase;
@@ -164,7 +164,7 @@ namespace RandomRPG.Model.Units
                 return netDmg;
             }
 
-              Text.ColorWriteLine("You miss your attack on " + Target.Name + "! You do not have enough energy!", ConsoleColor.Yellow);  
+              Text.ColorWriteLine("You miss your attack on " + Target.Name + "!", ConsoleColor.Yellow);  
             
             return netDmg;
         }

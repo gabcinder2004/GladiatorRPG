@@ -29,7 +29,7 @@ namespace RandomRPG.Model.Factories
                     {
                         {BodyPart.Chest, GetBaseLeatherArmor()}
                     };
-                case "Villager":
+                case "MurderDummy":
                     return new Dictionary<BodyPart, IArmor>()
                     {
                         {BodyPart.Chest, GetBaseUnderWear()}

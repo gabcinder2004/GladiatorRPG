@@ -7,11 +7,10 @@ using RandomRPG.Utilities;
 
 namespace RandomRPG.Model.Attacks
 {
-    public abstract class AttackAbilities : IAbilities
+    public abstract class AttackAbilities : IOffensiveAbilities
     {
         protected int attackTypeBonus;
         public abstract string AbilityName { get; set; }
-        public abstract string AbilityType { get; set; }
         public abstract int EnergyCost { get; set; }
 
         protected AttackAbilities()

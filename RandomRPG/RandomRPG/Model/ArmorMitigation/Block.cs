@@ -9,16 +9,14 @@ namespace RandomRPG.Model.ArmorMitigation
     public class Block : ArmorMitigation
     {
         public override string AbilityName { get; set; }
-        public override string AbilityType { get; set; }
         public override int EnergyCost { get; set; }
         public Block()
         {
             this.AbilityName = "Block";
-            this.AbilityType = "Defensive";
             this.EnergyCost = 5;
         }
 
-        public override int Execute(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
+        public override int Execute(Dictionary<BodyPart, IArmor> armorSet, List<IAttribute> attributes)
         {
             int totalMitigation = 0;
             int strengthBonus = Convert.ToInt32(attributes.First(x => x.Type == AttributeType.Strength).Value * .05);

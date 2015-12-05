@@ -32,7 +32,7 @@ namespace RandomRPG.Model.Factories
                         { BodyPart.RightHand, GetBaseMaceInstance()}
                     };
 
-                case "Villager":
+                case "MurderDummy":
                     return new Dictionary<BodyPart, IWeapon>()
                     {
                         { BodyPart.LeftHand, GetBaseMaceInstance()}

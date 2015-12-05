@@ -9,7 +9,6 @@ namespace RandomRPG.Model.Attacks
       
         //Energu cost associated
         public override string AbilityName { get; set; }
-        public override string AbilityType { get; set; }
         public override int EnergyCost { get; set; }
 
         public override int Execute(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
@@ -21,7 +20,6 @@ namespace RandomRPG.Model.Attacks
         public Bash()
         {
             this.AbilityName = "Bash";
-            this.AbilityType = "Offensive";
             this.EnergyCost = 10;
             this.attackTypeBonus = 5;
         }

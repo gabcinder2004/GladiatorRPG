@@ -60,6 +60,9 @@
     <Compile Include="Model\Factories\AttributeFactory.cs" />
     <Compile Include="Model\Factories\NpcFactory.cs" />
     <Compile Include="Model\Attributes.cs" />
+    <Compile Include="Model\Interfaces\IDefensiveAbilities.cs" />
+    <Compile Include="Model\Interfaces\IOffensiveAbilities.cs" />
+    <Compile Include="Model\Units\Gladiators\NpcGladiators\MurderDummy.cs" />
     <Compile Include="Utilities\NameGenerator.cs" />
     <Compile Include="Model\Attacks\AttackAbilities.cs" />
     <Compile Include="Model\Attacks\Bash.cs" />

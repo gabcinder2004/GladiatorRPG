@@ -3,6 +3,7 @@
     public enum NpcGladiatorTypes
     {
         Doctore,
-        Krixus
+        Krixus,
+        MurderDummy
     }
 }

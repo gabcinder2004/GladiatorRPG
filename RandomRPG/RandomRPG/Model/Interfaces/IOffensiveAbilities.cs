@@ -7,9 +7,8 @@ using RandomRPG.Model.Enums;
 
 namespace RandomRPG.Model.Interfaces
 {
-    public interface IAbilities
+    public interface IOffensiveAbilities : IAbilities
     {
-        string AbilityName { get; set; }
-        int EnergyCost { get; set; }
+        int Execute(Dictionary<BodyPart, IWeapon> itemSet, List<IAttribute> attributes);
     }
 }

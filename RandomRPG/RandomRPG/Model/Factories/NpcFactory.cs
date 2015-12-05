@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Units;
+using RandomRPG.Model.Units.Gladiators.NpcGladiators;
 using RandomRPG.Utilities;
 
 namespace RandomRPG.Model.Factories
@@ -21,6 +22,8 @@ namespace RandomRPG.Model.Factories
                     return new Krixus("Krixus");
                 case "Doctore":
                     return new Doctore("Doctore");
+                case "MurderDummy":
+                    return new MurderDummy("MurderDummy");
                 default:
                     return new Doctore("Doctore");
             }
@@ -28,7 +31,6 @@ namespace RandomRPG.Model.Factories
         public static Villager GetVillager()
         {
             return new Villager(NameGenerator.GenerateRandom(),
-                AttributeFactory.GetInstance("Villager"),
                 Reputation.Friendly,
                 new List<string> { "Hi, how's it going?", "You're ugly." });
         }

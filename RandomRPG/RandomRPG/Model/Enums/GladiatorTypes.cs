@@ -5,5 +5,6 @@
         Doctore,
         Slave,
         Krixus,
+        MurderDummy
     }
 }

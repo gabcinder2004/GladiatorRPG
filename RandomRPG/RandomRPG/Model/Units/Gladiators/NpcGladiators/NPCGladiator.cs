@@ -1,5 +1,6 @@
 ﻿using System;
 using RandomRPG.Model.Enums;
+using RandomRPG.Model.Interfaces;
 using RandomRPG.Utilities;
 
 namespace RandomRPG.Model.Units
@@ -23,10 +24,10 @@ namespace RandomRPG.Model.Units
             this.RegenerateEnergy();
             Random rand = new Random();
             int ability = rand.Next(0, AbilityList.Count);
-            string abilityType = AbilityList[ability].AbilityType;
+
             if (Target != null)
             {
-                if (abilityType == "Offensive")
+                if (AbilityList[ability] is IOffensiveAbilities)
                 {
                     LastDefensiveAbility = null;
                     DmgMitigated = 0;
@@ -39,7 +40,7 @@ namespace RandomRPG.Model.Units
                     int mitigatedTargetBase = TargetGladiator.GetBaseDmgMitigation(TargetGladiator.Armor, Target.Attributes);
                     int netDmg = baseAttackDmg - mitigatedTargetBase - TargetGladiator.DmgMitigated;
                     LastDefensiveAbility = AbilityList[ability];
-                    //this.DmgMitigated = AbilityList[ability].Execute();
+                    this.DmgMitigated = ((IDefensiveAbilities)AbilityList[ability]).Execute(this.Armor, this.Attributes);
                     if (netDmg > 0)
                     {
                         var hp = TargetGladiator.GetAttribute(AttributeType.HitPoints);
@@ -66,7 +67,7 @@ namespace RandomRPG.Model.Units
                         return netDmg;
                     }
                     //no damage
-                    Text.ColorWriteLine(Name + " has missed their attack on you! " + Name + " is low on energy!", ConsoleColor.Red);
+                    Text.ColorWriteLine(Name + " has missed their attack on you!", ConsoleColor.Red);
                     return netDmg;
                 }
             }
@@ -80,7 +81,7 @@ namespace RandomRPG.Model.Units
             int grossDmg;
             int mitigatedTargetBase;
             int netDmg;
-            grossDmg = AbilityList[command].Execute(this.WeaponSet, this.Attributes);
+            grossDmg = ((IOffensiveAbilities)AbilityList[command]).Execute(this.WeaponSet, this.Attributes);
             //base dmg mitigation of target
             mitigatedTargetBase = TargetGladiator.GetBaseDmgMitigation(TargetGladiator.Armor, Target.Attributes);
             netDmg = grossDmg - mitigatedTargetBase - TargetGladiator.DmgMitigated;
@@ -107,7 +108,7 @@ namespace RandomRPG.Model.Units
                 return netDmg;
             }
 
-            Text.ColorWriteLine(Name + " has missed their attack on you! " + Name + " is low on energy!", ConsoleColor.Red);
+            Text.ColorWriteLine(Name + " has missed their attack on you!", ConsoleColor.Red);
 
             return netDmg;
         }
