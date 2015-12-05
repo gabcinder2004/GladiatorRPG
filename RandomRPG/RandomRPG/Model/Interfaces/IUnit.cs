@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RandomRPG.Model.Enums;
+using RandomRPG.Model.Units;
 using RandomRPG.Utilities;
 
 namespace RandomRPG.Model.Interfaces
@@ -15,6 +16,6 @@ namespace RandomRPG.Model.Interfaces
         ITile CurrentTile { get; set; }
         Reputation Reputation { get; set; }
                  
-        Action<IGladiator> InteractionTriggered { get; set; }
+        Action<Gladiator> InteractionTriggered { get; set; }
     }
 }

@@ -10,8 +10,6 @@ namespace RandomRPG.Model.ArmorMitigation
         public override string AbilityName { get; set; }
         public override string AbilityType { get; set; }
         public override int EnergyCost { get; set; }
-        public Dodge(Dictionary<BodyPart, IArmor> armorSet, List<IAttribute> attributes)
-            : base(armorSet, attributes) { }
 
         public Dodge()
         {
@@ -20,7 +18,7 @@ namespace RandomRPG.Model.ArmorMitigation
             this.EnergyCost = 0;
         }
 
-        public override int Execute()
+        public override int Execute(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
         {
             return 5;
         }

@@ -9,23 +9,16 @@ namespace RandomRPG.Model.Attacks
 {
     public abstract class AttackAbilities : IAbilities
     {
-        protected Dictionary<BodyPart, IWeapon> weaponSet;
-        protected List<IAttribute> attributes;
         protected int attackTypeBonus;
         public abstract string AbilityName { get; set; }
         public abstract string AbilityType { get; set; }
         public abstract int EnergyCost { get; set; }
-        protected AttackAbilities(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
-        {
-            this.weaponSet = weaponSet;
-            this.attributes = attributes;
-        }
 
         protected AttackAbilities()
         {
         }
 
-        protected virtual int DamageCalculation()
+        protected virtual int DamageCalculation(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
         {
             //Will change
             int strbonusModifier = Convert.ToInt32(Math.Round(attributes.First(x => x.Type == AttributeType.Strength).Value * .25));
@@ -53,12 +46,12 @@ namespace RandomRPG.Model.Attacks
             }
         }
 
-        public virtual int Execute()
+        public virtual int Execute(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
         {
             if (attributes.First(x => x.Type == AttributeType.Energy).Value >= EnergyCost)
             {
                 attributes.First(x => x.Type == AttributeType.Energy).Value -= EnergyCost;
-                return this.DamageCalculation();
+                return this.DamageCalculation(weaponSet, attributes);
             }
             //What happens when no energy?
             Text.ColorWriteLine("You do not have enough energy for " + this.AbilityName + "!", ConsoleColor.Cyan);

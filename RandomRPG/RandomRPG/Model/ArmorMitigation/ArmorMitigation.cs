@@ -11,17 +11,11 @@ namespace RandomRPG.Model.ArmorMitigation
         protected int BaseBonus;
         public abstract int EnergyCost { get; set; }
 
-        protected ArmorMitigation(Dictionary<BodyPart, IArmor> armorSet, List<IAttribute> attributes)
-        {
-            this.armorSet = armorSet;
-            this.attributes = attributes;
-        }
-
         protected ArmorMitigation()
         {
         }
 
-        public abstract int Execute();
+        public abstract int Execute(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes);
 
 
         public abstract string AbilityName { get; set; }

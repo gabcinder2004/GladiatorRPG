@@ -36,13 +36,13 @@ namespace RandomRPG.Model.Zones
                 Random random = new Random();
                 x = random.Next(0, Map.MapHeight);
                 y = random.Next(0, Map.MapWidth);
-                var gladType = random.Next(0, gladTypes.Count);
                 //Need a random name generator
                 if (Map.GetTile(x, y) == null)
                 {
                     if (counter < 5)
                     {
-                        IGladiator glad = new Gladiator(((GladiatorTypes)gladType).ToString(), (GladiatorTypes)gladType);
+                        //May want a string parameter for name, for now it is hardcoded
+                        Gladiator glad = NpcFactory.GetRandomNpcGladiatorInstance();
                         Map.SetTile(x, y, glad);
                     }
                     else

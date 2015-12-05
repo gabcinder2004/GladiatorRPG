@@ -1,12 +1,13 @@
 ﻿using System;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
+using RandomRPG.Model.Units;
 
 namespace RandomRPG.Utilities
 {
     public static class EnergyHelperExtension
     {
-        public static void RegenerateEnergy(this IGladiator glad)
+        public static void RegenerateEnergy(this Gladiator glad)
         {
             int currentEnergy = glad.GetAttribute(AttributeType.Energy).Value;
             if(currentEnergy == glad.MaxEnergyValue)
@@ -24,7 +25,7 @@ namespace RandomRPG.Utilities
             }      
         }
 
-        public static void RestoreMaxEnergy(this IGladiator glad)
+        public static void RestoreMaxEnergy(this Gladiator glad)
         {
             glad.GetAttribute(AttributeType.Energy).Value = glad.MaxEnergyValue;
         }

@@ -11,16 +11,10 @@ namespace RandomRPG.Model.Attacks
         public override string AbilityName { get; set; }
         public override string AbilityType { get; set; }
         public override int EnergyCost { get; set; }
-        public Bash(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes) : base(weaponSet, attributes)
-        {
-            this.attackTypeBonus = 5;
-            this.AbilityName = "Bash";
-            this.EnergyCost = 10;
-        }
 
-        public override int Execute()
+        public override int Execute(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes)
         {
-            return base.Execute() + this.attackTypeBonus;
+            return base.Execute(weaponSet, attributes) + this.attackTypeBonus;
 
         }
 

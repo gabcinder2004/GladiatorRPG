@@ -54,7 +54,7 @@ namespace RandomRPG.Controllers
             Text.WriteLine(Resources.CharacterCreation_Intro);
             Text.Divider();
             var name = Text.Prompt(Resources.CharacterCreation_Name);
-            Player.Instance.CurrentGladiator = new Gladiator(name, GladiatorTypes.Slave);
+            Player.Instance.CurrentGladiator = new Slave(name);
             Player.Instance.Gladiators.Add(Player.Instance.CurrentGladiator);
             Program.GameState = GameState.Playing;
         }
@@ -85,7 +85,7 @@ namespace RandomRPG.Controllers
             int moveY = Player.Instance.CurrentGladiator.Target.CurrentTile.y;
             //Figure out good to way display HP so it contantly refreshes
             //Text.ColorWriteLine(Player.Instance.CurrentGladiator.Name + ": " + Player.Instance.CurrentGladiator.Attributes.HitPoints + "(HP)", ConsoleColor.Green);
-            Player.Instance.CurrentGladiator.Target.NpcAttack();
+            ((NpcGladiator) Player.Instance.CurrentGladiator.Target).Attack();
             if (Player.Instance.CurrentGladiator.IsAlive)
             {
                 Player.Instance.CurrentGladiator.RegenerateEnergy();

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.SqlServer.Server;
 using RandomRPG.Model.Interfaces;
+using RandomRPG.Model.Units;
 
 namespace RandomRPG.Model
 {
@@ -13,12 +14,11 @@ namespace RandomRPG.Model
 
         private Player()
         {
-            Gladiators = new List<IGladiator>();
+            Gladiators = new List<Gladiator>();
         }
 
-        public IGladiator Target { get; set; }
-        public IGladiator CurrentGladiator { get; set; }
+        public Gladiator CurrentGladiator { get; set; }
 
-        public List<IGladiator> Gladiators { get; set; }
+        public List<Gladiator> Gladiators { get; set; }
     }
 }

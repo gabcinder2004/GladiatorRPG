@@ -15,7 +15,7 @@ namespace RandomRPG.Model.Units
         public Reputation Reputation { get; set; }
         public List<string> Prompts { get; set; }
 
-        public Action<IGladiator> InteractionTriggered { get; set; }
+        public Action<Gladiator> InteractionTriggered { get; set; }
 
         public Villager(string name, List<IAttribute> attributes, Reputation reputation, List<string> prompts)
         {
@@ -26,7 +26,7 @@ namespace RandomRPG.Model.Units
             InteractionTriggered += OnInteractionTriggered;
         }
 
-        private void OnInteractionTriggered(IGladiator unit)
+        private void OnInteractionTriggered(Gladiator unit)
         {
             InteractionController.Interact(unit, this);
         }
