@@ -31,7 +31,9 @@ namespace RandomRPG.Model.Units
         public ITile CurrentTile { get; set; }
         public Reputation Reputation { get; set; }
         public Action<Gladiator> InteractionTriggered { get; set; }
-        public Gladiator Target { get; set; }
+        public IUnit Target { get; set; }
+
+        public Gladiator TargetGladiator => Target as Gladiator;
 
         public abstract int GetBaseAttackDmg(Dictionary<BodyPart, IWeapon> weaponSet, List<IAttribute> attributes);
         public abstract int GetBaseDmgMitigation(Dictionary<BodyPart, IArmor> armorSet, List<IAttribute> attributes);
@@ -45,18 +47,18 @@ namespace RandomRPG.Model.Units
         {
             Target = gladiator;
             gladiator.Target = this;
-            Target.DeathEvent += DeathEventHandler;
+            TargetGladiator.DeathEvent += DeathEventHandler;
             this.DeathEvent += DeathEventHandler;
         }
 
         protected void DeathEventHandler(object o, EventArgs e)
         {
-            Target.IsAlive = false;
+            TargetGladiator.IsAlive = false;
             this.RestoreMaxEnergy();
             Text.ColorWriteLine("Dead! " + Target.Name + " has been slained by " + ((Gladiator)o).Name + "!", ConsoleColor.White);
-            Target.Target = null;
+            TargetGladiator.Target = null;
             Kills ++;
-            Target.DeathEvent -= DeathEventHandler;
+            TargetGladiator.DeathEvent -= DeathEventHandler;
             this.DeathEvent -= DeathEventHandler;
             Target = null;
         }
@@ -83,7 +85,7 @@ namespace RandomRPG.Model.Units
                 {
                     //hit with base Attack
                     int baseAttackDmg = this.GetBaseAttackDmg(this.WeaponSet, this.Attributes);
-                    int mitigatedTargetBase = Target.GetBaseDmgMitigation(Target.Armor, Target.Attributes);
+                    int mitigatedTargetBase = TargetGladiator.GetBaseDmgMitigation(TargetGladiator.Armor, Target.Attributes);
                     int netDmg = baseAttackDmg - mitigatedTargetBase;
                     LastDefensiveAbility = AbilityList[command];
                     //Add the dmg mitigation here
@@ -98,7 +100,7 @@ namespace RandomRPG.Model.Units
                              DeathEventHandler(this, EventArgs.Empty);
                              return netDmg;
                         }
-                        if (Target.LastDefensiveAbility == null)
+                        if (TargetGladiator.LastDefensiveAbility == null)
                         {
                             Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with your base attack" + "!!",
                             ConsoleColor.Yellow);
@@ -108,7 +110,8 @@ namespace RandomRPG.Model.Units
                         }
                         else
                         {
-                            Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!! " + Target.Name + " used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Yellow);
+                            Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!! " 
+                                + Target.Name + " used " + TargetGladiator.LastDefensiveAbility.AbilityName + " to mitigate " + TargetGladiator.DmgMitigated + " damage!", ConsoleColor.Yellow);
                             Text.ColorWriteLine(
                                 "You attempt to " + AbilityList[command].AbilityName + " the next attack!",
                                 ConsoleColor.Yellow);
@@ -132,7 +135,7 @@ namespace RandomRPG.Model.Units
             int netDmg;
             grossDmg = AbilityList[command].Execute(this.WeaponSet, this.Attributes);
             //base dmg mitigation of target
-            mitigatedTargetBase = Target.GetBaseDmgMitigation(Target.Armor, Target.Attributes);
+            mitigatedTargetBase = TargetGladiator.GetBaseDmgMitigation(TargetGladiator.Armor, Target.Attributes);
             netDmg = grossDmg - mitigatedTargetBase;
             if (netDmg > 0)
             {
@@ -144,17 +147,19 @@ namespace RandomRPG.Model.Units
                     Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!!",
                     ConsoleColor.Yellow);
                     DeathEventHandler(this, EventArgs.Empty);
+                    Program.GameState = GameState.GameOver;
                     return netDmg;
                 };
 
-                if (Target.LastDefensiveAbility == null)
+                if (TargetGladiator.LastDefensiveAbility == null)
                 {
                     Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!!",
                     ConsoleColor.Yellow);
                 }
                 else
                 {
-                    Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!! " + Target.Name + " used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Yellow);
+                    Text.ColorWriteLine("You have hit " + Target.Name + " for " + netDmg + " with " + AbilityList[command].AbilityName + "!! " 
+                        + Target.Name + " used " + TargetGladiator.LastDefensiveAbility.AbilityName + " to mitigate " + TargetGladiator.DmgMitigated + " damage!", ConsoleColor.Yellow);
                 }
                 return netDmg;
             }

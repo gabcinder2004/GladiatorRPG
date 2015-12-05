@@ -48,7 +48,7 @@ namespace RandomRPG.Model.Zones
                     else
                     {
                         //// Hardcoded for now.
-                        ICivilian villager = new Villager("VillagerNameNeeded", AttributeFactory.GetInstance("Villager"), Reputation.Friendly, new List<string> { "Prompt1", "Prompt2" });
+                        ICivilian villager = NpcFactory.GetVillager();
                         Map.SetTile(x, y, villager);
                     }
                     counter++;

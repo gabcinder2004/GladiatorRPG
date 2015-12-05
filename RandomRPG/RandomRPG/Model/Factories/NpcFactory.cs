@@ -25,5 +25,12 @@ namespace RandomRPG.Model.Factories
                     return new Doctore("Doctore");
             }
         }
+        public static Villager GetVillager()
+        {
+            return new Villager(NameGenerator.GenerateRandom(),
+                AttributeFactory.GetInstance("Villager"),
+                Reputation.Friendly,
+                new List<string> { "Hi, how's it going?", "You're ugly." });
+        }
     }
 }

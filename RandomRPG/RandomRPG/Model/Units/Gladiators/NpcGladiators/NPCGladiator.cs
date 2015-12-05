@@ -40,13 +40,13 @@ namespace RandomRPG.Model.Units
                 {
                     //hit with base Attack
                     int baseAttackDmg = this.GetBaseAttackDmg(this.WeaponSet, this.Attributes);
-                    int mitigatedTargetBase = Target.GetBaseDmgMitigation(Target.Armor, Target.Attributes);
-                    int netDmg = baseAttackDmg - mitigatedTargetBase - Target.DmgMitigated;
+                    int mitigatedTargetBase = TargetGladiator.GetBaseDmgMitigation(TargetGladiator.Armor, Target.Attributes);
+                    int netDmg = baseAttackDmg - mitigatedTargetBase - TargetGladiator.DmgMitigated;
                     LastDefensiveAbility = AbilityList[ability];
                     //this.DmgMitigated = AbilityList[ability].Execute();
                     if (netDmg > 0)
                     {
-                        var hp = Target.GetAttribute(AttributeType.HitPoints);
+                        var hp = TargetGladiator.GetAttribute(AttributeType.HitPoints);
                         hp.Value -= netDmg;
 
                         if (hp.Value <= 0)
@@ -56,14 +56,15 @@ namespace RandomRPG.Model.Units
                             DeathEventHandler(this, EventArgs.Empty);
                             return netDmg;
                         }
-                        if (Target.LastDefensiveAbility == null)
+                        if (TargetGladiator.LastDefensiveAbility == null)
                         {
                             Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "!", ConsoleColor.Red);
                             Text.ColorWriteLine(Name + " will attempt to " + AbilityList[ability].AbilityName + " the next attack!", ConsoleColor.Red);
                         }
                         else
                         {
-                            Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "! You used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Red);
+                            Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "! You used " + 
+                                TargetGladiator.LastDefensiveAbility.AbilityName + " to mitigate " + TargetGladiator.DmgMitigated + " damage!", ConsoleColor.Red);
                             Text.ColorWriteLine(Name + " will attempt to " + AbilityList[ability].AbilityName + " the next attack!", ConsoleColor.Red);
                         }
                         return netDmg;
@@ -85,11 +86,11 @@ namespace RandomRPG.Model.Units
             int netDmg;
             grossDmg = AbilityList[command].Execute(this.WeaponSet, this.Attributes);
             //base dmg mitigation of target
-            mitigatedTargetBase = Target.GetBaseDmgMitigation(Target.Armor, Target.Attributes);
-            netDmg = grossDmg - mitigatedTargetBase - Target.DmgMitigated;
+            mitigatedTargetBase = TargetGladiator.GetBaseDmgMitigation(TargetGladiator.Armor, Target.Attributes);
+            netDmg = grossDmg - mitigatedTargetBase - TargetGladiator.DmgMitigated;
             if (netDmg > 0)
             {
-                var hp = Target.GetAttribute(AttributeType.HitPoints);
+                var hp = TargetGladiator.GetAttribute(AttributeType.HitPoints);
                 hp.Value -= netDmg;
                 if (hp.Value <= 0)
                 {
@@ -98,13 +99,14 @@ namespace RandomRPG.Model.Units
                     DeathEventHandler(this, EventArgs.Empty);
                     return netDmg;
                 }
-                if (Target.LastDefensiveAbility == null)
+                if (TargetGladiator.LastDefensiveAbility == null)
                 {
                     Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "!", ConsoleColor.Red);
                 }
                 else
                 {
-                    Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "! You used " + Target.LastDefensiveAbility.AbilityName + " to mitigate " + Target.DmgMitigated + " damage!", ConsoleColor.Red);
+                    Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[command].AbilityName + "! You used " 
+                        + TargetGladiator.LastDefensiveAbility.AbilityName + " to mitigate " + TargetGladiator.DmgMitigated + " damage!", ConsoleColor.Red);
                 }
                 return netDmg;
             }

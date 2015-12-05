@@ -1,7 +1,7 @@
 ﻿using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
 
-namespace RandomRPG.Model.Units
+namespace RandomRPG.Model
 {
     public class Strength : IAttribute
     {

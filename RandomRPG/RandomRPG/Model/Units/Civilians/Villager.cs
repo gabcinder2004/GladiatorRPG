@@ -33,7 +33,7 @@ namespace RandomRPG.Model.Units
 
         public string GetRandomPrompt()
         {
-            return Prompts[new Random().Next(0, Prompts.Count-1)];
+            return Prompts[new Random().Next(0, Prompts.Count)];
         }
     }
 }

@@ -45,7 +45,7 @@ namespace RandomRPG.Utilities
 
             if (options.All(x => x.Choice != result.KeyChar))
             {
-                PromptCharacter(output, options, true);
+                return PromptCharacter(output, options, true);
             }
 
             return result.KeyChar;

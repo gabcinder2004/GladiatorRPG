@@ -2,6 +2,7 @@
 using System.Threading;
 using RandomRPG.Model.Enums;
 using RandomRPG.Model.Interfaces;
+using RandomRPG.Model.Units;
 using RandomRPG.Utilities;
 
 namespace RandomRPG.Model.Zones
@@ -60,7 +61,7 @@ namespace RandomRPG.Model.Zones
             }
             
             IUnit target = GetTile(x, y).OccupyingUnit;
-            (glad as IGladiator).Target = target;
+            (glad as Gladiator).Target = target;
             Program.GameState = GameState.Interacting;
         }
 
