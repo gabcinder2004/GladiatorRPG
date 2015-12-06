@@ -89,11 +89,11 @@ namespace RandomRPG.Model.Units
                     int netDmg = baseAttackDmg - mitigatedTargetBase;
                     LastDefensiveAbility = AbilityList[command];
                     this.DmgMitigated = ((IDefensiveAbilities)AbilityList[command]).Execute(Armor, Attributes);
+                    this.RegenerateEnergy();
                     if (netDmg > 0)
                     {
                         var hp = Target.Attributes.First(x => x.Type == AttributeType.HitPoints);
                         hp.Value -= netDmg;
-                        Text.ClearWithAbilities();
 
                         if (hp.Value <= 0)
                         {

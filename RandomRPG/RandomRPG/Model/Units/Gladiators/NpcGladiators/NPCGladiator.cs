@@ -40,11 +40,12 @@ namespace RandomRPG.Model.Units
                     int netDmg = baseAttackDmg - mitigatedTargetBase - TargetGladiator.DmgMitigated;
                     LastDefensiveAbility = AbilityList[ability];
                     this.DmgMitigated = ((IDefensiveAbilities)AbilityList[ability]).Execute(this.Armor, this.Attributes);
+                    this.RegenerateEnergy();
                     if (netDmg > 0)
                     {
                         var hp = TargetGladiator.GetAttribute(AttributeType.HitPoints);
                         hp.Value -= netDmg;
-
+                        Text.ClearWithAbilities();
                         if (hp.Value <= 0)
                         {
                             Text.ColorWriteLine(this.Name + " has attacked you for " + netDmg + " damage with " + AbilityList[ability].AbilityName + "!", ConsoleColor.Red);

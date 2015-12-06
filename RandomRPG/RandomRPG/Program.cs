@@ -12,6 +12,7 @@ using RandomRPG.Model.Enums;
 using RandomRPG.Model.Factories;
 using RandomRPG.Model.Interfaces;
 using RandomRPG.Model.Zones;
+using RandomRPG.Repositories;
 using RandomRPG.Utilities;
 
 namespace RandomRPG
@@ -39,6 +40,7 @@ namespace RandomRPG
 
             while (RunningGame)
             {
+                
                 switch (GameState)
                 {
                     case GameState.Menu:
@@ -77,6 +79,13 @@ namespace RandomRPG
 
                     case GameState.GameOver:
                         Zone1.Instance.Dispose();
+                        var repo = new MongoRepository();
+                        //display ladder board
+                        repo.AddGladiatorToHistory(Player.Instance.CurrentGladiator);
+                        //repo.AddGladiator(Player.Instance.CurrentGladiator);
+                        Thread.Sleep(2000);
+                        //Console.WriteLine(repo.GetGladiatorHistory("YOMAN").Result.kills);
+                        //repo.RemoveGladiatorHistoryRecord("JAVY");
                         GameState = GameState.Menu;
                         Text.Clear();
                         break;
